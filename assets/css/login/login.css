@@ -1,0 +1,41 @@
+@import url(../general/colors.css);
+@import url(../general/reset.css);
+@import url(login-media-query.css);
+@import url(../general/media-query.css);
+
+main {
+    background: url(../../images/background-diet.svg) no-repeat top center / cover;
+}
+
+h1 {
+    font-size: 4rem;
+    letter-spacing: 0.7rem;
+}
+
+.login {
+    background: url(../../images/forma-login.svg) no-repeat top left / cover;
+    width: 100vw;
+    min-height: 100vh;
+    padding: 23rem 2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+}
+
+form>div {
+    margin: 5rem 0;
+}
+
+form input {
+    height: 3.3rem;
+}
