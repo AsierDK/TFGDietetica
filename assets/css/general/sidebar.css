@@ -1,0 +1,61 @@
+/* ----------------------------
+    SIDEBAR STYLES
+----------------------------- */
+
+.sidebar {
+    position: fixed;
+    background-color: var(--color-input);
+    box-shadow: 0 4px 4px 0 var(--color-shadow);
+    z-index: 1000;
+    top: 100vh;
+    width: calc(100vh - 12rem);
+    height: 5rem;
+    border-radius: 50px;
+    transform: rotate(-90deg);
+    transform-origin: top left;
+    display: flex;
+    flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
+    -moz-flex-direction: row-reverse;
+    -ms-flex-direction: row-reverse;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    -moz-justify-content: space-around;
+    -ms-justify-content: space-around;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+}
+
+.sidebar>button {
+    border: none;
+    background-color: transparent;
+    color: rgba(var(--color-60-green));
+    font-family: Baloo2;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+}
+
+
+.mayor {
+    overflow: hidden;
+    width: 1.5rem;
+    height: 2.5rem;
+    background-color: var(--color-40-beige);
+    box-shadow: 0 4px 4px 0 var(--color-shadow);
+    border-radius: 0 5rem 5rem 0;
+    position: fixed;
+    left: 5rem;
+    z-index: 1001;
+}
+
+.menor {
+    position: absolute;
+    top: 1em;
+    left: 0.3em;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background-color: var(--color-60-green);
+}
