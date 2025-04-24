@@ -1,7 +1,7 @@
 <?php
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'rootroot');
+define('DB_USERNAME', 'if0_38644371');
+define('DB_PASSWORD', 'q5jPkzZwIEQJK');
 define('DB_DATABASE', 'musica');
 function conexionbbdd()
 {
