@@ -1,7 +1,7 @@
 <?php
-require_once "funciones_session.php";
-require_once '../models/model_Recetas.php.php';
-
-require_once '../view/Recetas.php';
+//require_once "funciones_session.php";
+require_once '../models/model_Recetas.php';
+require_once '../models/model_Alimentos.php';
+require_once '../views/recetas.php';
 
 ?>

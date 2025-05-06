@@ -1,0 +1,82 @@
+/* ----------------------------
+    RECETAS STYLES
+----------------------------- */
+
+@import url(../general/colors.css);
+@import url(../general/reset.css);
+@import url(../general/media-query.css);
+@import url(../general/header.css);
+@import url(../general/sidebar.css);
+@import url(recetas-media-query.css);
+
+form {
+    width: 70vw;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    -ms-grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+form>div:nth-child(2) {
+    grid-row: span 2;
+    -ms-grid-row: span 2;
+}
+
+form>div:nth-child(2)>input {
+    height: 11.5rem;
+}
+
+form>div:last-child {
+    grid-column: span 2;
+    -ms-grid-column: span 2;
+    border: 1px solid;
+
+}
+
+form>div>input {
+    width: auto;
+}
+
+form > input {
+    grid-column: span 2;
+    -ms-grid-column: span 2;
+    justify-self: center;
+    -ms-justify-self: center;
+    padding: 0 2rem;
+}
+
+#alimento {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    -ms-grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+    padding: 0 2.5rem;
+    background-color: var(--color-40-beige);
+}
+
+.box-alimento {
+    background-color: var(--color-input);
+    box-shadow: 0 4px 4px 0 var(--color-shadow);
+    border-radius: 25px;
+    padding: 2rem;
+}
+
+.box-alimento>a {
+    position: relative;
+    top: 0;
+    left: 100%;
+}
+
+#pop-up-pb {
+    display: none;
+    padding: 2rem 5rem;
+    width: 60vw;
+    height: 40vh;
+    background-color: var(--color-40-beige);
+    box-shadow: 0 4px 4px 0 var(--color-shadow);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50px;
+}

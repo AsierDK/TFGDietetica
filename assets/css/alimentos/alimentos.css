@@ -1,0 +1,37 @@
+/* ----------------------------
+    RECETAS STYLES
+----------------------------- */
+
+@import url(../general/colors.css);
+@import url(../general/reset.css);
+@import url(../general/media-query.css);
+@import url(../general/header.css);
+@import url(../general/sidebar.css);
+@import url(alimentos-media-query.css);
+
+form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    -ms-grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    -ms-justofy-content: center;
+    align-items: center;
+    -ms-align-items: center;
+    gap: 1.5rem;
+}
+
+form > div:first-child {
+    grid-column: span 3;
+    -ms-grid-column: span 3;
+}
+
+form > input {
+    grid-column: span 3;
+    -ms-grid-column: span 3;
+    justify-self: center;
+    -ms-justify-self: center;
+}
+
+form>div>input{
+    width: auto;
+}

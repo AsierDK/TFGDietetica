@@ -11,7 +11,6 @@
 <body>
     <header>
         <a href="#"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
-        <nav></nav>
         <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
     </header>
     <main>
@@ -49,13 +48,18 @@
         <section id="all">
             <article>
                 <?php
-                for($i= 0; $i< 10; $i++)
-                    echo '<div  class="box-alumno">
-                        Nombre Alumno <br>
-                        Nº Clientes <br>
-                        Nº Recetas <br>
-                        <a>Más información </a>
-                    </div>';
+                    if (empty($resultado)) {
+                        echo 'No hay alumnos registrados.';
+                    }
+                    else {
+                        foreach ($resultado as $alumno)
+                            echo '<div  class="box-alumno"> '
+                                .$alumno['nombre']. ' ' .$alumno['apellidos']. '<br>
+                                Nº Clientes <br>
+                                Nº Recetas <br>
+                                <a>Más información </a>
+                            </div>';
+                    }
                 ?>
             </article>
         </section>

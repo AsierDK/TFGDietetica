@@ -76,6 +76,9 @@ form .btn {
     text-transform: uppercase;
     letter-spacing: 0.3rem;
     box-shadow: none;
+    border-radius:15px;
+    border: none;
+    font-family: Baloo2;
 }
 
 .btn:hover {
