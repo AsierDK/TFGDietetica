@@ -1,0 +1,17 @@
+/* ----------------------------
+    INDEX - ADMIN STYLES
+----------------------------- */
+
+@import url(../general/colors.css);
+@import url(../general/reset.css);
+@import url(../general/media-query.css);
+@import url(../general/header.css);
+@import url(../general/sidebar.css);
+@import url(index-media-query.css);
+
+.box-alumno {
+    background-color: var(--color-input);
+    box-shadow: 0 4px 4px 0 var(--color-shadow);
+    border-radius: 25px;
+    padding: 2rem;
+}

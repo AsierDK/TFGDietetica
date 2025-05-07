@@ -1,0 +1,26 @@
+/* ----------------------------
+    MEDIA QUERIES DEL LOGIN
+----------------------------- */
+@media (max-width: 400px) {
+    form input {
+        width: 12rem;
+    }
+}
+
+@media (min-width: 401px) {
+    form input {
+        width: 15rem;
+    }
+}
+
+@media (min-width: 800px) {
+    form input {
+        width: 25rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    form input {
+        width: 30rem;
+    }
+}

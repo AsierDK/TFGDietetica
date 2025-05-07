@@ -1,0 +1,86 @@
+/* ----------------------------
+   RESET / BASE STYLES
+----------------------------- */
+
+@font-face {
+    font-family: BebasNeue;
+    src: url(../../fonts/BebasNeue-Regular.ttf);
+}
+
+@font-face {
+    font-family: Baloo2;
+    src: url(../../fonts/Baloo2-Bold.ttf);
+}
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: var(--color-40-beige);
+    color: var(--color-60-green);
+    font-family: BebasNeue;
+    font-size: 1rem;
+    letter-spacing: 0.2rem;
+}
+
+i {
+    color: var(--color-60-green);
+}
+
+a {
+    color: rgba(var(--color-60-green));
+    text-decoration: none;
+    font-family: Baloo2;
+    text-transform: uppercase;
+}
+
+form>div {
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+form label {
+    margin: 0.5rem 1rem;
+}
+
+form input {
+    height: 2.5rem;
+    background-color: var(--color-40-beige);
+    color: var(--color-60-green);
+    font-weight: bold;
+    border: none;
+    border-radius:15px;
+    backdrop-filter: blur(4px);
+    box-shadow: inset 0 -2px 4px 0 var(--color-shadow);
+    outline: none;
+    font-size: 1.2rem;
+    padding-left: 1rem;
+    font-family: Baloo2;
+}
+
+form .btn {
+    background-color: var(--color-60-green);
+    color: var(--color-10-white);
+    font-size: 2rem;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    box-shadow: none;
+    border-radius:15px;
+    border: none;
+    font-family: Baloo2;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
