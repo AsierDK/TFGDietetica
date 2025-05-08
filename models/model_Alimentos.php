@@ -49,7 +49,7 @@ function annadirAlimento($idUsuario,$params){
             (:id_alimentos,:nombreAlimento,:PC,:e_100,:prot_100,:grasa_100,:ags_100,:agmi_100,:agpi_100,:col_100,:hc_100,:fibra_100,:vit_c_100,:vit_b6_100,:vit_e_100,:fe_100,:na_100,:ca_100,:k_100,:vit_d_100,:id_usuario,now(),now())");
         $stmt->bindParam(':id_alimentos', $id_alimentos);
         $stmt->bindParam(':nombreAlimento', $params['name']);
-        $stmt->bindParam(':PC', $params['PC']);
+        $stmt->bindParam(':PC', $params['pc']);
         $stmt->bindParam(':e_100', $params['E_100']);
         $stmt->bindParam(':prot_100', $params['PROT_100']);
         $stmt->bindParam(':grasa_100', $params['GRASA_100']);
