@@ -40,7 +40,7 @@ function annadirAlimento($idUsuario,$params){
     $conn=conexionbbdd();
     try
     {
-        $id_alimentos = intva(obtenerUltimoIdAlimento()) + 1;
+        $id_alimentos = intval(obtenerUltimoIdAlimento()) + 1;
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $conn->beginTransaction();
         $stmt = $conn->prepare("INSERT INTO Alimentos
