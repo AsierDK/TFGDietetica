@@ -41,7 +41,7 @@ function annadirAlimento($idUsuario,$params){
     try
     {
        $id_alimentos = obtenerUltimoIdAlimento();
-        $id_alimentos = substr($id_alimentos,0,1) . strval(intval($id_alimentos,1)+1);
+        $id_alimentos = substr($id_alimentos, 0, 1) . str_pad(intval(substr($id_alimentos, 1)) + 1, 4, "0", STR_PAD_LEFT);
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $conn->beginTransaction();
         $stmt = $conn->prepare("INSERT INTO Alimentos
