@@ -118,14 +118,6 @@ article {
     -ms-align-items: center;
 }
 
-#all>article {
-    padding: 0 3rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    -ms-grid-template-columns: repeat(3, 1fr);
-    gap: 5rem;
-}
-
 h1 {
     font-size: 2rem;
     letter-spacing: 0.7rem;

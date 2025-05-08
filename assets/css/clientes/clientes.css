@@ -1,0 +1,15 @@
+/* ----------------------------
+    CLIENTES STYLES
+----------------------------- */
+
+@import url(../general/colors.css);
+@import url(../general/reset.css);
+@import url(../general/media-query.css);
+@import url(../general/header.css);
+@import url(clientes-media-query.css);
+
+#calendar {
+    width: 100vw;
+    height: 100vh;
+    padding: 5rem;
+}

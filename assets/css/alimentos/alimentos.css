@@ -8,6 +8,7 @@
 @import url(../general/header.css);
 @import url(../general/sidebar.css);
 @import url(alimentos-media-query.css);
+@import url(../general/carrusel.css);
 
 form {
     display: grid;

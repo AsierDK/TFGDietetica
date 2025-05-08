@@ -48,16 +48,13 @@
         <section id="all">
             <article>
                 <?php
-                    if (empty($resultado)) {
+                    if (empty($alumnos)) {
                         echo 'No hay alumnos registrados.';
                     }
                     else {
-                        foreach ($resultado as $alumno)
+                        foreach ($alumnos as $alumno)
                             echo '<div  class="box-alumno"> '
-                                .$alumno['nombre']. ' ' .$alumno['apellidos']. '<br>
-                                Nº Clientes <br>
-                                Nº Recetas <br>
-                                <a>Más información </a>
+                                .$alumno['nombre'].' <br> '. $alumno['apellidos']. '<br>'.$alumno['email']. '<br>'.'
                             </div>';
                     }
                 ?>

@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <a href="#"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
+        <a href="../controllers/controller_inicio.php"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
         <nav>
             <menu>
                 <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
@@ -113,22 +113,50 @@
             </article>
         </section>
         <section id="all">
-            <article>
+            <article class="carrusel">
                 <?php
+                    $resultado = AlimentosPorUsuario(0);
+                    echo '<script>';
+                    echo 'window.alimentos = ' . json_encode($resultado, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) . ';';
+                    echo '</script>';                    
                     if (empty($resultado)) {
-                        echo 'No hay recetas registradas.';
+                        echo 'No hay alimentos registrados.';
                     }
                     else {
-                        echo '<h1>Mis recetas</h1>';
-                        foreach ($resultado as $alumno)
-                            echo '<div  class="box-alumno">
-                                Nombre Alumno <br>
-                                Nº Clientes <br>
-                                Nº Recetas <br>
-                                <a>Más información </a>
-                            </div>';
+                        echo '<h1>Mis alimentos</h1>';
+                        echo '<div class="carousel-container">';
+                        echo '<div class="carousel-track" id="carouselTrack">';
+                        foreach ($resultado as $index => $alimento) {
+                            echo '<div class="slide" onclick="onSlideClick('.$index.')">';
+                            echo '<img src="../assets/images/clasificacion-alimentos.jpg.webp">';
+                            echo '</div>';
+                        }
+                        echo '</div></div>';
+
+                        echo '<div id="alimento-info" class="info-box">';
+                        echo '<h3 id="nombreAlimento"></h3>';
+                        echo '<div class="info">PC: <p id="pc"></p></div>';
+                        echo '<div class="info">E_100: <p id="e_100"></p></div>';
+                        echo '<div class="info">Prot_100: <p id="prot_100"></p></div>';
+                        echo '<div class="info">Grasa_100: <p id="grasa_100"></p></div>';
+                        echo '<div class="info">Ags_100: <p id="ags_100"></p></div>';
+                        echo '<div class="info">Agmi_100. <p id="agmi_100"></p></div>';
+                        echo '<div class="info">AGPI_100: <p id="agpi_100"></p></div>';
+                        echo '<div class="info">COL_100: <p id="col_100"></p></div>';
+                        echo '<div class="info">HC_100 <p id="hc_100"></p></div>';
+                        echo '<div class="info">FIBRA_100: <p id="fibra_100"></p></div>';
+                        echo '<div class="info">VIC_C_100: <p id="vit_c_100"></p></div>';
+                        echo '<div class="info">VIT_B6_100: <p id="vit_b6_100"></p></div>';
+                        echo '<div class="info">VIT_E_100: <p id="vit_e_100"></p></div>';
+                        echo '<div class="info">FE_100: <p id="fe_100"></p></div>';
+                        echo '<div class="info">NA_100: <p id="na_100"></p></div>';
+                        echo '<div class="info">CA_100: <p id="ca_100"></p></div>';
+                        echo '<div class="info">K_100: <p id="k_100"></p></div>';
+                        echo '<div class="info">VIT_D_100: <p id="vit_d_100"></p></div>';
+                        echo '</div>';
                     }
                 ?>
+                <script src="../assets/js/carrusel.js" type="text/javascript"></script>
             </article>
         </section>
     </main>
