@@ -24,22 +24,22 @@
             <div class="background"></div>
             <article>
                 <h1>Nuevo alumno</h1>
-                <form>
+                <form method="post">
                     <div>
                         <label for="name">Nombre</label>
-                        <input type="text">
+                        <input type="text" name="name" id="name">
                     </div>
                     <div>
                         <label for="ape">Apellidos</label>
-                        <input type="text">
+                        <input type="text" name="ape" id="ape"> 
                     </div>
                     <div>
                         <label for="email">Email</label>
-                        <input type="email">
+                        <input type="email" name="email" id="email">
                     </div>
                     <div>
                         <label for="pass">Contraseña</label>
-                        <input type="password">
+                        <input type="password" name="pass" id="pass">
                     </div>
                     <input type="submit" name="submit" value="Nuevo alumno" class="btn">
                 </form>
@@ -48,16 +48,13 @@
         <section id="all">
             <article>
                 <?php
-                    if (empty($resultado)) {
+                    if (empty($alumnos)) {
                         echo 'No hay alumnos registrados.';
                     }
                     else {
-                        foreach ($resultado as $alumno)
+                        foreach ($alumnos as $alumno)
                             echo '<div  class="box-alumno"> '
-                                .$alumno['nombre']. ' ' .$alumno['apellidos']. '<br>
-                                Nº Clientes <br>
-                                Nº Recetas <br>
-                                <a>Más información </a>
+                                .$alumno['nombre'].' <br> '. $alumno['apellidos']. '<br>'.$alumno['email']. '<br>'.'
                             </div>';
                     }
                 ?>
