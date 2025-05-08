@@ -115,17 +115,32 @@
         <section id="all">
             <article>
                 <?php
-                    if (empty($resultado)) {
-                        echo 'No hay recetas registradas.';
+                    if (empty($alimentos)) {
+                        echo 'No hay alimentos registrados.';
                     }
                     else {
-                        echo '<h1>Mis recetas</h1>';
-                        foreach ($resultado as $alumno)
+                        echo '<h1>Mis alimentos</h1>';
+                        foreach ($alimentos as $alimento)
                             echo '<div  class="box-alumno">
-                                Nombre Alumno <br>
-                                Nº Clientes <br>
-                                Nº Recetas <br>
-                                <a>Más información </a>
+                                nombre: '.$alimento['nombreAlimento'].' <br>
+                                PC: '.$alimento['PC'].' <br>
+                                e_100: '.$alimento['e_100'].' <br>
+                                prot_100: '.$alimento['prot_100'].' <br>
+                                grasa_100: '.$alimento['grasa_100'].' <br>
+                                ags_100: '.$alimento['ags_100'].' <br>
+                                agmi_100: '.$alimento['agmi_100'].' <br>
+                                agpi_100: '.$alimento['agpi_100'].' <br>
+                                col_100: '.$alimento['col_100'].' <br>
+                                hc_100: '.$alimento['hc_100'].' <br>
+                                fibra_100: '.$alimento['fibra_100'].' <br>
+                                vit_c_100: '.$alimento['vit_c_100'].' <br>
+                                vit_b6_100: '.$alimento['vit_b6_100'].' <br>
+                                vit_e_100: '.$alimento['vit_e_100'].' <br>
+                                fe_100: '.$alimento['fe_100'].' <br>
+                                na_100: '.$alimento['na_100'].' <br>
+                                ca_100: '.$alimento['ca_100'].' <br>
+                                k_100: '.$alimento['k_100'].' <br>
+                                vit_d_100: '.$alimento['vit_d_100'].' <br>
                             </div>';
                     }
                 ?>
