@@ -31,84 +31,84 @@
             <div class="background"></div>
             <article>
                 <h1>Nuevo alimento</h1>
-                <form>
+                <form action="" method="post">
                     <div>
                         <label for="name">Nombre alimento</label>
-                        <input type="text">
+                        <input name="name" type="text">
                     </div>
                     <div>
                         <label for="pc">PC</label>
-                        <input type="text">
+                        <input name="pc" type="text">
                     </div>
                     <div>
                         <label for="E">E/100</label>
-                        <input type="text">
+                        <input name="E_100" type="text">
                     </div>
                     <div>
                         <label for="PROT_100">PROT_100</label>
-                        <input type="text">
+                        <input name="PROT_100" type="text">
                     </div>
                     <div>
                         <label for="GRASA_100">GRASA_100</label>
-                        <input type="text">
+                        <input name="GRASA_100" type="text">
                     </div>
                     <div>
                         <label for="AGS_100">AGS_100</label>
-                        <input type="text">
+                        <input name="AGS_100" type="text">
                     </div>
                     <div>
                         <label for="AGMI_100">AGMI_100</label>
-                        <input type="text">
+                        <input name="AGMI_100" type="text">
                     </div>
                     <div>
                         <label for="AGPI_100">AGPI_100</label>
-                        <input type="text">
+                        <input name="AGPI_100" type="text">
                     </div>
                     <div>
                         <label for="COL_100">COL_100</label>
-                        <input type="text">
+                        <input name="COL_100" type="text">
                     </div>
                     <div>
                         <label for="HC_100">HC_100</label>
-                        <input type="text">
+                        <input name="HC_100" type="text">
                     </div>
                     <div>
                         <label for="FIBRA_100">FIBRA_100</label>
-                        <input type="text">
+                        <input name="FIBRA_100" type="text">
                     </div>
                     <div>
                         <label for="VIT_B6_100">VIT_B6_100</label>
-                        <input type="text">
+                        <input name="VIT_B6_100" type="text">
                     </div>
                     <div>
                         <label for="VIT_C_100">VIT_C_100</label>
-                        <input type="text">
+                        <input name="VIT_C_100" type="text">
                     </div>
                     <div>
                         <label for="VIT_D_100">VIT_D_100</label>
-                        <input type="text">
+                        <input name="VIT_D_100" type="text">
                     </div>
                     <div>
                         <label for="VIT_E_100">VIT_E_100</label>
-                        <input type="text">
+                        <input name="VIT_E_100" type="text">
                     </div>
                     <div>
                         <label for="FE_100">FE_100</label>
-                        <input type="text">
+                        <input name="FE_100" type="text">
                     </div>
                     <div>
                         <label for="NA_100">NA_100</label>
-                        <input type="text">
+                        <input name="NA_100" type="text">
                     </div>
                     <div>
                         <label for="CA_100">CA_100</label>
-                        <input type="text">
+                        <input name="CA_100" type="text">
                     </div>
                     <div>
                         <label for="K_100">K_100</label>
-                        <input type="text">
+                        <input name="K_100" type="text">
                     </div>
-                    <input type="submit" value="Nuevo alimento" class="btn">
+                    <input type="submit" name="submit" value="Nuevo alimento" class="btn">
                 </form>
             </article>
         </section>
