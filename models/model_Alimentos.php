@@ -87,7 +87,6 @@ function annadirAlimento($idUsuario,$params){
         {
             $conn=conexionbbdd();
             $stmt = $conn->prepare("SELECT max(id_alimentos) as idAlimento FROM alimentos");
-            $stmt->bindParam(':id_usuario', $idUsuario);
             $stmt -> execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $resultado=$stmt->fetchAll();
