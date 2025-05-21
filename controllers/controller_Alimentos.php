@@ -1,5 +1,6 @@
 <?php
     require_once "controller_session.php";
+    require_once "controller_Alergias.php";
 
     iniciarSession();
 

@@ -32,21 +32,33 @@ article.carrusel {
     height: calc(100vh - 12rem);
     display: flex;
     align-items: flex-start;
+    -webkit-align-items: flex-start;
+    -moz-align-items: flex-start;
+    -ms-align-items: flex-start;
     transition: transform 0.7s ease;
 }
 .slide {
     width: calc((100vw - 1rem) / 5);
+    height: 5rem;
     padding: 0 1rem;
+    border-radius: 25px;
     position: relative;
     cursor: pointer;
     transition: transform 0.4s, filter 0.4s;
+    background-color: var(--color-40-beige);
+    box-shadow: inset 0 -2px 4px 0 var(--color-shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
 }
-.slide img {
-    transform-origin: center;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 20px;
+.slide .alimento-carrusel {
     filter: saturate(10%);
     transition: 0.4s ease;
 }
@@ -55,7 +67,7 @@ article.carrusel {
     z-index: 10;
 }
 
-.slide.active img {
+.slide.active .alimento-carrusel {
     filter: saturate(100%);
 }
 

@@ -17,7 +17,10 @@
                 <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
             </menu>
         </nav>
-        <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
+        <div>
+            <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
+            <a class="search" href="controller_logout.php"><i class="fa fa-user"></i></a>
+        </div>
     </header>
     <main>
         <h1>Bienvenido, </h1>

@@ -9,6 +9,12 @@
 @import url(../general/sidebar.css);
 @import url(index-media-query.css);
 
+#alumnos, #clientes {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
 #all>article {
     padding: 0 3rem;
     display: grid;

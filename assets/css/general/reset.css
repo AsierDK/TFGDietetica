@@ -52,8 +52,10 @@ form label {
     margin: 0.5rem 1rem;
 }
 
-form input {
-    height: 2.5rem;
+form input,
+form select,
+form textarea {
+    min-height: 2.5rem;
     background-color: var(--color-40-beige);
     color: var(--color-60-green);
     font-weight: bold;
@@ -65,6 +67,14 @@ form input {
     font-size: 1.2rem;
     padding-left: 1rem;
     font-family: Baloo2;
+}
+
+form select  {
+    height: min-content;
+}
+
+form textarea {
+    height: 10rem;
 }
 
 form .btn {

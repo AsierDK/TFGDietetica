@@ -24,7 +24,7 @@
         
         $alumnos = recuperarUsuarios();
 
-        require_once ("../views/index-admin.php");
+        require_once ("../views/alumnos-admin.php");
     }
 
 ?>

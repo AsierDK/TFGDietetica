@@ -29,26 +29,24 @@ function updateTransform() {
 
 function updateInfo() {
     const a = alimentos[currentIndex];
-    console.log(a);
-    document.getElementById("nombreAlimento").innerText = a.nombreAlimento;
-    document.getElementById("pc").innerText = a.PC;
-    document.getElementById("e_100").innerText = a.e_100;
-    document.getElementById("prot_100").innerText = a.prot_100;
-    document.getElementById("grasa_100").innerText = a.grasa_100;
-    document.getElementById("ags_100").innerText = a.ags_100;
-    document.getElementById("agmi_100").innerText = a.agmi_100;
-    document.getElementById("agpi_100").innerText = a.agpi_100;
-    document.getElementById("col_100").innerText = a.col_100;
-    document.getElementById("hc_100").innerText = a.hc_100;
-    document.getElementById("fibra_100").innerText = a.fibra_100;
-    document.getElementById("vit_c_100").innerText = a.vit_c_100;
-    document.getElementById("vit_b6_100").innerText = a.vit_b6_100;
-    document.getElementById("vit_e_100").innerText = a.vit_e_100;
-    document.getElementById("fe_100").innerText = a.fe_100;
-    document.getElementById("na_100").innerText = a.na_100;
-    document.getElementById("ca_100").innerText = a.ca_100;
-    document.getElementById("k_100").innerText = a.k_100;
-    document.getElementById("vit_d_100").innerText = a.vit_d_100;
+    document.getElementById("pc").textContent = a.PC;
+    document.getElementById("e_100").textContent = a.e_100;
+    document.getElementById("prot_100").textContent = a.prot_100;
+    document.getElementById("grasa_100").textContent = a.grasa_100;
+    document.getElementById("ags_100").textContent = a.ags_100;
+    document.getElementById("agmi_100").textContent = a.agmi_100;
+    document.getElementById("agpi_100").textContent = a.agpi_100;
+    document.getElementById("col_100").textContent = a.col_100;
+    document.getElementById("hc_100").textContent = a.hc_100;
+    document.getElementById("fibra_100").textContent = a.fibra_100;
+    document.getElementById("vit_c_100").textContent = a.vit_c_100;
+    document.getElementById("vit_b6_100").textContent = a.vit_b6_100;
+    document.getElementById("vit_e_100").textContent = a.vit_e_100;
+    document.getElementById("fe_100").textContent = a.fe_100;
+    document.getElementById("na_100").textContent = a.na_100;
+    document.getElementById("ca_100").textContent = a.ca_100;
+    document.getElementById("k_100").textContent = a.k_100;
+    document.getElementById("vit_d_100").textContent = a.vit_d_100;
 }
 
 function updateActiveClass() {
