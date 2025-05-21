@@ -69,7 +69,6 @@ section {
     display: none;
 }
 
-
 section.active {
     display: flex;
     flex-direction: column;

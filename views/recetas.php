@@ -19,7 +19,10 @@
                 <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
             </menu>
         </nav>
-        <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
+        <div>
+            <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
+            <a class="search" href="controller_logout.php"><i class="fa fa-user"></i></a>
+        </div>
     </header>
     <main>
         <div class="sidebar">
@@ -32,22 +35,29 @@
             <div class="background"></div>
             <article>
                 <h1>Nueva receta</h1>
-                <form>
+                <form  action="" method="post">
                     <div>
-                        <label for="name">Nombre cliente</label>
-                        <input type="text" id="nombreCliente">
+                        <label for="nombreCliente">Nombre cliente</label>
+                        <input type="text" id="nombreCliente" name="nombreCliente">
                     </div>
                     <div>
-                        <label for="alergia">Alergias cliente</label>
-                        <input type="text">
+                        <label for="alergias">Alergias cliente</label>
+                        <select name="alergias[]" multiple>
+                            <?php
+                                $resultado = AlergiasPorUsuario(0);
+                                var_dump($resultado);
+                                foreach ($resultado as $alergia)
+                                    echo '<option value="'.$alergia["id_alergia"].'">'. $alergia["nombre_alergia"]. '</option>';
+                            ?>
+                        </select>
                     </div>
                     <div>
-                        <label for="name">Nombre receta</label>
-                        <input type="text" id="nombreReceta">
+                        <label for="nombreReceta">Nombre receta</label>
+                        <input type="text" id="nombreReceta" name="nombreReceta">
                     </div>
                     <div>
                         <label for="desc">Descripción</label>
-                        <input type="text">
+                        <input type="text" id="desc" name="desc">
                     </div>
                     <input type="button" value="Añadir ingredientes" onclick="addAlimento()" class="btn">
                 </form>
@@ -70,7 +80,7 @@
                     <div>
                         <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
                         <h3>PESO BRUTO</h3>
-                        <form>
+                        <form  action="" method="post">
                             <label for="name">Peso bruto del alimento</label>
                             <input type="text" id="peso" name="peso">
                             <input type="input" value="Añadir" onclick="submitPesoBruto()" class="btn">
