@@ -28,3 +28,29 @@ header {
         padding: 0.5rem;
     }
 }
+
+nav {
+    background-color: var(--color-input);
+    box-shadow: 0 4px 4px 0 var(--color-shadow);
+    border-radius: 50px;
+    width: 50vw;
+    height: 3vh;
+}
+
+menu {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    -webkit-justify-content: space-around;
+    -moz-justify-content: space-around;
+    -ms-justify-content: space-around;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+}
+
+li {
+    display: inline;
+}

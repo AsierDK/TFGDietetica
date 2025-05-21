@@ -11,14 +11,14 @@
     <main>
         <div class="login">
             <h1>LOGIN</h1>
-            <form>
+            <form action="../controllers/controller_login.php" method="post">
                 <div>
                     <label for="text">Email</label>
-                    <input type="text">
+                    <input type="text" name="usr">
                 </div>
                 <div>
                     <label for="password">Constraseña</label>
-                    <input type="password">
+                    <input type="password" name="psw">
                 </div>
                 <input type="submit" name="submit" value="Login" class="btn">
             </form>

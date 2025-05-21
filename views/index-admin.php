@@ -11,7 +11,6 @@
 <body>
     <header>
         <a href="#"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
-        <nav></nav>
         <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
     </header>
     <main>
@@ -25,22 +24,22 @@
             <div class="background"></div>
             <article>
                 <h1>Nuevo alumno</h1>
-                <form>
+                <form method="post">
                     <div>
                         <label for="name">Nombre</label>
-                        <input type="text">
+                        <input type="text" name="name" id="name">
                     </div>
                     <div>
                         <label for="ape">Apellidos</label>
-                        <input type="text">
+                        <input type="text" name="ape" id="ape"> 
                     </div>
                     <div>
                         <label for="email">Email</label>
-                        <input type="email">
+                        <input type="email" name="email" id="email">
                     </div>
                     <div>
                         <label for="pass">Contraseña</label>
-                        <input type="password">
+                        <input type="password" name="pass" id="pass">
                     </div>
                     <input type="submit" name="submit" value="Nuevo alumno" class="btn">
                 </form>
@@ -49,13 +48,15 @@
         <section id="all">
             <article>
                 <?php
-                for($i= 0; $i< 10; $i++)
-                    echo '<div  class="box-alumno">
-                        Nombre Alumno <br>
-                        Nº Clientes <br>
-                        Nº Recetas <br>
-                        <a>Más información </a>
-                    </div>';
+                    if (empty($alumnos)) {
+                        echo 'No hay alumnos registrados.';
+                    }
+                    else {
+                        foreach ($alumnos as $alumno)
+                            echo '<div  class="box-alumno"> '
+                                .$alumno['nombre'].' <br> '. $alumno['apellidos']. '<br>'.$alumno['email']. '<br>'.'
+                            </div>';
+                    }
                 ?>
             </article>
         </section>

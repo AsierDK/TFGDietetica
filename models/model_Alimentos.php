@@ -40,7 +40,7 @@ function annadirAlimento($idUsuario,$params){
     $conn=conexionbbdd();
     try
     {
-       $id_alimentos = obtenerUltimoIdAlimento();
+        $id_alimentos = obtenerUltimoIdAlimento();
         $id_alimentos = substr($id_alimentos, 0, 1) . str_pad(intval(substr($id_alimentos, 1)) + 1, 4, "0", STR_PAD_LEFT);
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $conn->beginTransaction();
@@ -86,8 +86,7 @@ function annadirAlimento($idUsuario,$params){
         try
         {
             $conn=conexionbbdd();
-            $stmt = $conn->prepare("SELECT max(id_alimentos) as idAlimento FROM alimentos");
-            $stmt->bindParam(':id_usuario', $idUsuario);
+            $stmt = $conn->prepare("SELECT max(id_alimentos) as idAlimento FROM Alimentos");
             $stmt -> execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $resultado=$stmt->fetchAll();
@@ -97,6 +96,6 @@ function annadirAlimento($idUsuario,$params){
             echo "Error: " . $e->getMessage();
         }
         $conn=null;
-        return $resultado["idAlimento"];
+        return $resultado[0]["idAlimento"];
     }
 ?>
