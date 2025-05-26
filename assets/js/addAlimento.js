@@ -1,14 +1,20 @@
+let alimentoId = '';
+let alimentoNombre = '';
+let heartLink = null;
+
 function addAlimento() {
     const alimentoArticle = document.getElementById('alimento');
     alimentoArticle.style.display = 'grid';
-    // Scroll hacia esa sección
     alimentoArticle.scrollIntoView({ behavior: 'smooth' });
 }
 
-function addPesoBruto(event) {
+function addPesoBruto(event, id, nombre, link) {
     event.preventDefault();
     const popUp = document.getElementById('pop-up-pb');
     popUp.style.display = 'block';
+    alimentoId = id;
+    alimentoNombre = nombre;
+    heartLink = link;
 }
 
 function closePopUp(event) {
@@ -18,20 +24,44 @@ function closePopUp(event) {
 }
 
 function submitPesoBruto() {
-    const peso = document.getElementById('peso').value;
-    console.log(peso);
+    const peso = document.getElementById('peso').value.trim();
+    console.log(alimentoId);
+    console.log(alimentoNombre);
 
-    if (peso.trim() !== '') {
-        console.log('Peso bruto añadido:', peso);
-        alert('Peso añadido: ' + peso);
+    if (peso) {
+        let cesta = {};
+        const cookie = document.cookie.split('; ').find(row => row.startsWith('cesta='));
+        if (cookie) {
+            cesta = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
+        }
 
+        // Agregar o actualizar el alimento
+        cesta[alimentoId] = {
+            nombre: alimentoNombre,
+            peso: peso
+        };
+
+        // Guardar cookie como JSON string
+        document.cookie = `cesta=${encodeURIComponent(JSON.stringify(cesta))}; path=/; max-age=31536000`;
         // Cambiar el ícono a corazón relleno
-        const heartIcon = document.getElementById('heart-icon');
-        heartIcon.classList.remove('far'); // sin relleno
-        heartIcon.classList.add('fas');    // con relleno
+        if(heartLink) {
+            const heartIcon = heartLink.querySelector('i');
+            heartIcon.classList.remove('far');
+            heartIcon.classList.add('fas');
+        }
 
         closePopUp(event);
     } else {
-        alert('Por favor, introduce un peso válido.');
+        document.getElementById("error").textContent = 'Por favor, introduce un peso válido.';
     }
+}
+
+function addCesta() {
+    const cesta = document.getElementById('cesta');
+    cesta.style.display = 'block';
+}
+
+function closeCesta() {
+    const cesta = document.getElementById('cesta');
+    cesta.style.display = 'none';
 }

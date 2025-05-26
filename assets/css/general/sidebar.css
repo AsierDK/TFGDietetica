@@ -61,11 +61,11 @@
 }
 
 section {
-    position: absolute;
+    position: relative;
     margin-left: 5rem;
     margin-top: 4.5rem;
     width: calc(100vw - 5rem);
-    height: calc(100vh - 12rem);
+    min-height: calc(100vh - 12rem);
     display: none;
 }
 
@@ -96,10 +96,9 @@ section>.background {
 }
 
 article {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
-    margin-left: 3rem;
     width: calc(100vw - 5rem);
     min-height: calc(100vh - 12rem);
     display: flex;
@@ -115,6 +114,7 @@ article {
     -webkit-align-items: center;
     -moz-align-items: center;
     -ms-align-items: center;
+    z-index: 1;
 }
 
 h1 {
@@ -122,4 +122,5 @@ h1 {
     letter-spacing: 0.7rem;
     text-transform: uppercase;
     font-family: Baloo2;
+    text-align: center;
 }
