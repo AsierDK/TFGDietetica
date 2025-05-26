@@ -1,8 +1,8 @@
 <?php
-define('DB_SERVER', 'sql203.infinityfree.com');
-define('DB_USERNAME', 'if0_38644371');
-define('DB_PASSWORD', 'q5jPkzZwIEQJK');
-define('DB_DATABASE', 'if0_38644371_dieta');
+define('DB_SERVER', 'localhost');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
+define('DB_DATABASE', 'dieta');
 function conexionbbdd()
 {
     try {

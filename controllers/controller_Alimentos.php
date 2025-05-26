@@ -24,6 +24,7 @@
     }
 
     $alimentos = AlimentosPorUsuario($idUsu);
+    $alergias = getAlergias();
 
     require_once '../views/alimentos.php';
 ?>

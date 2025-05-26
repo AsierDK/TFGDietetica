@@ -111,14 +111,11 @@
                         <label for="K_100">K_100</label>
                         <input name="K_100" type="text">
                     </div>
-                    <input type="submit" name="submit" value="Nuevo alimento" class="btn">
                     <div>
                         <label for="alergias">Alergias cliente</label>
                         <select name="alergias[]" multiple>
                             <?php
-                                $resultado = AlergiasPorUsuario(0);
-                                var_dump($resultado);
-                                foreach ($resultado as $alergia)
+                                foreach ($alergias as $alergia)
                                     echo '<option value="'.$alergia["id_alergia"].'">'. $alergia["nombre_alergia"]. '</option>';
                             ?>
                         </select>
@@ -130,18 +127,17 @@
         <section id="all">
             <article class="carrusel">
                 <?php
-                    $resultado = AlimentosPorUsuario(0);
                     echo '<script>';
-                    echo 'window.alimentos = ' . json_encode($resultado, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) . ';';
+                    echo 'window.alimentos = ' . json_encode($alimentos, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) . ';';
                     echo '</script>';
-                    if (empty($resultado)) {
+                    if (empty($alimentos)) {
                         echo 'No hay alimentos registrados.';
                     }
                     else {
                         echo '<h1>Mis alimentos</h1>';
                         echo '<div class="carousel-container">';
                         echo '<div class="carousel-track" id="carouselTrack">';
-                        foreach ($resultado as $index => $alimento) {
+                        foreach ($alimentos as $index => $alimento) {
                             echo '<div class="slide" onclick="onSlideClick('.$index.')">';
                             echo '<div class="alimento-carrusel">'.$alimento['nombreAlimento'].'</div>';
                             echo '</div>';
