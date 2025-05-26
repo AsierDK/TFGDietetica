@@ -24,7 +24,7 @@
         </div>
         <div id="menu">
             <menu>
-                <a href="#">✖ Cerrar</a>
+                <a href="#"><i class="fa fa-times"></i></a>
                 <li><a href="#">Alumnos</a></li>
                 <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
             </menu>
