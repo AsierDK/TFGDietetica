@@ -26,7 +26,7 @@
             <a class="menu-burger" href="#menu"><i class="fa fa-bars"></i></a>
         </div>
         <div id="menu">
-            <a href="#">✖ Cerrar</a>
+            <a href="#"><i class="fa fa-times"></i></a>
             <menu>
                 <li><a href="#">Clientes</a></li>
                 <li><a href="../controllers/controller_Recetas.php">Recetas</a></li>
@@ -36,6 +36,18 @@
     </header>
     <main>
         <section>
+            <article class="clientes">
+                <?php
+                    if (empty($clientes)) {
+                        echo 'No hay clientes registrados.';
+                    }
+                    else {
+                        foreach ($clientes as $cliente)
+                            echo '<div  class="box-cliente"> '
+                                .$cliente['nombre'].' <br> '.$cliente['email']. '<br></div>';
+                    }
+                ?>
+            </article>
             <article id="calendar"></article>
         </section>
     </main>

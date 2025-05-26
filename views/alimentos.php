@@ -24,7 +24,7 @@
             <a class="menu-burger" href="#menu"><i class="fa fa-bars"></i></a>
         </div>
         <div id="menu">
-            <a href="#">✖ Cerrar</a>
+            <a href="#"><i class="fa fa-times"></i></a>
             <menu>
                 <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
                 <li><a href="../controllers/controller_Recetas.php">Recetas</a></li>
