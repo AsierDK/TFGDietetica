@@ -36,10 +36,12 @@ function alimentosporReceta($idUsuario,$id_receta){
     $conn=null;
     return $resultado;
 }
-function annadirReceta($id_receta,$idUsuario,$params){
+function annadirReceta($idUsuario,$params){
     $conn=conexionbbdd();
     try
     {
+        $id_recetas = obtenerUltimoIdReceta();
+        $id_receta = substr($id_recetas, 0, 1) . str_pad(intval(substr($id_recetas, 1)) + 1, 4, "0", STR_PAD_LEFT);
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $conn->beginTransaction();
         $stmt = $conn->prepare("INSERT INTO Recetas(id_receta, nombre_receta, desc_receta, id_usuario, fechaCreacion, fechaModificacion) 
@@ -58,5 +60,22 @@ function annadirReceta($id_receta,$idUsuario,$params){
     } finally {
         $conn=null;
     }
+}
+function obtenerUltimoIdReceta()
+{
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("SELECT max(id_receta) as idReceta FROM Recetas");
+        $stmt -> execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $resultado=$stmt->fetchAll();
+    }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+    return $resultado[0]["idAlimento"];
 }
 ?>

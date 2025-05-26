@@ -47,5 +47,12 @@
         session_unset();
         setcookie("PHPSESSID", "" , time() - (86400 * 30), "/",$_SERVER['HTTP_HOST']);
     }
+    function annadirAlimentoCesta($id_alimento,$peso){
+        $_SESSION["cliente"]["cesta"][$id_alimento] = $peso;
+    }
 
+    function devolverCesta(){
+        $cesta = $_SESSION["cliente"]["cesta"];
+        return $cesta;
+    }
 ?>

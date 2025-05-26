@@ -1,7 +1,7 @@
 <?php
-require_once "controller_session.php";
-require_once "controller_Alergias.php";
-    iniciarSession();
+    require_once "controller_session.php";
+    require_once "controller_Alergias.php";
+     iniciarSession();
 
     if(!verificarSessionExistente())
     {
@@ -9,23 +9,25 @@ require_once "controller_Alergias.php";
         header("Location: ../index.php");
     }
     $alergias = getAlergias();
+    $idUsu = devolverId();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if(isset($_POST["submit"])){
-        $receta=datosReceta();
-        annadirReceta();
-        annadirAlimento($idUsu,$_POST);
-        print "Alimento Añadido";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if(isset($_POST["submit"])){
+
+            $receta = datosReceta();
+            $cesta = devolverCesta();
+            annadirReceta($idUsu,$receta,$cesta);
+
+            print "Alimento Añadido";
+        }
+        print "<script type='text/javascript'>history.replaceState(null,null)</script>";
     }
-    print "<script type='text/javascript'>history.replaceState(null,null)</script>";
-}
-function datosReceta()
-{
-    $resultados = ['nombreReceta'=>$_POST['nombreReceta'],'desc_receta'=>$_POST['desc']];
-    return $resultados;
-}
-require_once '../models/model_Recetas.php';
-require_once '../models/model_Alimentos.php';
-require_once '../views/recetas.php';
+    function datosReceta(){
+        $resultados = ['nombreReceta'=>$_POST['nombreReceta'],'desc_receta'=>$_POST['desc']];
+        return $resultados;
+    }
+    require_once '../models/model_Recetas.php';
+    require_once '../models/model_Alimentos.php';
+    require_once '../views/recetas.php';
 
 ?>
