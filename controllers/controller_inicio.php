@@ -9,6 +9,7 @@
     }
 
     $admin = devolverAdmin();
+    $nombre = devolverNombre();
 
     if($admin == 0)
         require_once ("../views/index-alumno.php");

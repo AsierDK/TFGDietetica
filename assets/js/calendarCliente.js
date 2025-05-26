@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
         locale: 'es',
         events: '../assets/js/json/myfeed.php',
         customButtons: {
-          myCustomButton: {
-            text: 'custom!',
+          annadirReceta: {
+            text: 'Receta',
             click: function() {
               alert('¡Haz clic en el botón personalizado!');
             }
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
         },
     
         headerToolbar: {
-          left: 'prev,next today myCustomButton', // Botones de navegación
+          left: 'prev,next today annadirReceta', // Botones de navegación
           center: 'title',  // Título
           right: 'dayGridMonth,timeGridWeek,timeGridDay' // Vista del calendario (mensual, semanal, diario)
         }

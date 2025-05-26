@@ -10,12 +10,13 @@ main {
 h1 {
     font-size: 4rem;
     letter-spacing: 0.7rem;
+    padding-bottom: 5rem;
 }
 
 .login {
     background: url(../../images/forma-login.svg) no-repeat top left / cover;
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     padding: 23rem 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;
@@ -30,10 +31,6 @@ h1 {
     -webkit-align-items: center;
     -moz-align-items: center;
     -ms-align-items: center;
-}
-
-form>div {
-    margin: 5rem 0;
 }
 
 form input {

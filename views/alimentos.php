@@ -15,12 +15,21 @@
             <menu>
                 <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
                 <li><a href="../controllers/controller_Recetas.php">Recetas</a></li>
-                <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
+                <li><a href="#">Alimentos</a></li>
             </menu>
         </nav>
-        <div>
+        <div class="icons">
             <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
-            <a class="search" href="controller_logout.php"><i class="fa fa-user"></i></a>
+            <a class="user" href="controller_logout.php"><i class="fa fa-user"></i></a>
+            <a class="menu-burger" href="#menu"><i class="fa fa-bars"></i></a>
+        </div>
+        <div id="menu">
+            <a href="#">✖ Cerrar</a>
+            <menu>
+                <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
+                <li><a href="../controllers/controller_Recetas.php">Recetas</a></li>
+                <li><a href="#">Alimentos</a></li>
+            </menu>
         </div>
     </header>
     <main>
@@ -112,7 +121,7 @@
                         <input name="K_100" type="text">
                     </div>
                     <div>
-                        <label for="alergias">Alergias cliente</label>
+                        <label for="alergias">Alergias</label>
                         <select name="alergias[]" multiple>
                             <?php
                                 foreach ($alergias as $alergia)
@@ -144,16 +153,17 @@
                         }
                         echo '</div></div>';
 
+                        echo '<button class="edit btn">Editar alimento</button>';
                         echo '<div id="alimento-info" class="info-box">';
                         echo '<div class="info">PC: <p id="pc"></p></div>';
                         echo '<div class="info">E_100: <p id="e_100"></p></div>';
                         echo '<div class="info">Prot_100: <p id="prot_100"></p></div>';
                         echo '<div class="info">Grasa_100: <p id="grasa_100"></p></div>';
                         echo '<div class="info">Ags_100: <p id="ags_100"></p></div>';
-                        echo '<div class="info">Agmi_100. <p id="agmi_100"></p></div>';
+                        echo '<div class="info">Agmi_100: <p id="agmi_100"></p></div>';
                         echo '<div class="info">AGPI_100: <p id="agpi_100"></p></div>';
                         echo '<div class="info">COL_100: <p id="col_100"></p></div>';
-                        echo '<div class="info">HC_100 <p id="hc_100"></p></div>';
+                        echo '<div class="info">HC_100: <p id="hc_100"></p></div>';
                         echo '<div class="info">FIBRA_100: <p id="fibra_100"></p></div>';
                         echo '<div class="info">VIC_C_100: <p id="vit_c_100"></p></div>';
                         echo '<div class="info">VIT_B6_100: <p id="vit_b6_100"></p></div>';
