@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <a href="#"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
+        <a href="../controllers/controller_inicio.php"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
         <nav>
             <menu>
                 <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
@@ -19,7 +19,10 @@
                 <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
             </menu>
         </nav>
-        <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
+        <div>
+            <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
+            <a class="search" href="controller_logout.php"><i class="fa fa-user"></i></a>
+        </div>
     </header>
     <main>
         <div class="sidebar">
@@ -32,65 +35,91 @@
             <div class="background"></div>
             <article>
                 <h1>Nueva receta</h1>
-                <form>
+                <form  action="" method="post">
                     <div>
-                        <label for="name">Nombre receta</label>
-                        <input type="text" id="nombreReceta">
+                        <label for="nombreCliente">Nombre cliente</label>
+                        <input type="text" id="nombreCliente" name="nombreCliente">
                     </div>
                     <div>
-                        <label for="alergia">Alergias cliente</label>
-                        <input type="text">
+                        <label for="alergias">Alergias cliente</label>
+                        <select name="alergias[]" multiple>
+                            <?php
+                                $resultado = AlergiasPorUsuario(0);
+                                var_dump($resultado);
+                                foreach ($resultado as $alergia)
+                                    echo '<option value="'.$alergia["id_alergia"].'">'. $alergia["nombre_alergia"]. '</option>';
+                            ?>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="nombreReceta">Nombre receta</label>
+                        <input type="text" id="nombreReceta" name="nombreReceta">
                     </div>
                     <div>
                         <label for="desc">Descripción</label>
-                        <input type="text">
+                        <input type="text" id="desc" name="desc">
                     </div>
                     <input type="button" value="Añadir ingredientes" onclick="addAlimento()" class="btn">
-                    <input type="submit" value="Finalizar Receta" class="btn">
                 </form>
             </article>
             <article id="alimento">
                 <?php
-                    /*if (empty($resultado)) {
+                    $resultado = AlimentosPorUsuario(0);
+                    if (empty($resultado)) {
                         echo 'No hay alimentos registrados.';
                     }
-                    else {*/
-                        for ($i =0; $i<10; $i++)
+                    else {
+                        foreach ($resultado as $alimento)
                             echo '<div  class="box-alimento">
-                                <a href="#" onclick="addPesoBruto(event)"><i id="heart-icon" class="far fa-heart"></i></a>
-                                Nombre Alimento
-                            </div>';
-                    //}
+                                <a href="#" onclick="addPesoBruto(event)"><i id="heart-icon" class="far fa-heart"></i></a>'
+                                . $alimento['nombreAlimento'].
+                            '</div>';
+                    }
                 ?>
                 <div id="pop-up-pb">
-                    <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
-                    <h3>PESO BRUTO</h3>
-                    <form>
-                        <label for="name">Peso bruto del alimento</label>
-                        <input type="text" id="peso" name="peso">
-                        <input type="input" value="Añadir" onclick="submitPesoBruto()" class="btn">
-                    </form>
+                    <div>
+                        <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
+                        <h3>PESO BRUTO</h3>
+                        <form  action="" method="post">
+                            <label for="name">Peso bruto del alimento</label>
+                            <input type="text" id="peso" name="peso">
+                            <input type="input" value="Añadir" onclick="submitPesoBruto()" class="btn">
+                        </form>
+                    </div>
                 </div>
-                 <input type="button" value="Cerrar seleccion alimentos" onclick="closeAlimento()" class="btn">
+                <div class="cesta">
+
+                </div>
             </article>
         </section>
         <section id="all">
-            <article>
+            <article class="carrusel">
                 <?php
+                    $resultado = RecetasPorUsuario(0);
+                    echo '<script>';
+                    echo 'window.alimentos = ' . json_encode($resultado, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) . ';';
+                    echo '</script>';
                     if (empty($resultado)) {
                         echo 'No hay recetas registradas.';
                     }
                     else {
-                        echo '<h1>Mis recetas</h1>';
-                        foreach ($resultado as $alumno)
-                            echo '<div  class="box-alumno">
-                                Nombre Alumno <br>
-                                Nº Clientes <br>
-                                Nº Recetas <br>
-                                <a>Más información </a>
-                            </div>';
+                        echo '<h1>Mis alimentos</h1>';
+                        echo '<div class="carousel-container">';
+                        echo '<div class="carousel-track" id="carouselTrack">';
+                        foreach ($resultado as $index => $alimento) {
+                            echo '<div class="slide" onclick="onSlideClick('.$index.')">';
+                            echo '<img src="../assets/images/clasificacion-alimentos.jpg.webp">';
+                            echo '</div>';
+                        }
+                        echo '</div></div>';
+
+                        echo '<div id="alimento-info" class="info-box">';
+                        echo '<h3 id="nombreAlimento"></h3>';
+                        echo '<p id="descripcionAlimento"></p>';
+                        echo '</div>';
                     }
                 ?>
+                <script src="../assets/js/carrusel.js" type="text/javascript"></script>
             </article>
         </section>
     </main>

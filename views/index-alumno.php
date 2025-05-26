@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <a href="#"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
+        <a href="../controllers/controller_inicio.php"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
         <nav>
             <menu>
                 <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
@@ -17,7 +17,10 @@
                 <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
             </menu>
         </nav>
-        <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
+        <div>
+            <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
+            <a class="search" href="controller_logout.php"><i class="fa fa-user"></i></a>
+        </div>
     </header>
     <main>
         <h1>Bienvenido, </h1>
@@ -26,7 +29,7 @@
             <article>
             <div class="article-header">
                     <h2>Todas las recetas</h2>
-                    <a href="#">Ver todas</a>
+                    <a href="../controllers/controller_Recetas.php">Ver todas</a>
                 </div>
                 <div class="article-main">
                     <?php
@@ -45,7 +48,7 @@
             <article>
             <div class="article-header">
                     <h2>Ingredientes populares</h2>
-                    <a href="#">Ver todos</a>
+                    <a href="../controllers/controller_Alimentos.php">Ver todos</a>
                 </div>
                 <div class="article-main">
                     <table>

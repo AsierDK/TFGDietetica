@@ -69,7 +69,6 @@ section {
     display: none;
 }
 
-
 section.active {
     display: flex;
     flex-direction: column;
@@ -116,14 +115,6 @@ article {
     -webkit-align-items: center;
     -moz-align-items: center;
     -ms-align-items: center;
-}
-
-#all>article {
-    padding: 0 3rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    -ms-grid-template-columns: repeat(3, 1fr);
-    gap: 5rem;
 }
 
 h1 {

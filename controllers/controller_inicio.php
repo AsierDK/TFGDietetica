@@ -1,5 +1,4 @@
 <?php
-
     require_once ("controller_session.php");
     iniciarSession();
     
@@ -25,7 +24,7 @@
         
         $alumnos = recuperarUsuarios();
 
-        require_once ("../views/index-admin.php");
+        require_once ("../views/alumnos-admin.php");
     }
 
 ?>

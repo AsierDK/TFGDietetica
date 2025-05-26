@@ -5,13 +5,6 @@ function addAlimento() {
     alimentoArticle.scrollIntoView({ behavior: 'smooth' });
 }
 
-function closeAlimento() {
-    const alimentoArticle = document.getElementById('alimento');
-    alimentoArticle.style.display = 'none';
-    // Scroll hacia esa sección
-    alimentoArticle.scrollIntoView({ behavior: 'smooth' });
-}
-
 function addPesoBruto(event) {
     event.preventDefault();
     const popUp = document.getElementById('pop-up-pb');

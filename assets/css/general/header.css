@@ -18,15 +18,15 @@ header {
     -webkit-align-items: center;
     -moz-align-items: center;
     -ms-align-items: center;
+}
 
-    .logo {
-        width: 8rem;
-    }
+.logo {
+    width: 8rem;
+}
 
-    i {
-        font-size: 1.2rem;
-        padding: 0.5rem;
-    }
+i {
+    font-size: 1.2rem;
+    padding: 0.5rem;
 }
 
 nav {
