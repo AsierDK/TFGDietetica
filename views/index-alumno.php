@@ -17,14 +17,22 @@
                 <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
             </menu>
         </nav>
-        <div>
+        <div class="icons">
             <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
-            <a class="search" href="controller_logout.php"><i class="fa fa-user"></i></a>
+            <a class="user" href="controller_logout.php"><i class="fa fa-user"></i></a>
+            <a class="menu-burger" href="#menu"><i class="fa fa-bars"></i></a>
+        </div>
+        <div id="menu">
+            <a href="#">✖ Cerrar</a>
+            <menu>
+                <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
+                <li><a href="../controllers/controller_Recetas.php">Recetas</a></li>
+                <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
+            </menu>
         </div>
     </header>
     <main>
-        <h1>Bienvenido, </h1>
-
+        <h1>Bienvenido <?php echo $nombre;?></h1>
         <section>
             <article>
             <div class="article-header">

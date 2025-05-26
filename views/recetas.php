@@ -15,13 +15,22 @@
         <nav>
             <menu>
                 <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
-                <li><a href="../controllers/controller_Recetas.php">Recetas</a></li>
+                <li><a href="#">Recetas</a></li>
                 <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
             </menu>
         </nav>
-        <div>
+        <div class="icons">
             <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
-            <a class="search" href="controller_logout.php"><i class="fa fa-user"></i></a>
+            <a class="user" href="controller_logout.php"><i class="fa fa-user"></i></a>
+            <a class="menu-burger" href="#menu"><i class="fa fa-bars"></i></a>
+        </div>
+        <div id="menu">
+            <a href="#">✖ Cerrar</a>
+            <menu>
+                <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
+                <li><a href="#">Recetas</a></li>
+                <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
+            </menu>
         </div>
     </header>
     <main>
@@ -37,11 +46,11 @@
                 <h1>Nueva receta</h1>
                 <form  action="" method="post">
                     <div>
-                        <label for="nombreCliente">Nombre cliente</label>
-                        <input type="text" id="nombreCliente" name="nombreCliente">
+                        <label for="nombreReceta">Nombre receta</label>
+                        <input type="text" id="nombreReceta" name="nombreReceta">
                     </div>
                     <div>
-                        <label for="alergias">Alergias cliente</label>
+                        <label for="alergias">Alergias receta</label>
                         <select name="alergias[]" multiple>
                             <?php
                                 $resultado = AlergiasPorUsuario(0);
@@ -52,17 +61,14 @@
                         </select>
                     </div>
                     <div>
-                        <label for="nombreReceta">Nombre receta</label>
-                        <input type="text" id="nombreReceta" name="nombreReceta">
-                    </div>
-                    <div>
                         <label for="desc">Descripción</label>
-                        <input type="text" id="desc" name="desc">
+                        <textarea name="desc" id="desc"></textarea>
                     </div>
                     <input type="button" value="Añadir ingredientes" onclick="addAlimento()" class="btn">
                 </form>
             </article>
             <article id="alimento">
+                <a onclick="addCesta()">Ver alimentos añadidos</a>
                 <?php
                     $resultado = AlimentosPorUsuario(0);
                     if (empty($resultado)) {
@@ -71,24 +77,38 @@
                     else {
                         foreach ($resultado as $alimento)
                             echo '<div  class="box-alimento">
-                                <a href="#" onclick="addPesoBruto(event)"><i id="heart-icon" class="far fa-heart"></i></a>'
+                                <p>'
                                 . $alimento['nombreAlimento'].
-                            '</div>';
+                                '</p>
+                                <a href="#" onclick="addPesoBruto(event,  \'' .$alimento['id_alimentos'].'\', \'' . $alimento['nombreAlimento'] . '\', this)"><i id="heart-icon" class="far fa-heart"></i></a>
+                            </div>';
                     }
                 ?>
+                <input type="button" value="Crear receta" class="btn">
                 <div id="pop-up-pb">
                     <div>
                         <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
                         <h3>PESO BRUTO</h3>
                         <form  action="" method="post">
                             <label for="name">Peso bruto del alimento</label>
-                            <input type="text" id="peso" name="peso">
+                            <input type="number" id="peso" name="peso">
                             <input type="input" value="Añadir" onclick="submitPesoBruto()" class="btn">
+                            <div id="error"></div>
                         </form>
                     </div>
                 </div>
-                <div class="cesta">
-                    
+                <div id="cesta">
+                    <a onclick="closeCesta()"><i class="fa fa-times"></i></a>
+                    <button class="btn" onclick="<?php eliminarCesta();?>">Eliminar todos los ingredientes</button>
+                    <?php
+                        if (!isset($_COOKIE['cesta']))
+                            echo 'No has añadido aimentos.';
+                        else
+                        {
+                            $cesta = json_decode($_COOKIE['cesta']);
+                            var_dump($cesta);
+                        }
+                    ?>
                 </div>
             </article>
         </section>
@@ -112,6 +132,8 @@
                             echo '</div>';
                         }
                         echo '</div></div>';
+
+                        echo '<button class="edit btn">Editar receta</button>';
 
                         echo '<div id="alimento-info" class="info-box">';
                         echo '<h3 id="nombreAlimento"></h3>';

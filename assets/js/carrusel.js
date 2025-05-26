@@ -10,16 +10,21 @@ function onSlideClick(index) {
 }
 
 function getTransform() {
-    let numSlide = 0;
-    if (window.innerWidth > 768) {
-        numSlide = 5;
-    } else if (window.innerWidth > 576) {
-        numSlide = 3;
-    } else {
-        numSlide = 1;
+    const slides = document.querySelectorAll(".slide");
+    const track = document.querySelector(".carousel-track");
+    let translateX = '';
+
+    if (slides.length === 0 || !track) {
+        translateX = "translateX(0)";
     }
-    const slideWidth = window.innerWidth / numSlide;
-    return `translateX(-${currentIndex * slideWidth}px)`;
+
+    const slideWidth = slides[0].offsetWidth;
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.gap || style.columnGap || "0");
+
+    const totalSlideWidth = slideWidth + gap;
+    translateX = `translateX(-${currentIndex * totalSlideWidth}px)`
+    return translateX;
 }
 
 function updateTransform() {
@@ -64,4 +69,7 @@ window.onload = () => {
 };
 
 // Reajustar al cambiar tamaño de pantalla
-window.onresize = () => updateTransform();
+window.onresize = () => {
+    updateTransform();
+    updateActiveClass();
+};

@@ -1,26 +1,35 @@
 /* ----------------------------
-    MEDIA QUERIES DEL LOGIN
+    MEDIA QUERIES DE RECETAS
 ----------------------------- */
-@media (max-width: 400px) {
-    form input {
-        width: 12rem;
+@media (min-width: 576px) {
+    #alimento {
+        grid-template-columns: repeat(2, 1fr) !important;
+        -ms-grid-template-columns: repeat(2, 1fr) !important;
+        padding: 0 10rem;
+    }
+
+    #alimento>a {
+        grid-column: span 2;
+        -ms-grid-column: span 2;
     }
 }
 
-@media (min-width: 401px) {
-    form input {
-        width: 15rem;
-    }
+@media (min-width: 768px) {
 }
 
-@media (min-width: 800px) {
-    form input {
-        width: 25rem;
+@media (min-width: 992px) {
+        #alimento {
+        grid-template-columns: repeat(3, 1fr) !important;
+        -ms-grid-template-columns: repeat(3, 1fr) !important;
+        padding: 0 15rem;
+    }
+
+    #alimento>a {
+        grid-column: span 3;
+        -ms-grid-column: span 3;
     }
 }
 
 @media (min-width: 1200px) {
-    form input {
-        width: 30rem;
-    }
+
 }
