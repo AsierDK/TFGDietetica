@@ -34,8 +34,8 @@ function submitPesoBruto() {
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: `accion=annadir&id=${alimentoId}&nombre=${alimentoNombre}&peso=${peso}`
         })
-        .then(correcto)
-        .catch(errores);
+        .then(correctoCesta)
+        .catch(erroresCesta);
 
         // Cambiar el ícono a corazón relleno
         if(heartLink) {
@@ -56,8 +56,8 @@ function eliminarAlimento(idAlimento){
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: `accion=eliminarAlimento&id=${idAlimento}`
         })
-        .then(correcto)
-        .catch(errores);
+        .then(correctoCesta)
+        .catch(erroresCesta);
 
     const link = document.querySelector(`#alimento a[data-id="${idAlimento}"]`);
     if(link) {
@@ -79,21 +79,21 @@ function eliminarCesta(){
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: `accion=vaciar`
         })
-        .then(correcto)
-        .catch(errores);
+        .then(correctoCesta)
+        .catch(erroresCesta);
 }
 
-function correcto(res){
+function correctoCesta(res){
     if(res.ok){
-        res.text().then(recibido);
+        res.text().then(recibidoCesta);
     }
 }
 
-function errores(){
+function erroresCesta(){
     alert('Error en la conexión');
 }
 
-function recibido(datos){
+function recibidoCesta(datos){
     console.log(datos);
     let datosConvertidos = JSON.parse(datos);
     console.log(datosConvertidos);
@@ -124,6 +124,13 @@ function recibido(datos){
 function verCesta() {
     const cesta = document.getElementById('cesta');
     cesta.style.display = 'block';
+    fetch('../controllers/Cesta.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'accion=obtener'
+    })
+    .then(correctoCesta)
+    .catch(erroresCesta);
 }
 
 function closeCesta() {
