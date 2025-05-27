@@ -8,8 +8,12 @@
         eliminarSessionSinRedireccion();
         header("Location: ../index.php");
     }
+
+    require_once '../models/model_Recetas.php';
+    require_once '../models/model_Alimentos.php';
     $alergias = getAlergias();
     $idUsu = devolverId();
+    $alimentos = AlimentosPorUsuario($idUsu);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST["submit"])){
@@ -26,8 +30,6 @@
         $resultados = ['nombreReceta'=>$_POST['nombreReceta'],'desc_receta'=>$_POST['desc']];
         return $resultados;
     }
-    require_once '../models/model_Recetas.php';
-    require_once '../models/model_Alimentos.php';
     require_once '../views/recetas.php';
 
 ?>

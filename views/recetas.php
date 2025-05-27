@@ -53,9 +53,8 @@
                         <label for="alergias">Alergias receta</label>
                         <select name="alergias[]" multiple>
                             <?php
-                                $resultado = AlergiasPorUsuario(0);
-                                var_dump($resultado);
-                                foreach ($resultado as $alergia)
+                                var_dump($alergias);
+                                foreach ($alergias as $alergia)
                                     echo '<option value="'.$alergia["id_alergia"].'">'. $alergia["nombre_alergia"]. '</option>';
                             ?>
                         </select>
@@ -70,12 +69,11 @@
             <article id="alimento">
                 <a onclick="addCesta()">Ver alimentos añadidos</a>
                 <?php
-                    $resultado = AlimentosPorUsuario(0);
-                    if (empty($resultado)) {
+                    if (empty($alimentos)) {
                         echo 'No hay alimentos registrados.';
                     }
                     else {
-                        foreach ($resultado as $alimento)
+                        foreach ($alimentos as $alimento)
                             echo '<div  class="box-alimento">
                                 <p>'
                                 . $alimento['nombreAlimento'].
