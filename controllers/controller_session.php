@@ -61,7 +61,7 @@
     }
 
     function eliminarCesta() {
-        unset($_SESSION["cliente"]["cesta"]);
+        $_SESSION["cliente"]["cesta"] = [];
     }
 
     function eliminarAlimentoCesta($id_alimento) {

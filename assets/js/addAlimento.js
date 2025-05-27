@@ -68,6 +68,12 @@ function eliminarAlimento(idAlimento){
 }
 
 function eliminarCesta(){
+    const heartIcons = document.querySelectorAll('#alimento a[data-id] i.fas');
+        
+        heartIcons.forEach(icon => {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        });
     fetch('../controllers/Cesta.php', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
