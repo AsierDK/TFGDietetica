@@ -25,7 +25,7 @@
             <a class="menu-burger" href="#menu"><i class="fa fa-bars"></i></a>
         </div>
         <div id="menu">
-            <a href="#">✖ Cerrar</a>
+            <a href="#"><i class="fa fa-times"></i></a>
             <menu>
                 <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
                 <li><a href="#">Recetas</a></li>
@@ -48,16 +48,6 @@
                     <div>
                         <label for="nombreReceta">Nombre receta</label>
                         <input type="text" id="nombreReceta" name="nombreReceta">
-                    </div>
-                    <div>
-                        <label for="alergias">Alergias receta</label>
-                        <select name="alergias[]" multiple>
-                            <?php
-                                var_dump($alergias);
-                                foreach ($alergias as $alergia)
-                                    echo '<option value="'.$alergia["id_alergia"].'">'. $alergia["nombre_alergia"]. '</option>';
-                            ?>
-                        </select>
                     </div>
                     <div>
                         <label for="desc">Descripción</label>
@@ -121,12 +111,12 @@
                         echo 'No hay recetas registradas.';
                     }
                     else {
-                        echo '<h1>Mis alimentos</h1>';
+                        echo '<h1>Mis recetas</h1>';
                         echo '<div class="carousel-container">';
                         echo '<div class="carousel-track" id="carouselTrack">';
-                        foreach ($resultado as $index => $alimento) {
+                        foreach ($alimentos as $index => $alimento) {
                             echo '<div class="slide" onclick="onSlideClick('.$index.')">';
-                            echo '<img src="../assets/images/clasificacion-alimentos.jpg.webp">';
+                            echo '<div class="alimento-carrusel">'.$alimento['nombreAlimento'].'</div>';
                             echo '</div>';
                         }
                         echo '</div></div>';

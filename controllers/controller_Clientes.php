@@ -10,6 +10,7 @@
 
     $admin = devolverAdmin();
     require_once '../models/model_Clientes.php';
+    $clientes = Clientes();
 
     if($admin == 0)
         require_once '../views/clientes.php';
