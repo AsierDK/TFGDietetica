@@ -54,52 +54,49 @@
                         <textarea name="desc" id="desc"></textarea>
                     </div>
                     <input type="button" value="Añadir ingredientes" onclick="addAlimento()" class="btn">
-                </form>
-            </article>
-            <article id="alimento">
-                <a onclick="verCesta()">Ver alimentos añadidos</a>
-                <?php
-                    if (empty($alimentos)) {
-                        echo 'No hay alimentos registrados.';
-                    }
-                    else {
-                        foreach ($alimentos as $alimento)
-                            echo '<div  class="box-alimento">
-                                <p>'. $alimento['nombreAlimento'].'</p>
-                                <a href="#" data-id="' . $alimento['id_alimentos'] . '" onclick="addPesoBruto(event, \'' . $alimento['id_alimentos'] . '\', \'' . addslashes($alimento['nombreAlimento']) . '\', this)">
-                                    <i id="heart-icon" class="far fa-heart"></i>
-                                </a>
-                            </div>';
-                    }
-                ?>
-                <form method="post">
-                    <input type="submit" name="annadirReceta" value="Crear receta" class="btn annadir">
-                </form>
-                <div id="pop-up-pb">
-                    <div>
-                        <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
-                        <h3>PESO BRUTO</h3>
-                        <form  action="" method="post">
-                            <label for="name">Peso bruto del alimento</label>
-                            <input type="number" id="peso" name="peso">
-                            <input type="input" value="Añadir" onclick="submitPesoBruto()" class="btn">
-                            <div id="error"></div>
-                        </form>
+                    <div id="alimento">
+                        <a onclick="verCesta()">Ver alimentos añadidos</a>
+                        <?php
+                            if (empty($alimentos)) {
+                                echo 'No hay alimentos registrados.';
+                            }
+                            else {
+                                foreach ($alimentos as $alimento)
+                                    echo '<div  class="box-alimento">
+                                        <p>'. $alimento['nombreAlimento'].'</p>
+                                        <a href="#" data-id="' . $alimento['id_alimentos'] . '" onclick="addPesoBruto(event, \'' . $alimento['id_alimentos'] . '\', \'' . addslashes($alimento['nombreAlimento']) . '\', this)">
+                                            <i id="heart-icon" class="far fa-heart"></i>
+                                        </a>
+                                    </div>';
+                            }
+                        ?>
+                        <input type="submit" name="annadirReceta" value="Crear receta" class="btn annadir">
+                        <div id="pop-up-pb">
+                            <div>
+                                <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
+                                <h3>PESO BRUTO</h3>
+                                <div class="form">
+                                    <label for="name">Peso bruto del alimento</label>
+                                    <input type="number" id="peso" name="peso">
+                                    <input type="input" value="Añadir" onclick="submitPesoBruto()" class="btn">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="cesta">
+                            <a onclick="closeCesta()"><i class="fa fa-times"></i></a>
+                            <button onclick="eliminarCesta()" class="btn">Eliminar todos los ingredientes</button>
+                            <ul class="alimentosRecetas"></ul>
+                        </div>
                     </div>
-                </div>
-                <div id="cesta">
-                    <a onclick="closeCesta()"><i class="fa fa-times"></i></a>
-                    <button onclick="eliminarCesta()" class="btn">Eliminar todos los ingredientes</button>
-                    <ul class="alimentosRecetas"></ul>
-                </div>
+                </form>
             </article>
         </section>
         <section id="all">
             <article class="carrusel">
                 <?php
                     echo '<script>';
-                    //echo 'window.alimentos = ' . json_encode($recetas, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) . ';';
-                    echo '</script>';                    
+                    echo 'window.tipo = "recetas";';
+                    echo '</script>';           
                     if (empty($recetas)) {
                         echo 'No hay recetas registradas.';
                     }
@@ -109,16 +106,14 @@
                         echo '<div class="carousel-track" id="carouselTrack">';
                         foreach ($recetas as $index => $receta) {
                             echo '<div class="slide" onclick="onSlideClick('.$index.')">';
-                            echo '<div class="alimento-carrusel">'.$receta['nombreReceta'].'</div>';
+                            echo '<div class="item-carrusel">'.$receta['nombre_receta'].'</div>';
                             echo '</div>';
                         }
                         echo '</div></div>';
 
                         echo '<button class="edit btn">Editar receta</button>';
-
-                        echo '<div id="alimento-info" class="info-box">';
-                        echo '<h3 id="nombreAlimento"></h3>';
-                        echo '<p id="descripcionAlimento"></p>';
+                        echo '<div id="receta-info" class="info-box">';
+                        echo '<div class="info" id="descipcionReceta"></div>';
                         echo '</div>';
                     }
                 ?>

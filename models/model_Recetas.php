@@ -76,6 +76,6 @@ function obtenerUltimoIdReceta()
         echo "Error: " . $e->getMessage();
     }
     $conn=null;
-    return $resultado[0]["idAlimento"];
+    return $resultado[0]["idReceta"];
 }
 ?>

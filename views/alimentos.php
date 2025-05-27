@@ -137,8 +137,8 @@
             <article class="carrusel">
                 <?php
                     echo '<script>';
-                    echo 'window.alimentos = ' . json_encode($alimentos, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) . ';';
-                    echo '</script>';                    
+                    echo 'window.tipo = "alimentos";';
+                    echo '</script>';                     
                     if (empty($alimentos)) {
                         echo 'No hay alimentos registrados.';
                     }
@@ -148,7 +148,7 @@
                         echo '<div class="carousel-track" id="carouselTrack">';
                         foreach ($alimentos as $index => $alimento) {
                             echo '<div class="slide" onclick="onSlideClick('.$index.')">';
-                            echo '<div class="alimento-carrusel">'.$alimento['nombreAlimento'].'</div>';
+                            echo '<div class="item-carrusel">'.$alimento['nombreAlimento'].'</div>';
                             echo '</div>';
                         }
                         echo '</div></div>';

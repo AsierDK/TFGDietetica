@@ -26,6 +26,8 @@
             case 'vaciar':
                 eliminarCesta();
                 break;
+            case 'obtener':
+                break;
         }
     }
     $envio=json_encode(devolverCesta());

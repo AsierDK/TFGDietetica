@@ -60,7 +60,7 @@ article.carrusel {
     -moz-justify-content: center;
     -ms-justify-content: center;
 }
-.slide .alimento-carrusel {
+.slide .item-carrusel {
     filter: saturate(10%);
     transition: 0.4s ease;
 }
@@ -69,7 +69,7 @@ article.carrusel {
     z-index: 10;
 }
 
-.slide.active .alimento-carrusel {
+.slide.active .item-carrusel {
     filter: saturate(100%);
 }
 
