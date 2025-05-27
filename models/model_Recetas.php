@@ -36,7 +36,7 @@ function alimentosporReceta($idUsuario,$id_receta){
     $conn=null;
     return $resultado;
 }
-function annadirReceta($idUsuario,$params){
+function annadirReceta($idUsuario,$params,$cesta){
     $conn=conexionbbdd();
     try
     {
@@ -51,7 +51,17 @@ function annadirReceta($idUsuario,$params){
         $stmt->bindParam(':desc_receta', $params['desc_receta']);
         $stmt->bindParam(':id_usuario', $idUsuario);
         $stmt -> execute();
+        foreach ($cesta as $key => $value){
+            $stmt = $conn-> prepare('INSERT INTO Alimentos_Recetas(id_alimento, id_usuario, id_receta, fechaCreacion, fechaModificacion,pesoBruto)
+            VALUES (:id_alimento,:id_usuario,:id_receta,now(),now(),:pesoBruto)');
+            $stmt->bindParam(':id_receta', $id_receta);
+            $stmt->bindParam(':id_alimento', $key);
+            $stmt->bindParam(':id_usuario', $idUsuario);
+            $stmt->bindParam(':pesoBruto', $value['peso']);
+            $stmt -> execute();
+        }
         $conn -> commit();
+
     }
     catch(PDOException $e)
     {

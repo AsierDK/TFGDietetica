@@ -87,16 +87,24 @@
                 </div>
                 <div id="cesta">
                     <a onclick="closeCesta()"><i class="fa fa-times"></i></a>
-                    <button class="btn" onclick="<?php eliminarCesta();?>">Eliminar todos los ingredientes</button>
-                    <?php
-                        if (!isset($_COOKIE['cesta']))
-                            echo 'No has añadido aimentos.';
-                        else
-                        {
-                            $cesta = json_decode($_COOKIE['cesta']);
-                            var_dump($cesta);
-                        }
-                    ?>
+                    <button class="btn" onclick="">Eliminar todos los ingredientes</button>
+                    <template>
+                        <div>
+                            <span>nombre <b class="alimento-nombre"></b></span>
+                            <span>peso-bruto <b class="alimento-peso"></b></span>
+                        </div>
+                    </template>
+                    <div id="lista">
+                        <?php
+                            if (!isset($_COOKIE['cesta']))
+                                echo 'No has añadido aimentos.';
+                            else
+                            {
+                                echo pintar_tabla();
+
+                            }
+                        ?>
+                    </div>
                 </div>
             </article>
         </section>

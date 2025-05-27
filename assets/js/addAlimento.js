@@ -31,9 +31,11 @@ function submitPesoBruto() {
     if (peso) {
         let cesta = {};
         const cookie = document.cookie.split('; ').find(row => row.startsWith('cesta='));
+        console.log(document.cookie);
         if (cookie) {
             cesta = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
         }
+        console.log(cesta);
 
         // Agregar o actualizar el alimento
         cesta[alimentoId] = {
@@ -49,7 +51,21 @@ function submitPesoBruto() {
             heartIcon.classList.remove('far');
             heartIcon.classList.add('fas');
         }
-
+        fetch('../controllers/controller_Recetas.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'accion=actualizarCesta'
+        })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("lista").innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        document.getElementById("lista").innerHTML += '<span>Nombre: <b>'+alimentoNombre+'</b></span><span>peso: <b>'+peso+'</b></span>';
         closePopUp(event);
     } else {
         document.getElementById("error").textContent = 'Por favor, introduce un peso válido.';
