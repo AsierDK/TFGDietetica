@@ -1,12 +1,11 @@
 <?php
 require_once '../bbdd/bbdd.php';
-function AlergiasPorUsuario($idUsuario)
+function allAlergias()
 {
     try
     {
         $conn=conexionbbdd();
-        $stmt = $conn->prepare("SELECT * FROM Alergias WHERE id_usuario = :id_usuario");
-        $stmt->bindParam(':id_usuario', $idUsuario);
+        $stmt = $conn->prepare("SELECT * FROM Alergias");
         $stmt -> execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $resultado=$stmt->fetchAll();

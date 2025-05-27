@@ -1,6 +1,17 @@
-const alimentos = window.alimentos;
-console.log(alimentos);
+if (document.addEventListener)
+	window.addEventListener("load", inicio)
+else if (document.attachEvent)
+	window.attachEvent("onload", inicio);
+
 let currentIndex = 0;
+
+function inicio() {
+    const alimentos = window.alimentos;
+    if (alimentos.length > 0) {
+        onSlideClick(0);
+    }
+    console.log(alimentos);
+}
 
 function onSlideClick(index) {
     currentIndex = index;
@@ -60,13 +71,6 @@ function updateActiveClass() {
         slide.classList.toggle("active", index === currentIndex);
     });
 }
-
-// Inicializar
-window.onload = () => {
-    if (alimentos.length > 0) {
-        onSlideClick(0);
-    }
-};
 
 // Reajustar al cambiar tamaño de pantalla
 window.onresize = () => {

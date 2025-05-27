@@ -75,7 +75,7 @@ form > input {
     -ms-justify-content: center;
 }
 
-.box-alimento>a {
+.box-alimento>a{
     position: absolute;
     top: 1rem;
     right: 1rem;

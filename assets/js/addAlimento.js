@@ -29,20 +29,14 @@ function submitPesoBruto() {
     console.log(alimentoNombre);
 
     if (peso) {
-        let cesta = {};
-        const cookie = document.cookie.split('; ').find(row => row.startsWith('cesta='));
-        if (cookie) {
-            cesta = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
-        }
+        fetch('../controllers/Cesta.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `accion=annadir&id=${alimentoId}&nombre=${alimentoNombre}&peso=${peso}`
+        })
+        .then(correcto)
+        .catch(errores);
 
-        // Agregar o actualizar el alimento
-        cesta[alimentoId] = {
-            nombre: alimentoNombre,
-            peso: peso
-        };
-
-        // Guardar cookie como JSON string
-        document.cookie = `cesta=${encodeURIComponent(JSON.stringify(cesta))}; path=/; max-age=31536000`;
         // Cambiar el ícono a corazón relleno
         if(heartLink) {
             const heartIcon = heartLink.querySelector('i');
@@ -56,7 +50,72 @@ function submitPesoBruto() {
     }
 }
 
-function addCesta() {
+function eliminarAlimento(idAlimento){
+    fetch('../controllers/Cesta.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `accion=eliminarAlimento&id=${idAlimento}`
+        })
+        .then(correcto)
+        .catch(errores);
+
+    const link = document.querySelector(`#alimento a[data-id="${idAlimento}"]`);
+    if(link) {
+        const heartIcon = link.querySelector('i');
+        heartIcon.classList.remove('fas');
+        heartIcon.classList.add('far');
+    }
+}
+
+function eliminarCesta(){
+    fetch('../controllers/Cesta.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `accion=vaciar`
+        })
+        .then(correcto)
+        .catch(errores);
+}
+
+function correcto(res){
+    if(res.ok){
+        res.text().then(recibido);
+    }
+}
+
+function errores(){
+    alert('Error en la conexión');
+}
+
+function recibido(datos){
+    console.log(datos);
+    let datosConvertidos = JSON.parse(datos);
+    console.log(datosConvertidos);
+    const ul = document.querySelector('.alimentosRecetas');
+    ul.textContent = '';
+
+    if(Object.keys(datosConvertidos).length === 0) {
+        const li = document.createElement('li');
+        li.textContent = 'No hay alimentos en la cesta';
+        ul.appendChild(li);
+    }
+    else {
+        for(let id in datosConvertidos) {
+            const { nombre, peso } = datosConvertidos[id];
+            const li = document.createElement('li');
+            li.textContent = `${nombre}: ${peso}g`;
+
+            const btn = document.createElement('button');
+            btn.textContent = 'Eliminar';
+            btn.onclick = () => eliminarAlimento(id);
+
+            li.appendChild(btn);
+            ul.appendChild(li);
+        }
+    }
+}
+
+function verCesta() {
     const cesta = document.getElementById('cesta');
     cesta.style.display = 'block';
 }

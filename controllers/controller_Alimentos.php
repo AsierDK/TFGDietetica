@@ -11,7 +11,9 @@
     }
 
     require_once '../models/model_Alimentos.php';
+    $alergias = getAlergias();
     $idUsu = devolverId();
+    $alimentos = AlimentosPorUsuario($idUsu);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST["submit"])){
@@ -22,8 +24,6 @@
         }
         print "<script type='text/javascript'>history.replaceState(null,null)</script>";
     }
-
-    $alimentos = AlimentosPorUsuario($idUsu);
 
     require_once '../views/alimentos.php';
 ?>
