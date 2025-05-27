@@ -124,9 +124,7 @@
                         <label for="alergias">Alergias</label>
                         <select name="alergias[]" multiple>
                             <?php
-                                $resultado = AlergiasPorUsuario(0);
-                                var_dump($resultado);
-                                foreach ($resultado as $alergia)
+                                foreach ($alergias as $alergia)
                                     echo '<option value="'.$alergia["id_alergia"].'">'. $alergia["nombre_alergia"]. '</option>';
                             ?>
                         </select>

@@ -1,11 +1,15 @@
-document.addEventListener('DOMContentLoaded', function () {
+if (document.addEventListener)
+	window.addEventListener("load", inicio)
+else if (document.attachEvent)
+	window.attachEvent("onload", inicio);
+
+function inicio() {
     const clienteBoxes = document.querySelectorAll('.box-cliente');
     const calendarArticle = document.getElementById('calendar');
 
     clienteBoxes.forEach(box => {
         box.addEventListener('click', function () {
-            calendarArticle.style.display = 'block'; // Mostrar el calendario
-            calendarArticle.scrollIntoView({ behavior: 'smooth' }); // Hacer scroll hacia el calendario
+            calendarArticle.style.display = 'block';
         });
     });
     let calendarEl = document.getElementById('calendar');
@@ -38,4 +42,4 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     calendar.render();
-});
+};

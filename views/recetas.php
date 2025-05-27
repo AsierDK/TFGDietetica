@@ -57,23 +57,24 @@
                 </form>
             </article>
             <article id="alimento">
-                <a onclick="addCesta()">Ver alimentos añadidos</a>
+                <a onclick="verCesta()">Ver alimentos añadidos</a>
                 <?php
-                    $resultado = AlimentosPorUsuario(0);
-                    if (empty($resultado)) {
+                    if (empty($alimentos)) {
                         echo 'No hay alimentos registrados.';
                     }
                     else {
-                        foreach ($resultado as $alimento)
+                        foreach ($alimentos as $alimento)
                             echo '<div  class="box-alimento">
-                                <p>'
-                                . $alimento['nombreAlimento'].
-                                '</p>
-                                <a href="#" onclick="addPesoBruto(event,  \'' .$alimento['id_alimentos'].'\', \'' . $alimento['nombreAlimento'] . '\', this)"><i id="heart-icon" class="far fa-heart"></i></a>
+                                <p>'. $alimento['nombreAlimento'].'</p>
+                                <a href="#" data-id="' . $alimento['id_alimentos'] . '" onclick="addPesoBruto(event, \'' . $alimento['id_alimentos'] . '\', \'' . addslashes($alimento['nombreAlimento']) . '\', this)">
+                                    <i id="heart-icon" class="far fa-heart"></i>
+                                </a>
                             </div>';
                     }
                 ?>
-                <input type="button" value="Crear receta" class="btn">
+                <form method="post">
+                    <input type="submit" name="annadirReceta" value="Crear receta" class="btn annadir">
+                </form>
                 <div id="pop-up-pb">
                     <div>
                         <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
@@ -88,36 +89,27 @@
                 </div>
                 <div id="cesta">
                     <a onclick="closeCesta()"><i class="fa fa-times"></i></a>
-                    <button class="btn" onclick="<?php eliminarCesta();?>">Eliminar todos los ingredientes</button>
-                    <?php
-                        if (!isset($_COOKIE['cesta']))
-                            echo 'No has añadido aimentos.';
-                        else
-                        {
-                            $cesta = json_decode($_COOKIE['cesta']);
-                            var_dump($cesta);
-                        }
-                    ?>
+                    <button onclick="eliminarCesta()" class="btn">Eliminar todos los ingredientes</button>
+                    <ul class="alimentosRecetas"></ul>
                 </div>
             </article>
         </section>
         <section id="all">
             <article class="carrusel">
                 <?php
-                    $resultado = RecetasPorUsuario(0);
                     echo '<script>';
-                    echo 'window.alimentos = ' . json_encode($resultado, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) . ';';
+                    //echo 'window.alimentos = ' . json_encode($recetas, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) . ';';
                     echo '</script>';                    
-                    if (empty($resultado)) {
+                    if (empty($recetas)) {
                         echo 'No hay recetas registradas.';
                     }
                     else {
                         echo '<h1>Mis recetas</h1>';
                         echo '<div class="carousel-container">';
                         echo '<div class="carousel-track" id="carouselTrack">';
-                        foreach ($alimentos as $index => $alimento) {
+                        foreach ($recetas as $index => $receta) {
                             echo '<div class="slide" onclick="onSlideClick('.$index.')">';
-                            echo '<div class="alimento-carrusel">'.$alimento['nombreAlimento'].'</div>';
+                            echo '<div class="alimento-carrusel">'.$receta['nombreReceta'].'</div>';
                             echo '</div>';
                         }
                         echo '</div></div>';

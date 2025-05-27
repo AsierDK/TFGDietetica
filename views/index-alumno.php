@@ -6,6 +6,7 @@
     <title>Index Page Alumno - webDietetica</title>
     <link rel="stylesheet" href="../assets/css/index-alumno/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous"/>
+    <script src="../assets/js/toggle.js" type="text/javascript"></script>
 </head>
 <body>
     <header>
@@ -37,7 +38,7 @@
             <article>
             <div class="article-header">
                     <h2>Todas las recetas</h2>
-                    <a href="../controllers/controller_Recetas.php">Ver todas</a>
+                    <a href="../controllers/controller_Recetas.php#all">Ver todas</a>
                 </div>
                 <div class="article-main">
                     <?php
@@ -56,7 +57,7 @@
             <article>
             <div class="article-header">
                     <h2>Ingredientes populares</h2>
-                    <a href="../controllers/controller_Alimentos.php">Ver todos</a>
+                    <a href="../controllers/controller_Alimentos.php#all">Ver todos</a>
                 </div>
                 <div class="article-main">
                     <table>
