@@ -3,6 +3,6 @@
     require_once '../models/model_Alergias.php';
     function getAlergias()
     {
-       return allAlergias();
+        return allAlergias();
     }
 ?>

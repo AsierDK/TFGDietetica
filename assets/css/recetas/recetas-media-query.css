@@ -8,9 +8,17 @@
         padding: 0 10rem;
     }
 
-    #alimento>a {
+    #alimento>a{
         grid-column: span 2;
         -ms-grid-column: span 2;
+    }
+
+    #pop-up-pb .form {
+        padding: 3rem !important;
+    }
+
+    #pop-up-pb .form>input {
+        width: auto !important;
     }
 }
 
@@ -24,9 +32,13 @@
         padding: 0 15rem;
     }
 
-    #alimento>a {
+    #alimento>a{
         grid-column: span 3;
         -ms-grid-column: span 3;
+    }
+
+    #pop-up-pb .form {
+        padding: 5rem !important;
     }
 }
 

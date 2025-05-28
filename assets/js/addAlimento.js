@@ -29,52 +29,108 @@ function submitPesoBruto() {
     console.log(alimentoNombre);
 
     if (peso) {
-        let cesta = {};
-        const cookie = document.cookie.split('; ').find(row => row.startsWith('cesta='));
-        console.log(document.cookie);
-        if (cookie) {
-            cesta = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
-        }
-        console.log(cesta);
+        fetch('../controllers/Cesta.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `accion=annadir&id=${alimentoId}&nombre=${alimentoNombre}&peso=${peso}`
+        })
+        .then(correctoCesta)
+        .catch(erroresCesta);
 
-        // Agregar o actualizar el alimento
-        cesta[alimentoId] = {
-            nombre: alimentoNombre,
-            peso: peso
-        };
-
-        // Guardar cookie como JSON string
-        document.cookie = `cesta=${encodeURIComponent(JSON.stringify(cesta))}; path=/; max-age=31536000`;
         // Cambiar el ícono a corazón relleno
         if(heartLink) {
             const heartIcon = heartLink.querySelector('i');
             heartIcon.classList.remove('far');
             heartIcon.classList.add('fas');
         }
-        fetch('../controllers/controller_Recetas.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: 'accion=actualizarCesta'
-        })
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("lista").innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        document.getElementById("lista").innerHTML += '<span>Nombre: <b>'+alimentoNombre+'</b></span><span>peso: <b>'+peso+'</b></span>';
+
         closePopUp(event);
     } else {
         document.getElementById("error").textContent = 'Por favor, introduce un peso válido.';
     }
 }
 
-function addCesta() {
+function eliminarAlimento(idAlimento){
+    fetch('../controllers/Cesta.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `accion=eliminarAlimento&id=${idAlimento}`
+        })
+        .then(correctoCesta)
+        .catch(erroresCesta);
+
+    const link = document.querySelector(`#alimento a[data-id="${idAlimento}"]`);
+    if(link) {
+        const heartIcon = link.querySelector('i');
+        heartIcon.classList.remove('fas');
+        heartIcon.classList.add('far');
+    }
+}
+
+function eliminarCesta(){
+    const heartIcons = document.querySelectorAll('#alimento a[data-id] i.fas');
+        
+        heartIcons.forEach(icon => {
+            icon.classList.remove('fas');
+            icon.classList.add('far');
+        });
+    fetch('../controllers/Cesta.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `accion=vaciar`
+        })
+        .then(correctoCesta)
+        .catch(erroresCesta);
+}
+
+function correctoCesta(res){
+    if(res.ok){
+        res.text().then(recibidoCesta);
+    }
+}
+
+function erroresCesta(){
+    alert('Error en la conexión');
+}
+
+function recibidoCesta(datos){
+    console.log(datos);
+    let datosConvertidos = JSON.parse(datos);
+    console.log(datosConvertidos);
+    const ul = document.querySelector('.alimentosRecetas');
+    ul.textContent = '';
+
+    if(Object.keys(datosConvertidos).length === 0) {
+        const li = document.createElement('li');
+        li.textContent = 'No hay alimentos en la cesta';
+        ul.appendChild(li);
+    }
+    else {
+        for(let id in datosConvertidos) {
+            const { nombre, peso } = datosConvertidos[id];
+            const li = document.createElement('li');
+            li.textContent = `${nombre}: ${peso}g`;
+
+            const btn = document.createElement('button');
+            btn.textContent = 'Eliminar';
+            btn.onclick = () => eliminarAlimento(id);
+
+            li.appendChild(btn);
+            ul.appendChild(li);
+        }
+    }
+}
+
+function verCesta() {
     const cesta = document.getElementById('cesta');
     cesta.style.display = 'block';
+    fetch('../controllers/Cesta.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'accion=obtener'
+    })
+    .then(correctoCesta)
+    .catch(erroresCesta);
 }
 
 function closeCesta() {

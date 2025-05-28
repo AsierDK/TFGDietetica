@@ -43,93 +43,91 @@
             <div class="background"></div>
             <article>
                 <h1>Nuevo alimento</h1>
-                <form action="" method="post">
+                <form  action="" method="post">
                     <div>
                         <label for="name">Nombre alimento</label>
-                        <input name="name" type="text">
+                        <input type="text" name="nombreAlimento">
                     </div>
                     <div>
                         <label for="pc">PC</label>
-                        <input name="pc" type="text">
+                        <input type="text" name="pc">
                     </div>
                     <div>
                         <label for="E">E/100</label>
-                        <input name="E_100" type="text">
+                        <input type="text" name="e_100">
                     </div>
                     <div>
                         <label for="PROT_100">PROT_100</label>
-                        <input name="PROT_100" type="text">
+                        <input type="text" name="prot_100">
                     </div>
                     <div>
                         <label for="GRASA_100">GRASA_100</label>
-                        <input name="GRASA_100" type="text">
+                        <input type="text" name="grasa_100">
                     </div>
                     <div>
                         <label for="AGS_100">AGS_100</label>
-                        <input name="AGS_100" type="text">
+                        <input type="text" name="ags_100">
                     </div>
                     <div>
                         <label for="AGMI_100">AGMI_100</label>
-                        <input name="AGMI_100" type="text">
+                        <input type="text" name="agmi_100">
                     </div>
                     <div>
                         <label for="AGPI_100">AGPI_100</label>
-                        <input name="AGPI_100" type="text">
+                        <input type="text" name="agpi_100">
                     </div>
                     <div>
                         <label for="COL_100">COL_100</label>
-                        <input name="COL_100" type="text">
+                        <input type="text" name="col_100">
                     </div>
                     <div>
                         <label for="HC_100">HC_100</label>
-                        <input name="HC_100" type="text">
+                        <input type="text" name="hc_100">
                     </div>
                     <div>
                         <label for="FIBRA_100">FIBRA_100</label>
-                        <input name="FIBRA_100" type="text">
+                        <input type="text" name="fibra_100">
                     </div>
                     <div>
                         <label for="VIT_B6_100">VIT_B6_100</label>
-                        <input name="VIT_B6_100" type="text">
+                        <input type="text" name="vit_b6_100">
                     </div>
                     <div>
                         <label for="VIT_C_100">VIT_C_100</label>
-                        <input name="VIT_C_100" type="text">
+                        <input type="text" name="vit_c_100">
                     </div>
                     <div>
                         <label for="VIT_D_100">VIT_D_100</label>
-                        <input name="VIT_D_100" type="text">
+                        <input type="text" name="vit_d_100">
                     </div>
                     <div>
                         <label for="VIT_E_100">VIT_E_100</label>
-                        <input name="VIT_E_100" type="text">
+                        <input type="text" name="vit_e_100">
                     </div>
                     <div>
                         <label for="FE_100">FE_100</label>
-                        <input name="FE_100" type="text">
+                        <input type="text" name="fe_100">
                     </div>
                     <div>
                         <label for="NA_100">NA_100</label>
-                        <input name="NA_100" type="text">
+                        <input type="text" name="na_100">
                     </div>
                     <div>
                         <label for="CA_100">CA_100</label>
-                        <input name="CA_100" type="text">
+                        <input type="text" name="ca_100">
                     </div>
                     <div>
                         <label for="K_100">K_100</label>
-                        <input name="K_100" type="text">
+                        <input type="text" name="k_100">
                     </div>
                     <div>
                         <label for="alergias">Alergias</label>
-                        <select name="alergias[]" multiple>
                             <?php
                                 foreach ($alergias as $alergia)
-                                    echo '<option value="'.$alergia["id_alergia"].'">'. $alergia["nombre_alergia"]. '</option>';
+                                    echo $alergia["nombre_alergia"].'<input type="checkbox" name="alergias[]" value="'.$alergia["id_alergia"].'">';
                             ?>
-                        </select>
                     </div>
-                    <input type="submit" value="Nuevo alimento" class="btn">
+                    <input type="submit" value="Nuevo alimento" class="btn" name="Nuevo alimento">
                 </form>
             </article>
         </section>
@@ -137,8 +135,8 @@
             <article class="carrusel">
                 <?php
                     echo '<script>';
-                    echo 'window.alimentos = ' . json_encode($alimentos, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) . ';';
-                    echo '</script>';
+                    echo 'window.tipo = "alimentos";';
+                    echo '</script>';                     
                     if (empty($alimentos)) {
                         echo 'No hay alimentos registrados.';
                     }
@@ -148,7 +146,7 @@
                         echo '<div class="carousel-track" id="carouselTrack">';
                         foreach ($alimentos as $index => $alimento) {
                             echo '<div class="slide" onclick="onSlideClick('.$index.')">';
-                            echo '<div class="alimento-carrusel">'.$alimento['nombreAlimento'].'</div>';
+                            echo '<div class="item-carrusel">'.$alimento['nombreAlimento'].'</div>';
                             echo '</div>';
                         }
                         echo '</div></div>';

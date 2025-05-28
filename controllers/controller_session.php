@@ -47,12 +47,24 @@
         session_unset();
         setcookie("PHPSESSID", "" , time() - (86400 * 30), "/",$_SERVER['HTTP_HOST']);
     }
-    function annadirAlimentoCesta($id_alimento,$nombreAlimento,$peso){
-        $_SESSION["cliente"]["cesta"][$id_alimento] = ['nombreAlimento'=>$nombreAlimento,'peso'=>$peso];
+
+    function annadirAlimentoCesta($id_alimento, $nombre, $peso){
+        $_SESSION["cliente"]["cesta"][$id_alimento] = [
+            'nombre' => $nombre,
+            'peso' => $peso
+        ];
     }
 
     function devolverCesta(){
         $cesta = $_SESSION["cliente"]["cesta"];
         return $cesta;
+    }
+
+    function eliminarCesta() {
+        $_SESSION["cliente"]["cesta"] = [];
+    }
+
+    function eliminarAlimentoCesta($id_alimento) {
+        unset($_SESSION["cliente"]["cesta"][$id_alimento]);
     }
 ?>
