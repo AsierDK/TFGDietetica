@@ -29,7 +29,5 @@ iniciarSession();
         $resultados = ['nombre_receta'=>$_POST['nombreReceta'],'desc_receta'=>$_POST['desc']];
         return $resultados;
     }
-    require_once '../models/model_Recetas.php';
-    require_once '../models/model_Alimentos.php';
     require_once '../views/recetas.php';
 ?>

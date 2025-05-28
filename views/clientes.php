@@ -43,12 +43,55 @@
                     }
                     else {
                         foreach ($clientes as $cliente)
-                            echo '<div  class="box-cliente"> '
+                            echo '<div class="box-cliente" data-id="' . $cliente['dni_cliente'] . '" > '
                                 .$cliente['nombre'].' <br> '.$cliente['email']. '<br></div>';
                     }
                 ?>
             </article>
-            <article id="calendar"></article>
+            <article id="calendar">
+            </article>
+            <article id="recetas">
+                <div class="box-recetasClientes">
+                    <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
+                </div>
+                <div id="fecha">
+                    <form  action="" method="post">
+                        <label for="mes">Mes:</label>
+                        <select id="mes" name="mes" onchange="actualizarDias()">
+                            <option value="">-- Seleccionar mes --</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+
+                        <label for="dia">Día:</label>
+                        <select id="dia" name="dia">
+                            <option value="">-- Seleccionar día --</option>
+                        </select>
+
+                        <label for="tipoComida">Tipo de comida:</label>
+                        <select id="tipoComida" name="tipoComida">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="desayuno">Desayuno</option>
+                            <option value="almuerzo">Almuerzo</option>
+                            <option value="comida">Comida</option>
+                            <option value="merienda">Merienda</option>
+                            <option value="cena">Cena</option>
+                            <option value="suplemento">Suplemento</option>
+                        </select>
+                        <button type="submit">Guardar</button>
+                    </form>
+                </div>
+            </article>
         </section>
     </main>
     <footer></footer>

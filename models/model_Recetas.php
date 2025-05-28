@@ -22,9 +22,9 @@ function alimentosporReceta($idUsuario,$id_receta){
     try
     {
         $conn=conexionbbdd();
-        $stmt = $conn->prepare("SELECT A.id_alimentos,A.nombreAlimento FROM Alimentos_Recetas AR LEFT JOIN Alimentos A ON AR.id_alimentos = A.id_alimentos WHERE AR.id_usuario = :id_usuario AND AR.id_alimento = :id_alimento");
+        $stmt = $conn->prepare("SELECT A.id_alimentos,A.nombreAlimento FROM Alimentos_Recetas AR LEFT JOIN Alimentos A ON AR.id_alimentos = A.id_alimentos WHERE AR.id_usuario = :id_usuario AND AR.id_receta = :id_receta");
         $stmt->bindParam(':id_usuario', $idUsuario);
-        $stmt->bindParam(':id_alimentos', $id_alimentos);
+        $stmt->bindParam(':id_receta', $id_receta);
         $stmt -> execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $resultado=$stmt->fetchAll();
@@ -36,12 +36,13 @@ function alimentosporReceta($idUsuario,$id_receta){
     $conn=null;
     return $resultado;
 }
-function annadirReceta($idUsuario,$params){
+function annadirReceta($idUsuario,$params,$cesta){
     $conn=conexionbbdd();
     try
     {
         $id_recetas = obtenerUltimoIdReceta();
-        $id_receta = substr($id_recetas, 0, 1) . str_pad(intval(substr($id_recetas, 1)) + 1, 4, "0", STR_PAD_LEFT);
+        var_dump($id_recetas);
+        $id_receta = $id_recetas == null ? "A0001" : substr($id_recetas, 0, 1) . str_pad(intval(substr($id_recetas, 1)) + 1, 4, "0", STR_PAD_LEFT);
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $conn->beginTransaction();
         $stmt = $conn->prepare("INSERT INTO Recetas(id_receta, nombre_receta, desc_receta, id_usuario, fechaCreacion, fechaModificacion) 
@@ -51,6 +52,15 @@ function annadirReceta($idUsuario,$params){
         $stmt->bindParam(':desc_receta', $params['desc_receta']);
         $stmt->bindParam(':id_usuario', $idUsuario);
         $stmt -> execute();
+        foreach ($cesta as $key => $value){
+            $stmt = $conn-> prepare('INSERT INTO Alimentos_Recetas(id_alimentos, id_usuario, id_receta, fechaCreacion, fechaModificacion,pesoBruto)
+            VALUES (:id_alimento,:id_usuario,:id_receta,now(),now(),:pesoBruto)');
+            $stmt->bindParam(':id_receta', $id_receta);
+            $stmt->bindParam(':id_alimento', $key);
+            $stmt->bindParam(':id_usuario', $idUsuario);
+            $stmt->bindParam(':pesoBruto', $value['peso']);
+            $stmt -> execute();
+        }
         $conn -> commit();
     }
     catch(PDOException $e)

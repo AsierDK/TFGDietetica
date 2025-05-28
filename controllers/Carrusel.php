@@ -12,6 +12,10 @@
     } else if ($tipo === 'recetas') {
         require_once "../models/model_Recetas.php";
         $items = RecetasPorUsuario($idUsu);
+        foreach ($items as &$receta) {
+            $idReceta = $receta['id_receta'];
+            $receta['alimentos'] = alimentosporReceta($idUsu, $idReceta);
+        }
     } else {
         echo json_encode([]);
     }
