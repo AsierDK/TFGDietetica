@@ -63,6 +63,7 @@ function updateTransform() {
 
 function updateInfo() {
     const a = items[currentIndex];
+    console.log(a);
     if (tipo === 'alimentos') {
         document.getElementById("pc").textContent = a.PC;
         document.getElementById("e_100").textContent = a.e_100;
@@ -84,6 +85,16 @@ function updateInfo() {
         document.getElementById("vit_d_100").textContent = a.vit_d_100;
     } else {
         document.getElementById("descipcionReceta").textContent = a.desc_receta;
+        const alimentos = document.querySelector('.alimentosReceta');
+        while (alimentos.firstChild) {
+            alimentos.removeChild(alimentos.firstChild);
+        }
+        for (let ali of a.alimentos) {
+            const divAli = document.createElement('div');
+            divAli.classList.add('info');
+            divAli.textContent = ali.nombreAlimento;
+            alimentos.appendChild(divAli);
+        }
     }
 }
 

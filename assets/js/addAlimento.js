@@ -2,9 +2,18 @@ let alimentoId = '';
 let alimentoNombre = '';
 let heartLink = null;
 
+function volver() {
+    const alimentoArticle = document.getElementById('alimento');
+    alimentoArticle.style.display = 'none';
+}
+
 function addAlimento() {
     const alimentoArticle = document.getElementById('alimento');
-    alimentoArticle.style.display = 'grid';
+    const nombre = document.getElementById('nombreReceta').value.trim();
+    const desc = document.getElementById('desc').value.trim();
+    if (nombre !== '' && desc !== '') {
+        alimentoArticle.style.display = 'grid';
+    }
     alimentoArticle.scrollIntoView({ behavior: 'smooth' });
 }
 

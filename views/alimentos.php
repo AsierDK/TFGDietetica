@@ -129,7 +129,7 @@
                             ?>
                         </select>
                     </div>
-                    <input type="submit" value="Nuevo alimento" class="btn">
+                    <input type="submit" value="Nuevo alimento" class="btn" name="Nuevo alimento">
                 </form>
             </article>
         </section>

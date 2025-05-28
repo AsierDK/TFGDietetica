@@ -44,17 +44,27 @@
             <div class="background"></div>
             <article>
                 <h1>Nueva receta</h1>
-                <form  action="" method="post">
+                <form action="" method="post">
                     <div>
                         <label for="nombreReceta">Nombre receta</label>
-                        <input type="text" id="nombreReceta" name="nombreReceta">
+                        <input type="text" id="nombreReceta" name="nombreReceta" require>
                     </div>
                     <div>
                         <label for="desc">Descripción</label>
-                        <textarea name="desc" id="desc"></textarea>
+                        <textarea name="desc" id="desc" require></textarea>
+                    </div>
+                    <div>
+                        <label for="alergias">Alergias</label>
+                        <select name="alergias[]" multiple>
+                            <?php
+                                foreach ($alergias as $alergia)
+                                    echo '<option value="'.$alergia["id_alergia"].'">'. $alergia["nombre_alergia"]. '</option>';
+                            ?>
+                        </select>
                     </div>
                     <input type="button" value="Añadir ingredientes" onclick="addAlimento()" class="btn">
                     <div id="alimento">
+                        <a onclick="volver()"><i class="fa fa-arrow-left"></i></a>
                         <a onclick="verCesta()">Ver alimentos añadidos</a>
                         <?php
                             if (empty($alimentos)) {
@@ -96,7 +106,7 @@
                 <?php
                     echo '<script>';
                     echo 'window.tipo = "recetas";';
-                    echo '</script>';           
+                    echo '</script>';
                     if (empty($recetas)) {
                         echo 'No hay recetas registradas.';
                     }
@@ -113,7 +123,8 @@
 
                         echo '<button class="edit btn">Editar receta</button>';
                         echo '<div id="receta-info" class="info-box">';
-                        echo '<div class="info" id="descipcionReceta"></div>';
+                        echo '<div id="descipcionReceta"></div>';
+                        echo '<div class="alimentosReceta"></div>';
                         echo '</div>';
                     }
                 ?>
