@@ -1,0 +1,168 @@
+/* ----------------------------
+    RECETAS STYLES
+----------------------------- */
+
+@import url(../general/colors.css);
+@import url(../general/reset.css);
+@import url(../general/media-query.css);
+@import url(../general/header.css);
+@import url(../general/sidebar.css);
+@import url(recetas-media-query.css);
+@import url(../general/carrusel.css);
+
+form {
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    gap: 2rem;
+}
+
+form>input,
+form>div>input{
+    width: auto;
+}
+
+form > input {
+    justify-self: center;
+    -ms-justify-self: center;
+    padding: 0 2rem;
+}
+
+#alimento {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100vw - 5rem);
+    min-height: calc(100vh - 12rem);
+    display: none;
+    grid-template-columns: 1fr;
+    -ms-grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 0 5rem;
+    background-color: var(--color-40-beige);
+    z-index: 11;
+}
+
+#alimento>a {
+    text-align: right;
+}
+
+.box-alimento {
+    position: relative;
+    width: 100%;
+    background-color: var(--color-40-beige);
+    box-shadow: inset 0 -2px 4px 0 var(--color-shadow);
+    border-radius: 25px;
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+}
+
+.box-alimento>a{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+#pop-up-pb {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(5px);
+    width: 100%;
+    height: 100%;
+}
+
+#pop-up-pb>div {
+    padding: 2rem;
+    width: 60vw;
+    height: 40vh;
+    background-color: var(--color-40-beige);
+    box-shadow: 0 4px 4px 0 var(--color-shadow);
+    position: relative;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -55%);
+    border-radius: 50px;
+}
+
+#pop-up-pb a {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 2rem;
+}
+
+#pop-up-pb h3 {
+    font-size: 1.5rem;
+
+}
+
+#pop-up-pb .form {
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+}
+
+#pop-up-pb .form>input {
+    width:10rem;
+}
+
+#pop-up-pb .form>.btn {
+    margin-top: 2rem;
+}
+
+#cesta {
+    display: none;
+    position: fixed;
+    top: 12rem;
+    left: 5rem;
+    width: calc(100vw - 5rem);
+    min-height: calc(100vh - 12rem);
+    background-color: var(--color-40-beige);
+    padding: 5rem;
+}
+
+#cesta>button{
+    margin: 2rem 0;
+}
+
+#cesta>a{
+    font-size: 2rem;
+    position: relative;
+    left: 100%;
+}
+
+#cesta li {
+    display: block;
+    padding: 0.5rem;
+}
+
+#cesta li>button {
+    padding: 0.5rem;
+    margin-left: 1rem;
+    background-color: transparent;
+    color:  var(--color-60-green);
+    border: 1px solid var(--color-60-green);
+    border-radius: 2rem;
+}

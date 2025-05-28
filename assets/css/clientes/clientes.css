@@ -1,0 +1,48 @@
+/* ----------------------------
+    CLIENTES STYLES
+----------------------------- */
+
+@import url(../general/colors.css);
+@import url(../general/reset.css);
+@import url(../general/media-query.css);
+@import url(../general/header.css);
+@import url(clientes-media-query.css);
+
+.clientes {
+    width: 100%;
+    height: 100%;
+    padding: 0 3rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    -ms-grid-template-columns: 1fr;
+    gap: 5rem;
+}
+
+.box-cliente {
+    background-color: var(--color-input);
+    box-shadow: 0 4px 4px 0 var(--color-shadow);
+    border-radius: 25px;
+    padding: 2rem;
+}
+
+#calendar {
+    border: 1px solid;
+    display: none;
+    background-color: var(--color-40-beige);
+    width: 100%;
+    height: 100%;
+    padding: 5rem;
+    top: 5rem;
+    left: 0;
+}
+
+.fc .fc-button-primary {
+    background-color: var(--color-60-green);
+    color: var(--color-40-beige);
+    border: none;
+}
+
+.fc .fc-button-primary:hover {
+    background-color: var(--color-40-beige);
+    color: var(--color-60-green);
+}

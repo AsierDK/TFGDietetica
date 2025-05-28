@@ -9,62 +9,10 @@
 @import url(../general/sidebar.css);
 @import url(index-media-query.css);
 
-h1 {
-    font-size: 2rem;
-    letter-spacing: 0.7rem;
-    text-transform: uppercase;
-    font-family: Baloo2;
-    text-align: center;
-}
-
-form>div {
-    margin: 2rem 0;
-}
-
-section {
+#alumnos, #clientes {
     position: absolute;
-    margin-left: 5rem;
-    margin-top: 4.5rem;
-    width: calc(100vw - 5rem);
-    height: calc(100vh - 12rem);
-    display: none;
-}
-
-
-section.active {
-    display: flex;
-    justify-content: center;
-    -webkit-justify-content: center;
-    -moz-justify-content: center;
-    -ms-justify-content: center;
-}
-
-section>.background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url(../../images/background-diet.svg) no-repeat center center / cover;
-    opacity: 0.1;
-}
-
-article {
-    margin-left: 3rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    -webkit-flex-direction: column;
-    -moz-flex-direction: column;
-    -ms-flex-direction: column;
-    justify-content: center;
-    -webkit-justify-content: center;
-    -moz-justify-content: center;
-    -ms-justify-content: center;
-    align-items: center;
-    -webkit-align-items: center;
-    -moz-align-items: center;
-    -ms-align-items: center;
+    width: 100vw;
+    height: 100vh;
 }
 
 #all>article {
