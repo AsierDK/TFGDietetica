@@ -34,14 +34,16 @@ function closePopUp(event) {
 
 function submitPesoBruto() {
     const peso = document.getElementById('peso').value.trim();
+    const unidadSeleccionada = document.querySelector('input[name="unidad"]:checked');
+    const unidad = unidadSeleccionada ? unidadSeleccionada.value : null;
     console.log(alimentoId);
     console.log(alimentoNombre);
 
-    if (peso) {
+    if (peso && unidad) {
         fetch('../controllers/Cesta.php', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: `accion=annadir&id=${alimentoId}&nombre=${alimentoNombre}&peso=${peso}`
+            body: `accion=annadir&id=${alimentoId}&nombre=${alimentoNombre}&peso=${peso}&unidad=${unidad}`
         })
         .then(correctoCesta)
         .catch(erroresCesta);
@@ -55,7 +57,7 @@ function submitPesoBruto() {
 
         closePopUp(event);
     } else {
-        document.getElementById("error").textContent = 'Por favor, introduce un peso válido.';
+        document.getElementById("error").textContent = 'Por favor, introduce un peso válido y selecciona una medida.';
     }
 }
 
@@ -116,9 +118,9 @@ function recibidoCesta(datos){
     }
     else {
         for(let id in datosConvertidos) {
-            const { nombre, peso } = datosConvertidos[id];
+            const { nombre, peso, unidad } = datosConvertidos[id];
             const li = document.createElement('li');
-            li.textContent = `${nombre}: ${peso}g`;
+            li.textContent = `${nombre}: ${peso} ${unidad}`;
 
             const btn = document.createElement('button');
             btn.textContent = 'Eliminar';

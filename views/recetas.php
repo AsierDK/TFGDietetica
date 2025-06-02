@@ -80,7 +80,7 @@
                                     </div>';
                             }
                         ?>
-                        <input type="submit" name="annadirReceta" value="Crear receta" class="btn annadir">
+                        <input type="submit" name="annadirReceta" value="Añadir receta" class="btn annadir">
                         <div id="pop-up-pb">
                             <div>
                                 <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
@@ -88,6 +88,12 @@
                                 <div class="form">
                                     <label for="name">Peso bruto del alimento</label>
                                     <input type="number" id="peso" name="peso">
+                                    <div>
+                                        <label><input type="radio" name="unidad" value="gramos" required> Gramos</label>
+                                        <label><input type="radio" name="unidad" value="ml"> Mililitros</label><br>
+                                        <label><input type="radio" name="unidad" value="cucharada"> Cucharada</label>
+                                        <label><input type="radio" name="unidad" value="cucharadita"> Cucharadita</label>
+                                    </div>
                                     <input type="input" value="Añadir" onclick="submitPesoBruto()" class="btn">
                                 </div>
                             </div>

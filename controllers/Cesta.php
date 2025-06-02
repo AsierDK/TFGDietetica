@@ -11,8 +11,9 @@
                 $id = $_POST['id'];
                 $nombre = $_POST['nombre'];
                 $peso = $_POST['peso'];
-                if ($id && $nombre && $peso) {
-                    annadirAlimentoCesta($id, $nombre, $peso);
+                $unidad = $_POST['unidad'];
+                if ($id && $nombre && $peso && $unidad) {
+                    annadirAlimentoCesta($id, $nombre, $peso, $unidad);
                 }
                 break;
 
