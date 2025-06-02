@@ -18,6 +18,7 @@ function inicio() {
               let calendar = new FullCalendar.Calendar(calendarEl, {
                   initialView: 'dayGridMonth',
                   locale: 'es',
+                  firstDay: 1,
                   editable: true, 
                   eventDrop: function(info) {
                       // Esta función se ejecuta cuando se mueve un evento
@@ -40,7 +41,7 @@ function inicio() {
                       }
                     },
                   generarPDF: {
-                      text: 'Generar PDF',
+                      text: 'Descargar PDF',
                       click: function() {
 
                       }
@@ -127,4 +128,28 @@ function actualizarDias() {
   }
 
   }
+}
+
+function rellenarPDF() {
+  async function modifyPdf() {
+  const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
+  const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+
+  const pdfDoc = await PDFDocument.load(existingPdfBytes)
+  const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+
+  const pages = pdfDoc.getPages()
+  const firstPage = pages[0]
+  const { width, height } = firstPage.getSize()
+  firstPage.drawText('This text was added with JavaScript!', {
+    x: 5,
+    y: height / 2 + 300,
+    size: 50,
+    font: helveticaFont,
+    color: rgb(0.95, 0.1, 0.1),
+    rotate: degrees(-45),
+  })
+
+  const pdfBytes = await pdfDoc.save()
+}
 }
