@@ -59,8 +59,10 @@
                     <label for="alergias">Alergias</label>
                     <div class="alergias">
                         <?php
-                            foreach ($alergias as $alergia)
-                                echo '<div><input type="checkbox" name="alergias[]" value="'.$alergia["id_alergia"].'">'.$alergia["nombre_alergia"]. '<span></span> </div>';
+                            foreach ($alergias as $alergia){
+                                $class = str_replace(' ', '-', strtolower($alergia["nombre_alergia"]));
+                                echo '<div><input type="checkbox" name="alergias[]" value="'.$alergia["id_alergia"].'">'.$alergia["nombre_alergia"]. '<span class="sprite '.$class.'"></span> </div>';
+                            }
                         ?>
                     </div>
                     <input type="button" value="Añadir ingredientes" onclick="addAlimento()" class="btn">
