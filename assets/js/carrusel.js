@@ -8,6 +8,7 @@ let currentIndex = 0;
 
 function inicio() {
     const tipo = window.tipo;
+    console.log(tipo);
     fetch(`../controllers/Carrusel.php?tipo=${tipo}`)
     .then(correctoCarrusel)
     .catch(erroresCarrusel);

@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="../assets/css/alimentos/alimentos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous"/>
     <script src="../assets/js/toggle.js" type="text/javascript"></script>
+    <script>
+        window.tipo = "alimentos";
+    </script>
 </head>
 <body>
     <header>
@@ -120,14 +123,14 @@
                         <label for="K_100">K_100</label>
                         <input type="text" name="k_100">
                     </div>
-                    <div>
+                    <div class="alergias-container">
                         <label for="alergias">Alergias</label>
-                        <select name="alergias[]" multiple>
+                        <div class="alergias">
                             <?php
                                 foreach ($alergias as $alergia)
-                                    echo '<option value="'.$alergia["id_alergia"].'">'. $alergia["nombre_alergia"]. '</option>';
+                                    echo '<div><input type="checkbox" name="alergias[]" value="'.$alergia["id_alergia"].'">'.$alergia["nombre_alergia"]. '<span></span> </div>';
                             ?>
-                        </select>
+                        </div>
                     </div>
                     <input type="submit" value="Nuevo alimento" class="btn" name="Nuevo alimento">
                 </form>
@@ -135,10 +138,7 @@
         </section>
         <section id="all">
             <article class="carrusel">
-                <?php
-                    echo '<script>';
-                    echo 'window.tipo = "alimentos";';
-                    echo '</script>';                     
+                <?php                   
                     if (empty($alimentos)) {
                         echo 'No hay alimentos registrados.';
                     }

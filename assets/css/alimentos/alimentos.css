@@ -11,9 +11,10 @@
 @import url(../general/carrusel.css);
 
 form {
+    width: 70vw;
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    -ms-grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: 1fr;
+    -ms-grid-template-columns: 1fr;
     justify-content: center;
     -ms-justify-content: center;
     align-items: center;
@@ -25,4 +26,31 @@ form {
 form>input,
 form>div>input{
     width: auto;
+}
+
+.alergias {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrp: wrap;
+    -moz-flex-wrp: wrap;
+    -ms-flex-wrp: wrap;
+    gap: 1rem;
+}
+
+.alergias>div {
+    width: 100%;
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+}
+
+.alergias input[type="checkbox"] {
+    background-color: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    height: auto;
+    margin-right: 1rem;
 }

@@ -27,8 +27,36 @@ form>div>input{
 
 form > input {
     justify-self: center;
+    -webkit-justify-self: center;
+    -moz-justify-self: center;
     -ms-justify-self: center;
     padding: 0 2rem;
+}
+
+.alergias {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrp: wrap;
+    -moz-flex-wrp: wrap;
+    -ms-flex-wrp: wrap;
+    gap: 1rem;
+}
+
+.alergias>div {
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+}
+
+.alergias input[type="checkbox"] {
+    background-color: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    height: auto;
+    margin-right: 1rem;
 }
 
 #alimento {
@@ -88,7 +116,8 @@ form > input {
 #pop-up-pb>div {
     padding: 2rem;
     width: 60vw;
-    height: 40vh;
+    max-height: 50vh;
+    height: auto;
     background-color: var(--color-40-beige);
     box-shadow: 0 4px 4px 0 var(--color-shadow);
     position: relative;
@@ -96,6 +125,7 @@ form > input {
     left: 55%;
     transform: translate(-50%, -55%);
     border-radius: 50px;
+    overflow: hidden;
 }
 
 #pop-up-pb a {
@@ -107,11 +137,9 @@ form > input {
 
 #pop-up-pb h3 {
     font-size: 1.5rem;
-
 }
 
 #pop-up-pb .form {
-    padding: 1rem;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -128,8 +156,25 @@ form > input {
     width:10rem;
 }
 
-#pop-up-pb .form>.btn {
-    margin-top: 2rem;
+#pop-up-pb .form>.unidades {
+    display: grid;
+    grid-template-columns: 1fr;
+    -ms-grid-template-columns: 1fr;
+}
+
+#pop-up-pb .form>.unidades>label{
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    gap: 0.5rem;
+}
+
+#pop-up-pb .form>.unidades input {
+    background-color: transparent;
+    box-shadow: none;
+    accent-color: var(--color-60-green)
 }
 
 #cesta {

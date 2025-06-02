@@ -70,7 +70,7 @@ nav {
     box-shadow: 0 4px 4px 0 var(--color-shadow);
     border-radius: 50px;
     width: 50vw;
-    height: 3vh;
+    padding: 0.2rem 0;
 }
 
 nav menu {
