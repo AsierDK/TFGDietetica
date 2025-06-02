@@ -13,20 +13,29 @@
         -ms-grid-column: span 2;
     }
 
-    #pop-up-pb .form {
-        padding: 3rem !important;
-    }
-
     #pop-up-pb .form>input {
         width: auto !important;
     }
 }
 
 @media (min-width: 768px) {
+    #pop-up-pb .form>.unidades {
+        grid-template-columns: repeat(2, 1fr) !important;
+        -ms-grid-template-columns: repeat(2, 1fr) !important;
+    }
 }
 
 @media (min-width: 992px) {
-        #alimento {
+    .alergias {
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        -ms-flex-direction: row;
+    }
+    .alergias>div {
+        width: calc(50% - 0.5rem) !important;
+    }
+    #alimento {
         grid-template-columns: repeat(3, 1fr) !important;
         -ms-grid-template-columns: repeat(3, 1fr) !important;
         padding: 0 15rem;
@@ -35,10 +44,6 @@
     #alimento>a{
         grid-column: span 3;
         -ms-grid-column: span 3;
-    }
-
-    #pop-up-pb .form {
-        padding: 5rem !important;
     }
 }
 

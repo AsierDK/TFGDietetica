@@ -8,7 +8,8 @@
         -ms-grid-template-columns: repeat(2, 1fr);
     }
 
-    form > div:first-child {
+    form > div:first-child,
+    form > .alergias-container {
         grid-column: span 2;
         -ms-grid-column: span 2;
     }
@@ -27,7 +28,8 @@
         -ms-grid-template-columns: repeat(3, 1fr);
     }
 
-    form > div:first-child {
+    form > div:first-child,
+    form > .alergias-container {
         grid-column: span 3;
         -ms-grid-column: span 3;
     }
@@ -37,5 +39,17 @@
         -ms-grid-column: span 3;
         justify-self: center;
         -ms-justify-self: center;
+    }
+}
+
+@media (min-width: 992px) {
+    .alergias {
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        -ms-flex-direction: row;
+    }
+    .alergias>div {
+        width: calc(50% - 0.5rem) !important;
     }
 }

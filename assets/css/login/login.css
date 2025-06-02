@@ -16,7 +16,7 @@ h1 {
 .login {
     background: url(../../images/forma-login.svg) no-repeat top left / cover;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     padding: 23rem 2rem 2rem 2rem;
     display: flex;
     flex-direction: column;

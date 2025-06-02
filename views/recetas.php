@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous"/>
     <script src="../assets/js/toggle.js" type="text/javascript"></script>
     <script src="../assets/js/addAlimento.js" type="text/javascript"></script>
+    <script>
+        window.tipo = "recetas";
+    </script>
 </head>
 <body>
     <header>
@@ -53,14 +56,12 @@
                         <label for="desc">Descripción</label>
                         <textarea name="desc" id="desc" require></textarea>
                     </div>
-                    <div>
-                        <label for="alergias">Alergias</label>
-                        <select name="alergias[]" multiple>
-                            <?php
-                                foreach ($alergias as $alergia)
-                                    echo '<option value="'.$alergia["id_alergia"].'">'. $alergia["nombre_alergia"]. '</option>';
-                            ?>
-                        </select>
+                    <label for="alergias">Alergias</label>
+                    <div class="alergias">
+                        <?php
+                            foreach ($alergias as $alergia)
+                                echo '<div><input type="checkbox" name="alergias[]" value="'.$alergia["id_alergia"].'">'.$alergia["nombre_alergia"]. '<span></span> </div>';
+                        ?>
                     </div>
                     <input type="button" value="Añadir ingredientes" onclick="addAlimento()" class="btn">
                     <div id="alimento">
@@ -88,9 +89,9 @@
                                 <div class="form">
                                     <label for="name">Peso bruto del alimento</label>
                                     <input type="number" id="peso" name="peso">
-                                    <div>
+                                    <div class="unidades">
                                         <label><input type="radio" name="unidad" value="gramos" required> Gramos</label>
-                                        <label><input type="radio" name="unidad" value="ml"> Mililitros</label><br>
+                                        <label><input type="radio" name="unidad" value="ml"> Mililitros</label>
                                         <label><input type="radio" name="unidad" value="cucharada"> Cucharada</label>
                                         <label><input type="radio" name="unidad" value="cucharadita"> Cucharadita</label>
                                     </div>
@@ -110,9 +111,6 @@
         <section id="all">
             <article class="carrusel">
                 <?php
-                    echo '<script>';
-                    echo 'window.tipo = "recetas";';
-                    echo '</script>';
                     if (empty($recetas)) {
                         echo 'No hay recetas registradas.';
                     }
