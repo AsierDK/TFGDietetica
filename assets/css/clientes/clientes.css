@@ -80,4 +80,11 @@
 
 #fecha {
     display: none;
+    padding: 2rem;
+    background-color: var(--color-40-beige);
+    position: absolute;
+    width: 70vw;
+    min-height: 70vh;
+    top: 15vh;
+    left: 15vw;
 }

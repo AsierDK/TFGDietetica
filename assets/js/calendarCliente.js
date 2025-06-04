@@ -11,6 +11,7 @@ function inicio() {
     clienteBoxes.forEach(box => {
         box.addEventListener('click', function () {
             const idCliente = this.dataset.id;
+            document.getElementById('dni_cliente').value = idCliente;
             calendarArticle.style.display = 'block';
             if (!calendarArticle.dataset.rendered) {
               let calendarEl = document.getElementById('calendar');
@@ -24,26 +25,41 @@ function inicio() {
                       // Esta función se ejecuta cuando se mueve un evento
                       alert('Evento movido a: ' + info.event.start.toISOString());
                   },
-                  events: '../assets/js/json/myfeed.php',
+                  events: function(fetchInfo, successCallback, failureCallback) {
+                    fetch('../controllers/Calendario.php', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                      body: `accion=visualizar&idCliente=${idCliente}`
+                    })
+                    .then(response => {
+                      if (!response.ok) throw new Error('Error en la respuesta del servidor');
+                      return response.json();
+                    })
+                    .then(eventos => {
+                      successCallback(eventos);
+                    })
+                    .catch(error => {
+                      console.error('Error cargando eventos:', error);
+                      failureCallback(error);
+                    });
+                  },
                   customButtons: {
                     annadirReceta: {
                       text: 'Añadir Recetas',
                       click: function() {
                         recetas.style.display = 'block';
-                        /*fetch('../controllers/Calendario.php', {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                            body: `id=${idCliente}`
+                        fetch('../controllers/Calendario.php', {
+                            method: 'GET',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
                         .then(correctoCalendario)
                         .catch(erroresCalendario);
-                      }*/
                       }
                     },
                   generarPDF: {
                       text: 'Descargar PDF',
                       click: function() {
-
+                        rellenarPDF(calendar);
                       }
                   }
                 },
@@ -75,7 +91,7 @@ function recibidoCalendario(datos){
     console.log(datos);
     let datosConvertidos = JSON.parse(datos);
     console.log(datosConvertidos);
-    const div = document.querySelector('.box-recetasClientes');
+    const div = document.querySelector('.recetasClientes');
     div.textContent = '';
 
     if(Object.keys(datosConvertidos).length === 0) {
@@ -85,21 +101,22 @@ function recibidoCalendario(datos){
     }
     else {
         for(let id in datosConvertidos) {
-            const { nombre } = datosConvertidos[id];
+            const { nombre_receta } = datosConvertidos[id];
             const divReceta = document.createElement('div');
-            divReceta.textContent = `${nombre}`;
+            divReceta.textContent = `${nombre_receta}`;
 
             const btn = document.createElement('button');
             btn.textContent = 'Añadir';
             btn.onclick = () => annadirFecha(id);
 
-            li.appendChild(btn);
+            divReceta.appendChild(btn);
             div.appendChild(divReceta);
         }
     }
 }
 
-function annadirFecha() {
+function annadirFecha(id) {
+  document.getElementById('receta_id').value = id;
   const datosFecha = document.getElementById('fecha');
   datosFecha.style.display = 'block';
 }
@@ -108,6 +125,12 @@ function closePopUp(event) {
     event.preventDefault();
     const popUp = document.getElementById('recetas');
     popUp.style.display = 'none';
+}
+
+function closeFecha(event) {
+    event.preventDefault();
+    const datosFecha = document.getElementById('fecha');
+    datosFecha.style.display = 'none';
 }
 
 function actualizarDias() {
@@ -125,31 +148,81 @@ function actualizarDias() {
       option.value = d;
       option.textContent = d;
       diaSelect.appendChild(option);
-  }
-
+    }
   }
 }
 
-function rellenarPDF() {
-  async function modifyPdf() {
-  const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
-  const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+function annadirRecetasFecha(){
+  const mes = document.getElementById('mes').value;
+  const dia = document.getElementById('dia').value;
+  const tipoComida = document.getElementById('tipoComida').value;
+  const idReceta = document.getElementById('receta_id').value;
+  const idCliente = document.getElementById('dni_cliente').value;
 
-  const pdfDoc = await PDFDocument.load(existingPdfBytes)
-  const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
-
-  const pages = pdfDoc.getPages()
-  const firstPage = pages[0]
-  const { width, height } = firstPage.getSize()
-  firstPage.drawText('This text was added with JavaScript!', {
-    x: 5,
-    y: height / 2 + 300,
-    size: 50,
-    font: helveticaFont,
-    color: rgb(0.95, 0.1, 0.1),
-    rotate: degrees(-45),
-  })
-
-  const pdfBytes = await pdfDoc.save()
+  if (mes && dia && tipoComida && idReceta && idCliente) {
+    const fecha = `${new Date().getFullYear()}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
+    fetch('../controllers/Calendario.php', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: `accion=annadir&fecha=${fecha}&tipoComida=${tipoComida}&idReceta=${idReceta}&idCliente=${idCliente}`
+    })
+    .then(correctoRecetasFecha)
+    .catch(erroresRecetasFecha);
+  }
 }
+
+async function rellenarPDF(calendar) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const currentView = calendar.view.type;
+  const visibleEvents = calendar.getEvents();
+  const title = calendar.view.title;
+
+  doc.setFontSize(18);
+  doc.text(`Planificación de Recetas (${currentView})`, 10, 15);
+  doc.setFontSize(12);
+  doc.text(`Vista actual: ${title}`, 10, 25);
+
+  let y = 35;
+
+  if (visibleEvents.length === 0) {
+    doc.text("No hay eventos visibles en esta vista.", 10, y);
+  } else {
+    visibleEvents.forEach(event => {
+      const fechaInicio = event.start.toLocaleString();
+      const fechaFin = event.end ? event.end.toLocaleString() : '';
+      const tipoComida = event.extendedProps?.tipoComida || '';
+      const alimentos = event.extendedProps?.alimentos || [];
+
+      doc.text(`📅 ${fechaInicio} (${tipoComida})`, 10, y);
+      y += 6;
+      doc.text(`🍽️ Receta: ${event.title}`, 10, y);
+      y += 6;
+
+      if (alimentos.length > 0) {
+        doc.text("🧾 Alimentos:", 12, y);
+        y += 6;
+        alimentos.forEach(ali => {
+          doc.text(`- ${ali.nombre} (${ali.pesobruto ?? ''}g)`, 15, y);
+          y += 5;
+          if (y > 270) {
+            doc.addPage();
+            y = 20;
+          }
+        });
+      } else {
+        doc.text("- Sin alimentos registrados", 12, y);
+        y += 6;
+      }
+
+      y += 6;
+      if (y > 270) {
+        doc.addPage();
+        y = 20;
+      }
+    });
+  }
+
+  doc.save("planificacion_recetas.pdf");
 }

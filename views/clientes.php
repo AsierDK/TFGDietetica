@@ -54,9 +54,10 @@
             <article id="recetas">
                 <div class="box-recetasClientes">
                     <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
+                    <div class="recetasClientes"></div>
                 </div>
                 <div id="fecha">
-                    <form  action="" method="post">
+                    <form action="" method="post">
                         <label for="mes">Mes:</label>
                         <select id="mes" name="mes" onchange="actualizarDias()">
                             <option value="">-- Seleccionar mes --</option>
@@ -89,7 +90,10 @@
                             <option value="cena">Cena</option>
                             <option value="suplemento">Suplemento</option>
                         </select>
-                        <button type="submit">Guardar</button>
+                        <input type="hidden" id="receta_id" name="receta_id">
+                        <input type="hidden" id="dni_cliente" name="dni_cliente">
+                        <button onclick="closeFecha(event)" class="btn">Cerrar</button>
+                        <button onclick="annadirRecetasFecha()" class="btn">Guardar</button>
                     </form>
                 </div>
             </article>
