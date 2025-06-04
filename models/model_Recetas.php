@@ -22,7 +22,8 @@ function alimentosporReceta($idUsuario,$id_receta){
     try
     {
         $conn=conexionbbdd();
-        $stmt = $conn->prepare("SELECT A.id_alimentos,A.nombreAlimento FROM Alimentos_Recetas AR LEFT JOIN Alimentos A ON AR.id_alimentos = A.id_alimentos WHERE AR.id_usuario = :id_usuario AND AR.id_receta = :id_receta");
+        //Añadir todos los cammpos de alimentos (PC, e_100, etc)
+        $stmt = $conn->prepare("SELECT A.id_alimentos,A.nombreAlimento,AR.pesoBruto FROM Alimentos_Recetas AR LEFT JOIN Alimentos A ON AR.id_alimentos = A.id_alimentos WHERE AR.id_usuario = :id_usuario AND AR.id_receta = :id_receta");
         $stmt->bindParam(':id_usuario', $idUsuario);
         $stmt->bindParam(':id_receta', $id_receta);
         $stmt -> execute();
