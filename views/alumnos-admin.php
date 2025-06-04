@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../assets/css/index-admin/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous"/>
     <script src="../assets/js/toggle.js" type="text/javascript"></script>
+    <script src="../assets/js/password.js" type="text/javascript"></script>
 </head>
 <body>
     <header>
@@ -69,10 +70,22 @@
                     }
                     else {
                         foreach ($alumnos as $alumno)
-                            echo '<div  class="box-alumno"> '
-                                .$alumno['nombre'].' <br> '. $alumno['apellidos']. '<br>'.$alumno['email']. '<br></div>';
+                            echo '<div class="box-alumno">'
+                                . $alumno['nombre'] . '<br>' . $alumno['apellidos'] . '<br>' . $alumno['email'] . '<br>'
+                                . '<button class="btn cambiar-pass" data-id="' . $alumno['id_usuario'] . '">Cambiar contraseña</button>'
+                                . '</div>';
                     }
                 ?>
+
+                <dialog id="cambiarPass">
+                    <form action="" method="post">
+                        <input type="hidden" id="id_alumno" name="id_alumno">
+                        <label>Nueva contraseña:</label>
+                        <input type="password" name="nueva_pass" required>
+                        <button type="submit" class="btn">Guardar</button>
+                        <button type="button" class="btn" id="cerrarDialog">Cancelar</button>
+                    </form>
+                </dialog>
             </article>
         </section>
     </main>

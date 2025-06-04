@@ -29,3 +29,15 @@
     border-radius: 25px;
     padding: 2rem;
 }
+
+dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    color: var(--color-60-green);
+    background-color: var(--color-40-beige);
+    padding: 5rem;
+    border-radius: 50px;
+}
