@@ -6,7 +6,9 @@
     <title>Index Page Alumno - webDietetica</title>
     <link rel="stylesheet" href="../assets/css/clientes/clientes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous"/>
-    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <!--<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
     <script src="../assets/js/calendarCliente.js" type="text/javascript"></script>
     
@@ -57,7 +59,7 @@
                     <div class="recetasClientes"></div>
                 </div>
                 <div id="fecha">
-                    <form action="" method="post">
+                    <form onsubmit="annadirRecetasFecha(event)" method="post">
                         <label for="mes">Mes:</label>
                         <select id="mes" name="mes" onchange="actualizarDias()">
                             <option value="">-- Seleccionar mes --</option>
@@ -92,8 +94,8 @@
                         </select>
                         <input type="hidden" id="receta_id" name="receta_id">
                         <input type="hidden" id="dni_cliente" name="dni_cliente">
-                        <button onclick="closeFecha(event)" class="btn">Cerrar</button>
-                        <button onclick="annadirRecetasFecha()" class="btn">Guardar</button>
+                        <button type="button" onclick="closeFecha(event)" class="btn">Cerrar</button>
+                        <button type="submit" class="btn">Guardar</button>
                     </form>
                 </div>
             </article>

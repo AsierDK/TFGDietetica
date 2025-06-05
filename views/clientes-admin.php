@@ -50,6 +50,10 @@
                         <input type="text" name="ape" id="ape"> 
                     </div>
                     <div>
+                        <label for="dni">DNI</label>
+                        <input type="text" name="dni" id="dni">
+                    </div>
+                    <div>
                         <label for="edad">Edad</label>
                         <input type="number" name="edad" id="edad">
                     </div>
@@ -68,13 +72,13 @@
         <section id="all">
             <article>
                 <?php
-                    if (empty($alumnos)) {
+                    if (empty($clientes)) {
                         echo 'No hay clientes registrados.';
                     }
                     else {
-                        foreach ($alumnos as $alumno)
-                            echo '<div  class="box-alumno"> '
-                                .$alumno['nombre'].' <br> '. $alumno['apellidos']. '<br>'.$alumno['email']. '<br></div>';
+                        foreach ($clientes as $cliente)
+                            echo '<div  class="box-cliente"> '
+                                .$cliente['nombre'].' <br> '. $cliente['apellido']. '<br>'.$cliente['email']. '<br></div>';
                     }
                 ?>
             </article>

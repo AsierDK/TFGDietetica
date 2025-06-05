@@ -21,7 +21,7 @@ iniciarSession();
             $receta = datosReceta();
             $cesta = devolverCesta();
             annadirReceta($idUsu,$receta,$cesta);
-            //print "Alimento Añadido";
+            print "Alimento Añadido";
         }
         print "<script type='text/javascript'>history.replaceState(null,null)</script>";
     }
