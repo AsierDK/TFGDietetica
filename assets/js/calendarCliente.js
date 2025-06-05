@@ -3,6 +3,8 @@ if (document.addEventListener)
 else if (document.attachEvent)
 	window.attachEvent("onload", inicio);
 
+let calendar;
+
 function inicio() {
     const clienteBoxes = document.querySelectorAll('.box-cliente');
     const calendarArticle = document.getElementById('calendar');
@@ -16,7 +18,7 @@ function inicio() {
             if (!calendarArticle.dataset.rendered) {
               let calendarEl = document.getElementById('calendar');
 
-              let calendar = new FullCalendar.Calendar(calendarEl, {
+              calendar = new FullCalendar.Calendar(calendarEl, {
                   initialView: 'dayGridMonth',
                   locale: 'es',
                   firstDay: 1,
@@ -29,13 +31,14 @@ function inicio() {
                     fetch('../controllers/Calendario.php', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                      body: `accion=visualizar&idCliente=${idCliente}`
+                      body: `accion=visualizar&start=${fetchInfo.startStr}&end=${fetchInfo.endStr}&idCliente=${idCliente}`
                     })
                     .then(response => {
                       if (!response.ok) throw new Error('Error en la respuesta del servidor');
                       return response.json();
                     })
                     .then(eventos => {
+                      console.log('Eventos recibidos:', eventos);
                       successCallback(eventos);
                     })
                     .catch(error => {
@@ -68,10 +71,14 @@ function inicio() {
                     left: 'prev,next today annadirReceta generarPDF', // Botones de navegación
                     center: 'title',  // Título
                     right: 'dayGridMonth,timeGridWeek,timeGridDay' // Vista del calendario (mensual, semanal, diario)
+                  },
+                  datesSet: function(info) {
+                    calendar.refetchEvents();
                   }
               });
 
               calendar.render();
+              calendarArticle.dataset.rendered = 'true';
             }
         });
     });
@@ -101,13 +108,13 @@ function recibidoCalendario(datos){
     }
     else {
         for(let id in datosConvertidos) {
-            const { nombre_receta } = datosConvertidos[id];
+            const { nombre_receta, id_receta } = datosConvertidos[id];
             const divReceta = document.createElement('div');
             divReceta.textContent = `${nombre_receta}`;
 
             const btn = document.createElement('button');
             btn.textContent = 'Añadir';
-            btn.onclick = () => annadirFecha(id);
+            btn.onclick = () => annadirFecha(id_receta);
 
             divReceta.appendChild(btn);
             div.appendChild(divReceta);
@@ -152,15 +159,18 @@ function actualizarDias() {
   }
 }
 
-function annadirRecetasFecha(){
+function annadirRecetasFecha(event){
+  if(event) event.preventDefault();
   const mes = document.getElementById('mes').value;
   const dia = document.getElementById('dia').value;
   const tipoComida = document.getElementById('tipoComida').value;
   const idReceta = document.getElementById('receta_id').value;
   const idCliente = document.getElementById('dni_cliente').value;
+  console.log(idReceta);
 
   if (mes && dia && tipoComida && idReceta && idCliente) {
-    const fecha = `${new Date().getFullYear()}-${mes.padStart(2, '0')}-${dia.padStart(2, '0')}`;
+    const fecha = `${new Date().getFullYear()}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+    console.log(fecha);
     fetch('../controllers/Calendario.php', {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -171,6 +181,22 @@ function annadirRecetasFecha(){
   }
 }
 
+function correctoRecetasFecha(res){
+    if(res.ok){
+        res.text().then(recargar);
+    }
+}
+
+function erroresRecetasFecha(){
+    alert('Error en la conexión');
+}
+
+function recargar(){
+  if (calendar) calendar.refetchEvents();
+  const datosFecha = document.getElementById('fecha');
+  datosFecha.style.display = 'none';
+}
+
 async function rellenarPDF(calendar) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -179,45 +205,79 @@ async function rellenarPDF(calendar) {
   const visibleEvents = calendar.getEvents();
   const title = calendar.view.title;
 
-  doc.setFontSize(18);
-  doc.text(`Planificación de Recetas (${currentView})`, 10, 15);
-  doc.setFontSize(12);
-  doc.text(`Vista actual: ${title}`, 10, 25);
+  // Traducción básica de vistas para mostrar en PDF
+  const viewNames = {
+    dayGridMonth: "Vista Mensual",
+    timeGridWeek: "Vista Semanal",
+    timeGridDay: "Vista Diaria"
+  };
+  const viewText = viewNames[currentView] || currentView;
 
-  let y = 35;
+  // Encabezado con color y fuente
+  doc.setFillColor(40, 90, 130); // azul oscuro
+  doc.rect(0, 0, 210, 25, 'F'); // rectángulo relleno ancho A4 (210mm)
+  
+  doc.setTextColor(255, 255, 255); // texto blanco
+  doc.setFontSize(20);
+  doc.setFont("helvetica", "bold");
+  doc.text(`Planificación de Recetas`, 10, 16);
+
+  doc.setFontSize(14);
+  doc.setFont("helvetica", "normal");
+  doc.text(`Tipo de vista: ${viewText}`, 10, 30);
+  doc.setTextColor(0, 0, 0); // volver a negro
+
+  let y = 40;
 
   if (visibleEvents.length === 0) {
+    doc.setFontSize(12);
     doc.text("No hay eventos visibles en esta vista.", 10, y);
   } else {
-    visibleEvents.forEach(event => {
-      const fechaInicio = event.start.toLocaleString();
-      const fechaFin = event.end ? event.end.toLocaleString() : '';
+    visibleEvents.forEach((event, index) => {
+      const fechaInicio = event.start.toISOString().slice(0, 10); // solo fecha yyyy-mm-dd
       const tipoComida = event.extendedProps?.tipoComida || '';
+
+      doc.setFontSize(14);
+      doc.setFont("helvetica", "bold");
+      doc.text(`${fechaInicio} - ${tipoComida}`, 10, y);
+      y += 7;
+
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "normal");
+      doc.text(`Receta: ${event.title}`, 10, y);
+      y += 7;
+
       const alimentos = event.extendedProps?.alimentos || [];
 
-      doc.text(`📅 ${fechaInicio} (${tipoComida})`, 10, y);
-      y += 6;
-      doc.text(`🍽️ Receta: ${event.title}`, 10, y);
-      y += 6;
-
       if (alimentos.length > 0) {
-        doc.text("🧾 Alimentos:", 12, y);
-        y += 6;
-        alimentos.forEach(ali => {
-          doc.text(`- ${ali.nombre} (${ali.pesobruto ?? ''}g)`, 15, y);
-          y += 5;
-          if (y > 270) {
-            doc.addPage();
-            y = 20;
-          }
+        // Preparar datos para la tabla
+        const tableColumn = ["Nombre", "Peso (g)"];
+        const tableRows = alimentos.map(ali => [
+          ali.nombreAlimento || ali.nombre || 'N/A',
+          ali.pesoBruto ?? ali.pesobruto ?? 'N/A'
+        ]);
+
+        // Usar autotable para la tabla
+        doc.autoTable({
+          startY: y,
+          head: [tableColumn],
+          body: tableRows,
+          theme: 'grid',
+          headStyles: { fillColor: [40, 90, 130], textColor: 255 },
+          styles: { fontSize: 10 },
+          margin: { left: 10, right: 10 }
         });
+
+        y = doc.lastAutoTable.finalY + 10; // actualizar y tras la tabla
       } else {
-        doc.text("- Sin alimentos registrados", 12, y);
-        y += 6;
+        doc.setFontSize(10);
+        doc.setTextColor(100);
+        doc.text("Sin alimentos registrados", 10, y);
+        doc.setTextColor(0);
+        y += 10;
       }
 
-      y += 6;
-      if (y > 270) {
+      if (y > 270 && index !== visibleEvents.length - 1) {
         doc.addPage();
         y = 20;
       }

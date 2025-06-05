@@ -18,12 +18,29 @@ function RecetasPorUsuario($idUsuario)
     $conn=null;
     return $resultado;
 }
+function RecetaPorCliente($idReceta)
+{
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("SELECT * FROM Recetas WHERE id_receta = :id_receta");
+        $stmt->bindParam(':id_receta', $idReceta);
+        $stmt -> execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $resultado=$stmt->fetchAll();
+    }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+    return $resultado[0];
+}
 function alimentosporReceta($idUsuario,$id_receta){
     try
     {
         $conn=conexionbbdd();
-        //Añadir todos los cammpos de alimentos (PC, e_100, etc)
-        $stmt = $conn->prepare("SELECT A.id_alimentos,A.nombreAlimento,AR.pesoBruto FROM Alimentos_Recetas AR LEFT JOIN Alimentos A ON AR.id_alimentos = A.id_alimentos WHERE AR.id_usuario = :id_usuario AND AR.id_receta = :id_receta");
+        $stmt = $conn->prepare("SELECT A.*,AR.pesoBruto FROM Alimentos_Recetas AR LEFT JOIN Alimentos A ON AR.id_alimentos = A.id_alimentos WHERE AR.id_usuario = :id_usuario AND AR.id_receta = :id_receta");
         $stmt->bindParam(':id_usuario', $idUsuario);
         $stmt->bindParam(':id_receta', $id_receta);
         $stmt -> execute();
