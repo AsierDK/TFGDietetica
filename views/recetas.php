@@ -8,18 +8,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous"/>
     <script src="../assets/js/toggle.js" type="text/javascript"></script>
     <script src="../assets/js/addAlimento.js" type="text/javascript"></script>
+    <script>
+        window.tipo = "recetas";
+    </script>
 </head>
 <body>
     <header>
-        <a href="#"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
+        <a href="../controllers/controller_inicio.php"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
         <nav>
             <menu>
                 <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
-                <li><a href="../controllers/controller_Recetas.php">Recetas</a></li>
+                <li><a href="#">Recetas</a></li>
                 <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
             </menu>
         </nav>
-        <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
+        <div class="icons">
+            <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
+            <a class="user" href="controller_logout.php"><i class="fa fa-user"></i></a>
+            <a class="menu-burger" href="#menu"><i class="fa fa-bars"></i></a>
+        </div>
+        <div id="menu">
+            <a href="#"><i class="fa fa-times"></i></a>
+            <menu>
+                <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
+                <li><a href="#">Recetas</a></li>
+                <li><a href="../controllers/controller_Alimentos.php">Alimentos</a></li>
+            </menu>
+        </div>
     </header>
     <main>
         <div class="sidebar">
@@ -32,67 +47,94 @@
             <div class="background"></div>
             <article>
                 <h1>Nueva receta</h1>
-                <form>
+                <form action="" method="post">
                     <div>
-                        <label for="name">Nombre cliente</label>
-                        <input type="text" id="nombreCliente">
-                    </div>
-                    <div>
-                        <label for="alergia">Alergias cliente</label>
-                        <input type="text">
-                    </div>
-                    <div>
-                        <label for="name">Nombre receta</label>
-                        <input type="text" id="nombreReceta">
+                        <label for="nombreReceta">Nombre receta</label>
+                        <input type="text" id="nombreReceta" name="nombreReceta" require>
                     </div>
                     <div>
                         <label for="desc">Descripción</label>
-                        <input type="text">
+                        <textarea name="desc" id="desc" require></textarea>
+                    </div>
+                    <label for="alergias">Alergias</label>
+                    <div class="alergias">
+                        <?php
+                            foreach ($alergias as $alergia){
+                                $class = str_replace(' ', '-', strtolower($alergia["nombre_alergia"]));
+                                echo '<div><input type="checkbox" name="alergias[]" value="'.$alergia["id_alergia"].'">'.$alergia["nombre_alergia"]. '<span class="sprite '.$class.'"></span> </div>';
+                            }
+                        ?>
                     </div>
                     <input type="button" value="Añadir ingredientes" onclick="addAlimento()" class="btn">
+                    <div id="alimento">
+                        <a onclick="volver()"><i class="fa fa-arrow-left"></i></a>
+                        <a onclick="verCesta()">Ver alimentos añadidos</a>
+                        <?php
+                            if (empty($alimentos)) {
+                                echo 'No hay alimentos registrados.';
+                            }
+                            else {
+                                foreach ($alimentos as $alimento)
+                                    echo '<div  class="box-alimento">
+                                        <p>'. $alimento['nombreAlimento'].'</p>
+                                        <a href="#" data-id="' . $alimento['id_alimentos'] . '" onclick="addPesoBruto(event, \'' . $alimento['id_alimentos'] . '\', \'' . addslashes($alimento['nombreAlimento']) . '\', this)">
+                                            <i id="heart-icon" class="far fa-heart"></i>
+                                        </a>
+                                    </div>';
+                            }
+                        ?>
+                        <input type="submit" name="annadirReceta" value="Añadir receta" class="btn annadir">
+                        <div id="pop-up-pb">
+                            <div>
+                                <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
+                                <h3>PESO BRUTO</h3>
+                                <div class="form">
+                                    <label for="name">Peso bruto del alimento</label>
+                                    <input type="number" id="peso" name="peso">
+                                    <div class="unidades">
+                                        <label><input type="radio" name="unidad" value="gramos" required> Gramos</label>
+                                        <label><input type="radio" name="unidad" value="ml"> Mililitros</label>
+                                        <label><input type="radio" name="unidad" value="cucharada"> Cucharada</label>
+                                        <label><input type="radio" name="unidad" value="cucharadita"> Cucharadita</label>
+                                    </div>
+                                    <input type="input" value="Añadir" onclick="submitPesoBruto()" class="btn">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="cesta">
+                            <a onclick="closeCesta()"><i class="fa fa-times"></i></a>
+                            <button onclick="eliminarCesta()" class="btn">Eliminar todos los ingredientes</button>
+                            <ul class="alimentosRecetas"></ul>
+                        </div>
+                    </div>
                 </form>
-            </article>
-            <article id="alimento">
-                <?php
-                    /*if (empty($resultado)) {
-                        echo 'No hay alimentos registrados.';
-                    }
-                    else {*/
-                        for ($i =0; $i<10; $i++)
-                            echo '<div  class="box-alimento">
-                                <a href="#" onclick="addPesoBruto(event)"><i id="heart-icon" class="far fa-heart"></i></a>
-                                Nombre Alimento
-                            </div>';
-                    //}
-                ?>
-                <div id="pop-up-pb">
-                    <a href="#" onclick="closePopUp(event)"><i class="fa fa-times"></i></a>
-                    <h3>PESO BRUTO</h3>
-                    <form>
-                        <label for="name">Peso bruto del alimento</label>
-                        <input type="text" id="peso" name="peso">
-                        <input type="input" value="Añadir" onclick="submitPesoBruto()" class="btn">
-                    </form>
-                </div>
             </article>
         </section>
         <section id="all">
-            <article>
+            <article class="carrusel">
                 <?php
-                    if (empty($resultado)) {
+                    if (empty($recetas)) {
                         echo 'No hay recetas registradas.';
                     }
                     else {
                         echo '<h1>Mis recetas</h1>';
-                        foreach ($resultado as $alumno)
-                            echo '<div  class="box-alumno">
-                                Nombre Alumno <br>
-                                Nº Clientes <br>
-                                Nº Recetas <br>
-                                <a>Más información </a>
-                            </div>';
+                        echo '<div class="carousel-container">';
+                        echo '<div class="carousel-track" id="carouselTrack">';
+                        foreach ($recetas as $index => $receta) {
+                            echo '<div class="slide" onclick="onSlideClick('.$index.')">';
+                            echo '<div class="item-carrusel">'.$receta['nombre_receta'].'</div>';
+                            echo '</div>';
+                        }
+                        echo '</div></div>';
+
+                        echo '<button class="edit btn">Editar receta</button>';
+                        echo '<div id="receta-info" class="info-box">';
+                        echo '<div id="descipcionReceta"></div>';
+                        echo '<div class="alimentosReceta"></div>';
+                        echo '</div>';
                     }
                 ?>
+                <script src="../assets/js/carrusel.js" type="text/javascript"></script>
             </article>
         </section>
     </main>

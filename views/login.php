@@ -17,7 +17,7 @@
                     <input type="text" name="usr">
                 </div>
                 <div>
-                    <label for="password">Constraseña</label>
+                    <label for="password">Contraseña</label>
                     <input type="password" name="psw">
                 </div>
                 <input type="submit" name="submit" value="Login" class="btn">

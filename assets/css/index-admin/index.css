@@ -9,9 +9,35 @@
 @import url(../general/sidebar.css);
 @import url(index-media-query.css);
 
+#alumnos, #clientes {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
+#all>article {
+    padding: 0 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    -ms-grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+}
+
 .box-alumno {
     background-color: var(--color-input);
     box-shadow: 0 4px 4px 0 var(--color-shadow);
     border-radius: 25px;
     padding: 2rem;
+}
+
+dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    color: var(--color-60-green);
+    background-color: var(--color-40-beige);
+    padding: 5rem;
+    border-radius: 50px;
 }

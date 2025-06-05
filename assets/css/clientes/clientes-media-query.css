@@ -1,0 +1,24 @@
+/* ----------------------------
+    MEDIA QUERIES DE CLIENTES
+----------------------------- */
+@media (min-width: 576px) {
+    .clientes {
+        grid-template-columns: repeat(2, 1fr) !important;
+        -ms-grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+    .clientes {
+        grid-template-columns: repeat(3, 1fr) !important;
+        -ms-grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+}
+
+@media (min-width: 1200px) {
+
+}

@@ -7,7 +7,6 @@
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
         //Comprobar que el login es correcto con la informacion introducida
-
         $usuario = limpiar($_POST["usr"]);
         $contrasena = limpiar($_POST["psw"]);
         require_once "../models/model_login.php";

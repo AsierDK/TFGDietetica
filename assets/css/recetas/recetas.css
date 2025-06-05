@@ -8,75 +8,267 @@
 @import url(../general/header.css);
 @import url(../general/sidebar.css);
 @import url(recetas-media-query.css);
+@import url(../general/carrusel.css);
 
 form {
     width: 70vw;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    -ms-grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
     gap: 2rem;
 }
 
-form>div:nth-child(2) {
-    grid-row: span 2;
-    -ms-grid-row: span 2;
-}
-
-form>div:nth-child(2)>input {
-    height: 11.5rem;
-}
-
-form>div:last-child {
-    grid-column: span 2;
-    -ms-grid-column: span 2;
-    border: 1px solid;
-
-}
-
-form>div>input {
+form>input,
+form>div>input{
     width: auto;
 }
 
 form > input {
-    grid-column: span 2;
-    -ms-grid-column: span 2;
     justify-self: center;
+    -webkit-justify-self: center;
+    -moz-justify-self: center;
     -ms-justify-self: center;
     padding: 0 2rem;
 }
 
+.alergias {
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-flex-wrp: wrap;
+    -moz-flex-wrp: wrap;
+    -ms-flex-wrp: wrap;
+    gap: 1rem;
+}
+
+.alergias>div {
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+}
+
+.alergias input[type="checkbox"] {
+    background-color: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    height: auto;
+    margin-right: 1rem;
+}
+
+.sprite {
+    width: 2rem;
+    height: 2rem;
+    background-image: url('../../images/alergias.png');
+    background-repeat: no-repeat;
+    background-size: calc(1280px * 0.1624) calc(1280px * 0.1455);
+}
+
+.sprite.contiene-gluten { background-position: calc(-986px * 0.1624) calc(-50px * 0.1455); }
+.sprite.crustaceos { background-position:  calc(-697px * 0.1624) calc(-50px * 0.1455); }
+.sprite.granos-de-sesamo { background-position:  calc(-697px * 0.1624) calc(-641px * 0.1455); }
+.sprite.dioxido-de-azufre-y-sulfitos { background-position:  calc(-108px * 0.1624) calc(-952px * 0.1455); }
+.sprite.moluscos { background-position:  calc(-402px * 0.1624) calc(-654px * 0.1455); }
+.sprite.altramuces { background-position:  calc(-986px * 0.1624) calc(-654px * 0.1455); }
+.sprite.huevos { background-position: calc(-402px * 0.1624) calc(-50px * 0.1455); }
+.sprite.pescado { background-position: calc(-108px * 0.1624) calc(-50px * 0.1455); }
+.sprite.cacahuetes { background-position: calc(-108px * 0.1624) calc(-350px * 0.1455); }
+.sprite.soja { background-position: calc(-697px * 0.1624) calc(-952px * 0.1455); }
+.sprite.lacteos { background-position: calc(-402px * 0.1624) calc(-350px * 0.1455); }
+.sprite.frutos-de-cascara { background-position: calc(-986px * 0.1624) calc(-654px * 0.1455); }
+.sprite.apio { background-position: calc(-986px * 0.1624) calc(-350px * 0.1455); }
+.sprite.mostaza { background-position: calc(-108px * 0.1624) calc(-654px * 0.1455); }
+
 #alimento {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100vw - 5rem);
+    min-height: calc(100vh - 12rem);
     display: none;
-    grid-template-columns: repeat(3, 1fr);
-    -ms-grid-template-columns: repeat(3, 1fr);
-    gap: 5rem;
-    padding: 0 2.5rem;
+    grid-template-columns: 1fr;
+    -ms-grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 0 5rem;
     background-color: var(--color-40-beige);
+    z-index: 11;
+}
+
+#alimento>a {
+    text-align: right;
 }
 
 .box-alimento {
-    background-color: var(--color-input);
-    box-shadow: 0 4px 4px 0 var(--color-shadow);
+    position: relative;
+    width: 100%;
+    background-color: var(--color-40-beige);
+    box-shadow: inset 0 -2px 4px 0 var(--color-shadow);
     border-radius: 25px;
     padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
 }
 
-.box-alimento>a {
-    position: relative;
-    top: 0;
-    left: 100%;
+.box-alimento>a{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
 }
 
 #pop-up-pb {
     display: none;
-    padding: 2rem 5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(5px);
+    width: 100%;
+    height: 100%;
+}
+
+#pop-up-pb>div {
+    padding: 2rem;
     width: 60vw;
-    height: 40vh;
+    max-height: 50vh;
+    height: auto;
     background-color: var(--color-40-beige);
     box-shadow: 0 4px 4px 0 var(--color-shadow);
-    position: absolute;
+    position: relative;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 55%;
+    transform: translate(-50%, -55%);
     border-radius: 50px;
+    overflow: hidden;
+}
+
+#pop-up-pb a {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    font-size: 2rem;
+}
+
+#pop-up-pb h3 {
+    font-size: 1.5rem;
+}
+
+#pop-up-pb .form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+}
+
+#pop-up-pb .form>input {
+    width:10rem;
+}
+
+#pop-up-pb .form>.unidades {
+    display: grid;
+    grid-template-columns: 1fr;
+    -ms-grid-template-columns: 1fr;
+}
+
+#pop-up-pb .form>.unidades>label{
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    gap: 0.5rem;
+}
+
+#pop-up-pb .form>.unidades input {
+    background-color: transparent;
+    box-shadow: none;
+    accent-color: var(--color-60-green)
+}
+
+#cesta {
+    display: none;
+    position: fixed;
+    top: 12rem;
+    left: 5rem;
+    width: calc(100vw - 5rem);
+    min-height: calc(100vh - 12rem);
+    background-color: var(--color-40-beige);
+    padding: 5rem;
+}
+
+#cesta>button{
+    margin: 2rem 0;
+}
+
+#cesta>a{
+    font-size: 2rem;
+    position: relative;
+    left: 100%;
+}
+
+#cesta li {
+    display: block;
+    padding: 0.5rem;
+}
+
+#cesta li>button {
+    padding: 0.5rem;
+    margin-left: 1rem;
+    background-color: transparent;
+    color:  var(--color-60-green);
+    border: 1px solid var(--color-60-green);
+    border-radius: 2rem;
+}
+
+.info-box {
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+#descipcionReceta {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.alimentosReceta {
+    position: relative;
+    width: 100%;
+    min-height: 50%;
+    display: flex;
+    flex-direction: row;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    gap: 2rem;
+}
+
+.alimentosReceta>div {
+    height: 5rem;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
 }
