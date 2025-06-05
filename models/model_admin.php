@@ -36,4 +36,20 @@ function crearAlumno($params)
     }
     $conn=null;
 }
+function cambiarContrasenaAlumno($idAlumno,$contrasena)
+{
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("UPDATE Usuarios SET contrasena = :pass WHERE id_usuario = :id");
+        $stmt->bindParam(':id', $idAlumno);
+        $stmt->bindParam(':pass', $contrasena);
+        $stmt -> execute();
+    }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+}
 ?>

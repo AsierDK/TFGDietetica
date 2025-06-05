@@ -4,7 +4,6 @@ else if (document.attachEvent)
 	window.attachEvent("onload", inicio);
 
 let calendar;
-
 function inicio() {
     const clienteBoxes = document.querySelectorAll('.box-cliente');
     const calendarArticle = document.getElementById('calendar');

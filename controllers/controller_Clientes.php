@@ -12,18 +12,17 @@
     require_once '../models/model_Clientes.php';
     $clientes = Clientes();
 
-    if($admin == 0)
+    if($admin == 0){
         require_once '../views/clientes.php';
+    }
     else
     {
-        /*if(isset($_POST["submit"]))
+        if(isset($_POST["submit"]))
         {
-            crearAlumno($_POST);
-            print "Alumno creado correctamente";
+            crearCliente($_POST);
+            print "Cliente creado correctamente";
             print "<script type='text/javascript'>history.replaceState(null,null)</script>";
         }
-        
-        $alumnos = recuperarUsuarios();*/
 
         require_once '../views/clientes-admin.php';
     }

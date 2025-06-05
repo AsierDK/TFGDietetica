@@ -50,6 +50,10 @@
                         <input type="text" name="ape" id="ape"> 
                     </div>
                     <div>
+                        <label for="dni">DNI</label>
+                        <input type="text" name="dni" id="dni">
+                    </div>
+                    <div>
                         <label for="edad">Edad</label>
                         <input type="number" name="edad" id="edad">
                     </div>

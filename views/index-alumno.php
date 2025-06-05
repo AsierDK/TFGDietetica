@@ -42,13 +42,12 @@
                 </div>
                 <div class="article-main">
                     <?php
-                        for($i= 0; $i< 4; $i++)
+                        foreach($recetasUsuario as $receta) {
                             echo '<div  class="recipe">
-                                Nombre Alumno <br>
-                                Nº Clientes <br>
-                                Nº Recetas <br>
-                                <a>Más información </a>
+                                '.$receta['nombre_receta'].'<br>
+                                '.$receta['desc_receta'].'
                             </div>';
+                        }
                     ?>
                 </div>
             </article>
@@ -62,11 +61,12 @@
                 <div class="article-main">
                     <table>
                         <?php
-                            for($i= 0; $i< 4; $i++)
+                            foreach ($alimentosUsuario as $alimento) {
                                 echo '<tr>
-                                    <td>Ingrediente</td>
-                                    <td class="cantidad">Cantidad <a>></a></td>
+                                    <td>'.$alimento["nombre"].'</td>
+                                    <td class="cantidad">'.$alimento['veces_usado'].' </td>
                                 </tr>';
+                            }
                         ?>
                     </table>
                 </div>

@@ -36,6 +36,24 @@ function RecetaPorCliente($idReceta)
     $conn=null;
     return $resultado[0];
 }
+function mostrarRecetasPorUsuario($idUsuario)
+{
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("SELECT * FROM Recetas WHERE id_usuario = :id_usuario order by fechaModificacion LIMIT 4");
+        $stmt->bindParam(':id_usuario', $idUsuario);
+        $stmt -> execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $resultado=$stmt->fetchAll();
+    }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+    return $resultado;
+}
 function alimentosporReceta($idUsuario,$id_receta){
     try
     {
@@ -70,6 +88,7 @@ function annadirReceta($idUsuario,$params,$cesta){
         $stmt->bindParam(':desc_receta', $params['desc_receta']);
         $stmt->bindParam(':id_usuario', $idUsuario);
         $stmt -> execute();
+        var_dump($cesta);
         foreach ($cesta as $key => $value){
             $stmt = $conn-> prepare('INSERT INTO Alimentos_Recetas(id_alimentos, id_usuario, id_receta, fechaCreacion, fechaModificacion,pesoBruto)
             VALUES (:id_alimento,:id_usuario,:id_receta,now(),now(),:pesoBruto)');
@@ -106,4 +125,41 @@ function obtenerUltimoIdReceta()
     $conn=null;
     return $resultado[0]["idReceta"];
 }
+
+    function editarReceta($idUsu,$idReceta,$params)
+    {
+        try
+        {
+            $conn=conexionbbdd();
+            $stmt = $conn->prepare("UPDATE Recetas SET nombre_receta = :nombre_receta, desc_receta = :desc_receta, fechaModificacion = now() WHERE id_receta = :id_receta and id_usuario = :id_usuario");
+            $stmt->bindParam(':id_receta', $idReceta);
+            $stmt->bindParam(':nombre_receta', $params['nombre_receta']);
+            $stmt->bindParam(':desc_receta', $params['desc_receta']);
+            $stmt->bindParam(':id_usuario', $idUsu);
+            $stmt -> execute();
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $resultado=$stmt->fetchAll();
+        }
+        catch(PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn=null;
+    }
+
+    function borrarReceta($idReceta)
+    {   
+        try
+        {
+            $conn=conexionbbdd();
+            $stmt = $conn->prepare("DELETE FROM Recetas WHERE id_receta = :id_receta");
+            $stmt->bindParam(':id_receta', $idReceta);
+            $stmt -> execute();
+        }
+        catch(PDOException $e)
+        {
+            echo "Error: " . $e->getMessage();
+        }
+        $conn=null;
+    }
 ?>
