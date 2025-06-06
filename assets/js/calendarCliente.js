@@ -198,87 +198,272 @@ function recargar(){
 
 async function rellenarPDF(calendar) {
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
+  const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a3' });
 
   const currentView = calendar.view.type;
   const visibleEvents = calendar.getEvents();
-  const title = calendar.view.title;
-
-  // Traducción básica de vistas para mostrar en PDF
   const viewNames = {
     dayGridMonth: "Vista Mensual",
     timeGridWeek: "Vista Semanal",
     timeGridDay: "Vista Diaria"
   };
-  const viewText = viewNames[currentView] || currentView;
 
-  doc.setFillColor(40, 90, 130); // azul oscuro
-  doc.rect(0, 0, 210, 25, 'F'); // rectángulo relleno ancho A4 (210mm)
-  
-  doc.setTextColor(255, 255, 255); // texto blanco
-  doc.setFontSize(20);
-  doc.setFont("helvetica", "bold");
-  doc.text(`Planificación de Recetas`, 10, 16);
-
-  doc.setFontSize(14);
-  doc.setFont("helvetica", "normal");
-  doc.text(`Tipo de vista: ${viewText}`, 10, 30);
-  doc.setTextColor(0, 0, 0);
+  // Cabecera del documento
+  doc.setFillColor(40, 90, 130);
+  doc.rect(0, 0, 297, 25, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(20).setFont("helvetica", "bold");
+  doc.text("Planificación de Recetas", 10, 16);
+  doc.setFontSize(14).setFont("helvetica", "normal").setTextColor(0);
+  doc.text(`Tipo de vista: ${viewNames[currentView] || currentView}`, 10, 30);
 
   let y = 40;
-
   if (visibleEvents.length === 0) {
-    doc.setFontSize(12);
-    doc.text("No hay eventos visibles en esta vista.", 10, y);
-  } else {
-    visibleEvents.forEach((event, index) => {
-      const fechaInicio = event.start.toISOString().slice(0, 10);
+    doc.setFontSize(12).text("No hay eventos visibles en esta vista.", 10, y);
+    return doc.save("planificacion_recetas.pdf");
+  }
+
+  // Agrupar eventos por fecha
+  const eventosPorFecha = agruparEventosPorFecha(visibleEvents);
+  const energiaPorDia = calcularEnergiaPorDia(eventosPorFecha);
+
+  for (const fecha of Object.keys(eventosPorFecha).sort()) {
+    const eventos = eventosPorFecha[fecha];
+    let energiaTotalDia = energiaPorDia[fecha];
+    let totalDia = crearObjetoTotales();
+
+    doc.setFontSize(16).setTextColor(40, 90, 130).setFont("helvetica", "bold");
+    doc.text(`Día: ${fecha}`, 10, y);
+    y += 10;
+
+    for (const event of eventos) {
       const tipoComida = event.extendedProps?.tipoComida || '';
-
-      doc.setFontSize(14);
-      doc.setFont("helvetica", "bold");
-      doc.text(`${fechaInicio} - ${tipoComida}`, 10, y);
-      y += 7;
-
-      doc.setFontSize(12);
-      doc.setFont("helvetica", "normal");
-      doc.text(`Receta: ${event.title}`, 10, y);
-      y += 7;
-
       const alimentos = event.extendedProps?.alimentos || [];
 
-      if (alimentos.length > 0) {
-        const tableColumn = ["Nombre", "Peso (g)"];
-        const tableRows = alimentos.map(ali => [
-          ali.nombreAlimento || ali.nombre || 'N/A',
-          ali.pesoBruto ?? ali.pesobruto ?? 'N/A'
-        ]);
+      const totalComida = crearObjetoTotales();
+      const datosAlimentos = alimentos.map(ali => calcularDatosAlimento(ali, totalComida));
 
-        doc.autoTable({
-          startY: y,
-          head: [tableColumn],
-          body: tableRows,
-          theme: 'grid',
-          headStyles: { fillColor: [40, 90, 130], textColor: 255 },
-          styles: { fontSize: 10 },
-          margin: { left: 10, right: 10 }
-        });
+      // Acumular al total del día
+      Object.keys(totalDia).forEach(key => {
+        totalDia[key] += totalComida[key];
+      });
 
-        y = doc.lastAutoTable.finalY + 10;
-      } else {
-        doc.setFontSize(10);
-        doc.setTextColor(100);
-        doc.text("Sin alimentos registrados", 10, y);
-        doc.setTextColor(0);
-        y += 10;
+      // Generar tabla
+      doc.setFontSize(12).setTextColor(0).setFont("helvetica", "bold");
+      doc.text(`${tipoComida}`, 10, y); y += 6;
+      doc.setFont("helvetica", "normal");
+      doc.text(`Receta: ${event.title}`, 10, y); y += 7;
+
+      const tableColumn = encabezadoTabla();
+      const tableRows = datosAlimentos.map(formatearFilaAlimento);
+
+      const porcentajeEnergia = ((totalComida.energia / energiaTotalDia) * 100).toFixed(2) + "%";
+      tableRows.push(formatearFilaTotales("TOTAL", totalComida, porcentajeEnergia));
+
+      doc.autoTable({
+        startY: y,
+        head: [tableColumn],
+        body: tableRows,
+        styles: { fontSize: 5.5 },
+        headStyles: { fillColor: [40, 90, 130], textColor: 255 },
+        margin: { left: 10, right: 10 },
+        pageBreak: 'auto'
+      });
+
+      y = doc.lastAutoTable.finalY + 15;
+      if (y > doc.internal.pageSize.height - 50) {
+        doc.addPage(); y = 20;
       }
+    }
 
-      if (y > 270 && index !== visibleEvents.length - 1) {
-        doc.addPage();
-        y = 20;
-      }
-    });
+const porcentajeEnergiaDia = ((totalDia.energia / energiaPorDia[fecha]) * 100).toFixed(2) + "%";
+
+doc.setFontSize(14);
+doc.setTextColor(40, 90, 130);
+doc.text("Total del día", 10, y);
+y += 8;
+
+doc.autoTable({
+  startY: y,
+  head: [[
+    "Energía", "Proteínas", "Grasas", "AGS", "AGMI", "AGPI", "Colesterol",
+    "HC", "Fibra", "Vit C", "Vit B6", "Vit E", "Hierro", "Sodio", "Calcio",
+    "Vit D", "Potasio", "% Energía Total"
+  ]],
+  body: [[
+    totalDia.energia.toFixed(2),
+    totalDia.prot.toFixed(2),
+    totalDia.grasa.toFixed(2),
+    totalDia.ags.toFixed(2),
+    totalDia.agmi.toFixed(2),
+    totalDia.agpi.toFixed(2),
+    totalDia.col.toFixed(2),
+    totalDia.hc.toFixed(2),
+    totalDia.fibra.toFixed(2),
+    totalDia.vit_c.toFixed(2),
+    totalDia.vit_b6.toFixed(2),
+    totalDia.vit_e.toFixed(2),
+    totalDia.fe.toFixed(2),
+    totalDia.na.toFixed(2),
+    totalDia.ca.toFixed(2),
+    totalDia.vit_d.toFixed(2),
+    totalDia.k.toFixed(2),
+    porcentajeEnergiaDia
+  ]],
+  styles: { fontSize: 8 },
+  headStyles: { fillColor: [40, 90, 130], textColor: 255 },
+  margin: { left: 10, right: 10 },
+  theme: 'striped',
+  pageBreak: 'auto',
+});
+
+y = doc.lastAutoTable.finalY + 15;
+
+if (y > doc.internal.pageSize.height - 50) {
+  doc.addPage();
+  y = 20;
+}
+
   }
 
   doc.save("planificacion_recetas.pdf");
+}
+
+function agruparEventosPorFecha(events) {
+  const grupos = {};
+  events.forEach(event => {
+    const fecha = event.start.toISOString().slice(0, 10);
+    if (!grupos[fecha]) grupos[fecha] = [];
+    grupos[fecha].push(event);
+  });
+  return grupos;
+}
+
+function calcularEnergiaPorDia(eventosPorFecha) {
+  const energia = {};
+  for (const fecha in eventosPorFecha) {
+    let total = 0;
+    eventosPorFecha[fecha].forEach(event => {
+      const alimentos = event.extendedProps?.alimentos || [];
+      alimentos.forEach(ali => {
+        const pesoNeto = parseFloat(ali.pesoBruto || 0) * parseFloat(ali.PC || 0);
+        const e_100 = parseFloat(ali.e_100 || 0);
+        total += pesoNeto * e_100 / 100;
+      });
+    });
+    energia[fecha] = total;
+  }
+  return energia;
+}
+
+function crearObjetoTotales() {
+  return {
+    energia: 0, prot: 0, grasa: 0, ags: 0, agmi: 0, agpi: 0,
+    col: 0, hc: 0, fibra: 0, vit_c: 0, vit_b6: 0, vit_e: 0,
+    fe: 0, na: 0, ca: 0, vit_d: 0, k: 0
+  };
+}
+
+function calcularDatosAlimento(ali, total) {
+  const parse = v => parseFloat(v || 0);
+  const pesoNeto = parse(ali.pesoBruto) * parse(ali.PC);
+
+  const datos = {
+    nombre: ali.nombreAlimento,
+    pesoBruto: parse(ali.pesoBruto),
+    pc: parse(ali.PC),
+    pesoNeto,
+    e_100: parse(ali.e_100),
+    prot_100: parse(ali.prot_100),
+    grasa_100: parse(ali.grasa_100),
+    ags_100: parse(ali.ags_100),
+    agmi_100: parse(ali.agmi_100),
+    agpi_100: parse(ali.agpi_100),
+    col_100: parse(ali.col_100),
+    hc_100: parse(ali.hc_100),
+    fibra_100: parse(ali.fibra_100),
+    vit_c_100: parse(ali.vit_c_100),
+    vit_b6_100: parse(ali.vit_b6_100),
+    vit_e_100: parse(ali.vit_e_100),
+    fe_100: parse(ali.fe_100),
+    na_100: parse(ali.na_100),
+    ca_100: parse(ali.ca_100),
+    vit_d_100: parse(ali.vit_d_100),
+    k_100: parse(ali.k_100)
+  };
+
+  datos.energia = pesoNeto * datos.e_100 / 100;
+  datos.prot = pesoNeto * datos.prot_100 / 100;
+  datos.grasa = pesoNeto * datos.grasa_100 / 100;
+  datos.ags = pesoNeto * datos.ags_100 / 100;
+  datos.agmi = pesoNeto * datos.agmi_100 / 100;
+  datos.agpi = pesoNeto * datos.agpi_100 / 100;
+  datos.col = pesoNeto * datos.col_100 / 100;
+  datos.hc = pesoNeto * datos.hc_100 / 100;
+  datos.fibra = pesoNeto * datos.fibra_100 / 100;
+  datos.vit_c = pesoNeto * datos.vit_c_100 / 100;
+  datos.vit_b6 = pesoNeto * datos.vit_b6_100 / 100;
+  datos.vit_e = pesoNeto * datos.vit_e_100 / 100;
+  datos.fe = pesoNeto * datos.fe_100 / 100;
+  datos.na = pesoNeto * datos.na_100 / 100;
+  datos.ca = pesoNeto * datos.ca_100 / 100;
+  datos.vit_d = pesoNeto * datos.vit_d_100 / 100;
+  datos.k = pesoNeto * datos.k_100 / 100;
+
+  // Sumar al total
+  Object.keys(total).forEach(k => { if (datos[k] !== undefined) total[k] += datos[k]; });
+
+  return datos;
+}
+
+function encabezadoTabla() {
+  return [
+    "Nombre", "Peso Bruto", "PC", "Peso Neto",
+    "E/100", "Prot/100", "Grasa/100", "AGS/100", "AGMI/100", "AGPI/100",
+    "Col/100", "HC/100", "Fibra/100", "Vit C/100", "Vit B6/100", "Vit E/100",
+    "Fe/100", "Na/100", "Ca/100", "Vit D/100", "K/100",
+    "Energía", "Proteínas", "Grasas", "AGS", "AGMI", "AGPI", "Colesterol",
+    "HC", "Fibra", "Vit C", "Vit B6", "Vit E", "Hierro", "Sodio",
+    "Calcio", "Vit D", "Potasio", "% Energía Total"
+  ];
+}
+
+function formatearFilaAlimento(d) {
+  return [
+    d.nombre, d.pesoBruto.toFixed(1), d.pc.toFixed(1), d.pesoNeto.toFixed(1),
+    d.e_100.toFixed(1), d.prot_100.toFixed(1), d.grasa_100.toFixed(1), d.ags_100.toFixed(1), d.agmi_100.toFixed(1), d.agpi_100.toFixed(1),
+    d.col_100.toFixed(1), d.hc_100.toFixed(1), d.fibra_100.toFixed(1), d.vit_c_100.toFixed(1), d.vit_b6_100.toFixed(1), d.vit_e_100.toFixed(1),
+    d.fe_100.toFixed(1), d.na_100.toFixed(1), d.ca_100.toFixed(1), d.vit_d_100.toFixed(1), d.k_100.toFixed(1),
+    d.energia.toFixed(2), d.prot.toFixed(2), d.grasa.toFixed(2), d.ags.toFixed(2), d.agmi.toFixed(2),
+    d.agpi.toFixed(2), d.col.toFixed(2), d.hc.toFixed(2), d.fibra.toFixed(2), d.vit_c.toFixed(2),
+    d.vit_b6.toFixed(2), d.vit_e.toFixed(2), d.fe.toFixed(2), d.na.toFixed(2), d.ca.toFixed(2),
+    d.vit_d.toFixed(2), d.k.toFixed(2), ""
+  ];
+}
+
+function formatearFilaTotales(label, totales, porcentaje) {
+  return [
+    label, "", "", "",
+    "", "", "", "", "", "",
+    "", "", "", "", "", "",
+    "", "", "", "", "",
+    totales.energia.toFixed(2),
+    totales.prot.toFixed(2),
+    totales.grasa.toFixed(2),
+    totales.ags.toFixed(2),
+    totales.agmi.toFixed(2),
+    totales.agpi.toFixed(2),
+    totales.col.toFixed(2),
+    totales.hc.toFixed(2),
+    totales.fibra.toFixed(2),
+    totales.vit_c.toFixed(2),
+    totales.vit_b6.toFixed(2),
+    totales.vit_e.toFixed(2),
+    totales.fe.toFixed(2),
+    totales.na.toFixed(2),
+    totales.ca.toFixed(2),
+    totales.vit_d.toFixed(2),
+    totales.k.toFixed(2),
+    porcentaje
+  ];
 }
