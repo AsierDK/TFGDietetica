@@ -66,6 +66,11 @@
                 }
                 echo json_encode($eventos);
                 break;
+            case 'modificar':
+                $fecha = $_POST['fecha'];
+                $idReceta = $_POST['idReceta'];
+                editarRecetaSemana($idUsu, $idCliente, $idReceta, $fecha);
+                break;
         }
     }
 ?>

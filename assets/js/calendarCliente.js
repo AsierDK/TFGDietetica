@@ -23,8 +23,22 @@ function inicio() {
                   firstDay: 1,
                   editable: true, 
                   eventDrop: function(info) {
-                      // Esta función se ejecuta cuando se mueve un evento
-                      alert('Evento movido a: ' + info.event.start.toISOString());
+                    const fecha = info.event.start.toISOString().slice(0, 10);
+                    fetch('../controllers/Calendario.php', {
+                          method: 'POST',
+                          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                          body: `accion=modificar&fecha=${fecha}&idReceta=${info.event.id}&idCliente=${idCliente}`
+                      })
+                      .then(response => {
+                        if (!response.ok) throw new Error('Error en la respuesta del servidor');
+                        return;
+                      })
+                      .then(() => {
+                          console.log('Modificación exitosa');
+                      })
+                      .catch(error => {
+                          console.error('Error cargando eventos:', error);
+                      });
                   },
                   events: function(fetchInfo, successCallback, failureCallback) {
                     fetch('../controllers/Calendario.php', {
@@ -61,13 +75,19 @@ function inicio() {
                   generarPDF: {
                       text: 'Descargar PDF',
                       click: function() {
-                        rellenarPDF(calendar);
+                        rellenarPDF(calendar, 'descargar');
+                      }
+                  },
+                  visualizarPDF: {
+                      text: 'visualizar PDF',
+                      click: function() {
+                        rellenarPDF(calendar, 'visualizar');
                       }
                   }
                 },
               
                   headerToolbar: {
-                    left: 'prev,next today annadirReceta generarPDF', // Botones de navegación
+                    left: 'prev,next today annadirReceta generarPDF visualizarPDF', // Botones de navegación
                     center: 'title',  // Título
                     right: 'dayGridMonth,timeGridWeek,timeGridDay' // Vista del calendario (mensual, semanal, diario)
                   },
@@ -196,7 +216,7 @@ function recargar(){
   datosFecha.style.display = 'none';
 }
 
-async function rellenarPDF(calendar) {
+async function rellenarPDF(calendar, accion) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a3' });
 
@@ -326,7 +346,13 @@ if (y > doc.internal.pageSize.height - 50) {
 
   }
 
-  doc.save("planificacion_recetas.pdf");
+  if (accion === 'descargar'){
+    doc.save("planificacion_recetas.pdf");
+  } else if (accion === 'visualizar'){
+    const pdfBlob = doc.output('blob');
+    const blobUrl = URL.createObjectURL(pdfBlob);
+    window.open(blobUrl);
+  }
 }
 
 function agruparEventosPorFecha(events) {
