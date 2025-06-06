@@ -72,6 +72,24 @@ function alimentosporReceta($idUsuario,$id_receta){
     $conn=null;
     return $resultado;
 }
+function obtenerReceta($id_receta)
+{
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("SELECT * FROM Recetas WHERE id_receta = :id_receta");
+        $stmt->bindParam(':id_receta', $id_receta);
+        $stmt -> execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $resultado=$stmt->fetchAll();
+    }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+    return $resultado[0];
+}
 function annadirReceta($idUsuario,$params,$cesta){
     $conn=conexionbbdd();
     try
@@ -126,13 +144,13 @@ function obtenerUltimoIdReceta()
     return $resultado[0]["idReceta"];
 }
 
-    function editarReceta($idUsu,$idReceta,$params)
+    function editarReceta($idUsu,$params)
     {
         try
         {
             $conn=conexionbbdd();
             $stmt = $conn->prepare("UPDATE Recetas SET nombre_receta = :nombre_receta, desc_receta = :desc_receta, fechaModificacion = now() WHERE id_receta = :id_receta and id_usuario = :id_usuario");
-            $stmt->bindParam(':id_receta', $idReceta);
+            $stmt->bindParam(':id_receta', $params['id_receta']);
             $stmt->bindParam(':nombre_receta', $params['nombre_receta']);
             $stmt->bindParam(':desc_receta', $params['desc_receta']);
             $stmt->bindParam(':id_usuario', $idUsu);
@@ -152,6 +170,9 @@ function obtenerUltimoIdReceta()
         try
         {
             $conn=conexionbbdd();
+            $stmt = $conn->prepare("DELETE FROM Recetas_Semana WHERE id_receta = :id_receta");
+            $stmt->bindParam(':id_receta', $idReceta);
+            $stmt -> execute();
             $stmt = $conn->prepare("DELETE FROM Recetas WHERE id_receta = :id_receta");
             $stmt->bindParam(':id_receta', $idReceta);
             $stmt -> execute();

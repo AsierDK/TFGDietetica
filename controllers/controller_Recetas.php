@@ -21,7 +21,16 @@ iniciarSession();
             $receta = datosReceta();
             $cesta = devolverCesta();
             annadirReceta($idUsu,$receta,$cesta);
-            print "Alimento Añadido";
+            print "Receta Añadida";
+        } else if ($_POST["accion"] === "Editar") {
+            editarReceta($idUsu,$_POST);
+            print "Receta modificada";
+        } else if ($_POST["accion"] === "Eliminar") {
+            borrarReceta($_POST['id_receta']);
+            print "Receta eliminada";
+        }
+        else {
+            print "Error";
         }
         print "<script type='text/javascript'>history.replaceState(null,null)</script>";
     }

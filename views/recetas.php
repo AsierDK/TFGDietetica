@@ -50,7 +50,7 @@
                 <form action="" method="post">
                     <div>
                         <label for="nombreReceta">Nombre receta</label>
-                        <input type="text" id="nombreReceta" name="nombreReceta" require>
+                        <input type="text" id="nombreReceta" name="nombreReceta" required>
                     </div>
                     <div>
                         <label for="desc">Descripción</label>
@@ -135,8 +135,37 @@
                     }
                 ?>
                 <script src="../assets/js/carrusel.js" type="text/javascript"></script>
+                <script src="../assets/js/editar.js" type="text/javascript"></script>
             </article>
         </section>
+        <dialog id="editDialog">
+            <form  action="" method="post" name="dialog">
+                <div>
+                    <label for="nombreReceta">Nombre receta</label>
+                    <input type="text" id="nombreReceta" name="nombreReceta">
+                </div>
+                <div>
+                    <label for="desc">Descripción</label>
+                    <textarea name="desc" id="desc" require></textarea>
+                </div>
+                <input type="hidden" name="editarreceta" value="1">
+                <input type="hidden" name="id_receta" value="">
+                <div class="alergias-container">
+                    <label for="alergias">Alergias</label>
+                    <div class="alergias">
+                        <?php
+                            foreach ($alergias as $alergia){
+                                $class = str_replace(' ', '-', strtolower($alergia["nombre_alergia"]));
+                                echo '<div><input type="checkbox" name="alergias[]" value="'.$alergia["id_alergia"].'">'.$alergia["nombre_alergia"]. '<span class="sprite '.$class.'"></span> </div>';
+                            }
+                        ?>
+                    </div>
+                </div>
+                <input type="submit" value="Editar" class="btn" name="accion">
+                <input type="submit" value="Eliminar" class="btn" name="accion">
+                <button type="button" class="btn" id="closeDialogBtn">Cerrar</button>
+            </form>
+        </dialog>
     </main>
     <footer></footer>
     <aside></aside>
