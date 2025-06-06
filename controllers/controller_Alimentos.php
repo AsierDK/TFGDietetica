@@ -16,9 +16,16 @@
     $alimentos = AlimentosPorUsuario($idUsu);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if(isset($_POST["Nuevo alimento"])){
+        if (isset($_POST["annadiralimento"])) {
             annadirAlimento($idUsu,$_POST);
             print "Alimento Añadido";
+        }
+        else if (isset($_POST["editaralimento"])) {
+            editarAlimento($idUsu,$_POST);
+            print "Alimento modificado";
+        }
+        else {
+            print "Error";
         }
         print "<script type='text/javascript'>history.replaceState(null,null)</script>";
     }

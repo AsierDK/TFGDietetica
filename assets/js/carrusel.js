@@ -5,9 +5,10 @@ else if (document.attachEvent)
 
 let items = [];
 let currentIndex = 0;
+let tipo;
 
 function inicio() {
-    const tipo = window.tipo;
+    tipo = window.tipo;
     console.log(tipo);
     fetch(`../controllers/Carrusel.php?tipo=${tipo}`)
     .then(correctoCarrusel)
@@ -64,8 +65,10 @@ function updateTransform() {
 
 function updateInfo() {
     const a = items[currentIndex];
+    const editButton = document.querySelector('.edit.btn');
     console.log(a);
     if (tipo === 'alimentos') {
+        editButton.setAttribute('data-id', a.id_alimentos);
         document.getElementById("pc").textContent = a.PC;
         document.getElementById("e_100").textContent = a.e_100;
         document.getElementById("prot_100").textContent = a.prot_100;
@@ -85,6 +88,9 @@ function updateInfo() {
         document.getElementById("k_100").textContent = a.k_100;
         document.getElementById("vit_d_100").textContent = a.vit_d_100;
     } else {
+        if (editButton && a.id_receta) {
+            editButton.setAttribute('data-id', a.id_receta);
+        }
         document.getElementById("descipcionReceta").textContent = a.desc_receta;
         const alimentos = document.querySelector('.alimentosReceta');
         while (alimentos.firstChild) {
@@ -97,6 +103,8 @@ function updateInfo() {
             alimentos.appendChild(divAli);
         }
     }
+
+    inicioEditar();
 }
 
 function updateActiveClass() {

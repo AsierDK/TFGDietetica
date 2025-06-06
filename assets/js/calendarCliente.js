@@ -212,7 +212,6 @@ async function rellenarPDF(calendar) {
   };
   const viewText = viewNames[currentView] || currentView;
 
-  // Encabezado con color y fuente
   doc.setFillColor(40, 90, 130); // azul oscuro
   doc.rect(0, 0, 210, 25, 'F'); // rectángulo relleno ancho A4 (210mm)
   
@@ -224,7 +223,7 @@ async function rellenarPDF(calendar) {
   doc.setFontSize(14);
   doc.setFont("helvetica", "normal");
   doc.text(`Tipo de vista: ${viewText}`, 10, 30);
-  doc.setTextColor(0, 0, 0); // volver a negro
+  doc.setTextColor(0, 0, 0);
 
   let y = 40;
 
@@ -233,7 +232,7 @@ async function rellenarPDF(calendar) {
     doc.text("No hay eventos visibles en esta vista.", 10, y);
   } else {
     visibleEvents.forEach((event, index) => {
-      const fechaInicio = event.start.toISOString().slice(0, 10); // solo fecha yyyy-mm-dd
+      const fechaInicio = event.start.toISOString().slice(0, 10);
       const tipoComida = event.extendedProps?.tipoComida || '';
 
       doc.setFontSize(14);
@@ -249,14 +248,12 @@ async function rellenarPDF(calendar) {
       const alimentos = event.extendedProps?.alimentos || [];
 
       if (alimentos.length > 0) {
-        // Preparar datos para la tabla
         const tableColumn = ["Nombre", "Peso (g)"];
         const tableRows = alimentos.map(ali => [
           ali.nombreAlimento || ali.nombre || 'N/A',
           ali.pesoBruto ?? ali.pesobruto ?? 'N/A'
         ]);
 
-        // Usar autotable para la tabla
         doc.autoTable({
           startY: y,
           head: [tableColumn],
@@ -267,7 +264,7 @@ async function rellenarPDF(calendar) {
           margin: { left: 10, right: 10 }
         });
 
-        y = doc.lastAutoTable.finalY + 10; // actualizar y tras la tabla
+        y = doc.lastAutoTable.finalY + 10;
       } else {
         doc.setFontSize(10);
         doc.setTextColor(100);

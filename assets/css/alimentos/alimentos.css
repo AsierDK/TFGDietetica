@@ -77,3 +77,15 @@ form>div>input{
 .sprite.frutos-de-cáscara { background-position: calc(-986px * 0.1624) calc(-654px * 0.1455); }
 .sprite.apio { background-position: calc(-986px * 0.1624) calc(-350px * 0.1455); }
 .sprite.mostaza { background-position: calc(-108px * 0.1624) calc(-654px * 0.1455); }
+
+dialog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    color: var(--color-60-green);
+    background-color: var(--color-40-beige);
+    padding: 5rem;
+    border-radius: 50px;
+}

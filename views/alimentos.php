@@ -123,6 +123,7 @@
                         <label for="K_100">K_100</label>
                         <input type="text" name="k_100">
                     </div>
+                    <input type="hidden" name="annadiralimento" value="1">
                     <div class="alergias-container">
                         <label for="alergias">Alergias</label>
                         <div class="alergias">
@@ -134,7 +135,7 @@
                             ?>
                         </div>
                     </div>
-                    <input type="submit" value="Nuevo alimento" class="btn" name="Nuevo alimento">
+                    <input type="submit" value="Añadir alimento" class="btn" name="annadirAlimento">
                 </form>
             </article>
         </section>
@@ -155,7 +156,7 @@
                         }
                         echo '</div></div>';
 
-                        echo '<button class="edit btn">Editar alimento</button>';
+                        echo '<button class="edit btn" data-id="">Editar alimento</button>';
                         echo '<div id="alimento-info" class="info-box">';
                         echo '<div class="info">PC: <p id="pc"></p></div>';
                         echo '<div class="info">E_100: <p id="e_100"></p></div>';
@@ -179,8 +180,104 @@
                     }
                 ?>
                 <script src="../assets/js/carrusel.js" type="text/javascript"></script>
+                <script src="../assets/js/editar.js" type="text/javascript"></script>
             </article>
         </section>
+        <dialog id="editDialog">
+            <form  action="" method="post" name="dialog">
+                <div>
+                    <label for="name">Nombre alimento</label>
+                    <input type="text" name="nombreAlimento">
+                </div>
+                <div>
+                    <label for="pc">PC</label>
+                    <input type="text" name="pc">
+                </div>
+                <div>
+                    <label for="E">E/100</label>
+                    <input type="text" name="e_100">
+                </div>
+                <div>
+                    <label for="PROT_100">PROT_100</label>
+                    <input type="text" name="prot_100">
+                </div>
+                <div>
+                    <label for="GRASA_100">GRASA_100</label>
+                    <input type="text" name="grasa_100">
+                </div>
+                <div>
+                    <label for="AGS_100">AGS_100</label>
+                    <input type="text" name="ags_100">
+                </div>
+                <div>
+                    <label for="AGMI_100">AGMI_100</label>
+                    <input type="text" name="agmi_100">
+                </div>
+                <div>
+                    <label for="AGPI_100">AGPI_100</label>
+                    <input type="text" name="agpi_100">
+                </div>
+                <div>
+                    <label for="COL_100">COL_100</label>
+                    <input type="text" name="col_100">
+                </div>
+                <div>
+                    <label for="HC_100">HC_100</label>
+                    <input type="text" name="hc_100">
+                </div>
+                <div>
+                    <label for="FIBRA_100">FIBRA_100</label>
+                    <input type="text" name="fibra_100">
+                </div>
+                <div>
+                    <label for="VIT_B6_100">VIT_B6_100</label>
+                    <input type="text" name="vit_b6_100">
+                </div>
+                <div>
+                    <label for="VIT_C_100">VIT_C_100</label>
+                    <input type="text" name="vit_c_100">
+                </div>
+                <div>
+                    <label for="VIT_D_100">VIT_D_100</label>
+                    <input type="text" name="vit_d_100">
+                </div>
+                <div>
+                    <label for="VIT_E_100">VIT_E_100</label>
+                    <input type="text" name="vit_e_100">
+                </div>
+                <div>
+                    <label for="FE_100">FE_100</label>
+                    <input type="text" name="fe_100">
+                </div>
+                <div>
+                    <label for="NA_100">NA_100</label>
+                    <input type="text" name="na_100">
+                </div>
+                <div>
+                    <label for="CA_100">CA_100</label>
+                    <input type="text" name="ca_100">
+                </div>
+                <div>
+                    <label for="K_100">K_100</label>
+                    <input type="text" name="k_100">
+                </div>
+                <input type="hidden" name="editaralimento" value="1">
+                <input type="hidden" name="id_alimento" value="">
+                <div class="alergias-container">
+                    <label for="alergias">Alergias</label>
+                    <div class="alergias">
+                        <?php
+                            foreach ($alergias as $alergia){
+                                $class = str_replace(' ', '-', strtolower($alergia["nombre_alergia"]));
+                                echo '<div><input type="checkbox" name="alergias[]" value="'.$alergia["id_alergia"].'">'.$alergia["nombre_alergia"]. '<span class="sprite '.$class.'"></span> </div>';
+                            }
+                        ?>
+                    </div>
+                </div>
+                <input type="submit" value="Guardar" class="btn" name="Guardar">
+                <button type="button" id="closeDialogBtn">Cerrar</button>
+            </form>
+        </dialog>
     </main>
     <footer></footer>
     <aside></aside>
