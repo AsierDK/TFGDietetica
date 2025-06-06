@@ -16,8 +16,6 @@
             $idReceta = $receta['id_receta'];
             $receta['alimentos'] = alimentosporReceta($idUsu, $idReceta);
         }
-    } else {
-        echo json_encode([]);
     }
     $envio=json_encode($items);
 	echo $envio;
