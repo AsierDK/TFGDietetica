@@ -275,7 +275,7 @@
                     </div>
                 </div>
                 <input type="submit" value="Guardar" class="btn" name="Guardar">
-                <button type="button" id="closeDialogBtn">Cerrar</button>
+                <button type="button" id="closeDialogBtn" class="btn">Cerrar</button>
             </form>
         </dialog>
     </main>
