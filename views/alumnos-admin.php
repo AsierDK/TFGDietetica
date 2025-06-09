@@ -6,8 +6,13 @@
     <title>Alumnos - Admin - webDietetica</title>
     <link rel="stylesheet" href="../assets/css/index-admin/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
+    <script src="../assets/js/calendarCliente.js" type="text/javascript"></script>
     <script src="../assets/js/toggle.js" type="text/javascript"></script>
     <script src="../assets/js/password.js" type="text/javascript"></script>
+    <script src="../assets/js/alumnoCliente.js" type="text/javascript"></script>
 </head>
 <body>
     <header>
@@ -70,23 +75,26 @@
                     }
                     else {
                         foreach ($alumnos as $alumno)
-                            echo '<div class="box-alumno"><button class="btn" data-id="' . $alumno['id_usuario'] . '">Ver información</button>'
+                            echo '<div class="box-alumno"><button class="btn" data-id="' . $alumno['id_usuario'] . '" onclick="verInformacion(' . $alumno['id_usuario'] . ')">Ver información</button>'
                                 . $alumno['nombre'] . '<br>' . $alumno['apellidos'] . '<br>' . $alumno['email'] . '<br>'
                                 . '<button class="btn cambiar-pass" data-id="' . $alumno['id_usuario'] . '">Cambiar contraseña</button>'
                                 . '</div>';
                     }
                 ?>
-
-                <dialog id="cambiarPass">
-                    <form action="" method="post">
-                        <input type="hidden" id="id_alumno" name="id_alumno">
-                        <label>Nueva contraseña:</label>
-                        <input type="password" name="nueva_pass" id="nueva_pass" required>
-                        <button type="submit" name="submit" class="btn">Guardar</button>
-                        <button type="button" class="btn" id="cerrarDialog">Cancelar</button>
-                    </form>
-                </dialog>
             </article>
+            <article id="cliente" class="clientes">
+            </article>
+            <article id="calendar">
+            </article>
+            <dialog id="cambiarPass">
+                <form action="" method="post">
+                    <input type="hidden" id="id_alumno" name="id_alumno">
+                    <label>Nueva contraseña:</label>
+                    <input type="password" name="nueva_pass" id="nueva_pass" required>
+                    <button type="submit" name="submit" class="btn">Guardar</button>
+                    <button type="button" class="btn" id="cerrarDialog">Cancelar</button>
+                </form>
+            </dialog>
         </section>
     </main>
     <footer></footer>

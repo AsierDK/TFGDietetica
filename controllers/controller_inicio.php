@@ -16,12 +16,6 @@
         require_once ("controller_inicio_datos.php");
         require_once ("../views/index-alumno.php");
     } else {
-        require_once ("../models/model_Clientes.php");
-        require_once ("../models/model_RecetasSemana.php");
-        $clientes = Clientes();
-        foreach ($id as $clientes){
-            $numRecetas[$id] = obtenerRecetasPorCliente($idUsuario, $id);
-        }
         require_once ("../models/model_admin.php"); 
         if(isset($_POST["submit"]))
         {

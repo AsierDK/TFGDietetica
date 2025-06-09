@@ -42,11 +42,16 @@
                 </div>
                 <div class="article-main">
                     <?php
-                        foreach($recetasUsuario as $receta) {
-                            echo '<div  class="recipe">
-                                '.$receta['nombre_receta'].'<br>
-                                '.$receta['desc_receta'].'
-                            </div>';
+                        if (empty($recetasUsuario)) {
+                            echo 'No hay recetas registradas.';
+                        }
+                        else {
+                            foreach($recetasUsuario as $receta) {
+                                echo '<div  class="recipe">
+                                    '.$receta['nombre_receta'].'<br>
+                                    '.$receta['desc_receta'].'
+                                </div>';
+                            }
                         }
                     ?>
                 </div>
@@ -61,11 +66,16 @@
                 <div class="article-main">
                     <table>
                         <?php
-                            foreach ($alimentosUsuario as $alimento) {
-                                echo '<tr>
-                                    <td>'.$alimento["nombre"].'</td>
-                                    <td class="cantidad">'.$alimento['veces_usado'].' </td>
-                                </tr>';
+                            if (empty($alimentosUsuario)) {
+                                echo 'No hay alimentos registrados.';
+                            }
+                            else {
+                                foreach ($alimentosUsuario as $alimento) {
+                                    echo '<tr>
+                                        <td>'.$alimento["nombre"].'</td>
+                                        <td class="cantidad">'.$alimento['veces_usado'].' </td>
+                                    </tr>';
+                                }
                             }
                         ?>
                     </table>

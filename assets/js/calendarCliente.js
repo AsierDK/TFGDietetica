@@ -4,8 +4,13 @@ else if (document.attachEvent)
 	window.attachEvent("onload", inicio);
 
 let calendar;
+//let idUsu;
 function inicio() {
-    const clienteBoxes = document.querySelectorAll('.box-cliente');
+  mostrarCalendario(idUsu);
+}
+
+function mostrarCalendario(idUsu){
+  const clienteBoxes = document.querySelectorAll('.box-cliente');
     const calendarArticle = document.getElementById('calendar');
     const recetas = document.getElementById('recetas');
 
@@ -24,10 +29,10 @@ function inicio() {
                   editable: true, 
                   eventDrop: function(info) {
                     const fecha = info.event.start.toISOString().slice(0, 10);
-                    /*fetch('../controllers/Calendario.php', {
+                    fetch('../controllers/Calendario.php', {
                           method: 'POST',
                           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                          body: `accion=modificar&fecha=${fecha}&idReceta=${info.event.id}&idCliente=${idCliente}`
+                          body: `accion=modificar&fecha=${fecha}&idReceta=${info.event.id}&idCliente=${idCliente}&idUsu=${idUsu}`
                       })
                       .then(response => {
                         if (!response.ok) throw new Error('Error en la respuesta del servidor');
@@ -38,13 +43,13 @@ function inicio() {
                       })
                       .catch(error => {
                           console.error('Error cargando eventos:', error);
-                      });*/
+                      });
                   },
                   events: function(fetchInfo, successCallback, failureCallback) {
                     fetch('../controllers/Calendario.php', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                      body: `accion=visualizar&start=${fetchInfo.startStr}&end=${fetchInfo.endStr}&idCliente=${idCliente}`
+                      body: `accion=visualizar&start=${fetchInfo.startStr}&end=${fetchInfo.endStr}&idCliente=${idCliente}&idUsu=${idUsu}`
                     })
                     .then(response => {
                       if (!response.ok) throw new Error('Error en la respuesta del servidor');
@@ -64,7 +69,7 @@ function inicio() {
                       text: 'Añadir Recetas',
                       click: function() {
                         recetas.style.display = 'block';
-                        fetch('../controllers/Calendario.php', {
+                        fetch(`../controllers/Calendario.php?idUsu=${idUsu}`, {
                             method: 'GET',
                             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                         })
@@ -101,7 +106,7 @@ function inicio() {
             }
         });
     });
-};
+}
 
 function correctoCalendario(res){
     if(res.ok){
