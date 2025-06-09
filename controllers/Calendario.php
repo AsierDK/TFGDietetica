@@ -1,16 +1,18 @@
 <?php
     require_once "controller_session.php";
     iniciarSession();
-    $idUsu = devolverId();
+    //$idUsu = devolverId();
     header("Content-Type: application/json");
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $idUsu = $GET['idUsu'];
         require_once "../models/model_Recetas.php";
         $envio=json_encode(RecetasPorUsuario($idUsu));
         echo $envio;
     } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $accion = $_POST['accion'];
         $idCliente = $_POST['idCliente'];
+        $idUsu = $_POST['idUsu'];
         require_once "../models/model_Recetas.php";
         require_once "../models/model_RecetasSemana.php";
         switch ($accion) {

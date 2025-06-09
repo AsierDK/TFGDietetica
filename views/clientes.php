@@ -6,12 +6,14 @@
     <title>Index Page Alumno - webDietetica</title>
     <link rel="stylesheet" href="../assets/css/clientes/clientes.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" crossorigin="anonymous"/>
-    <!--<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js"></script>
     <script src="../assets/js/calendarCliente.js" type="text/javascript"></script>
-    
+    <script src="../assets/js/alumnoCliente.js" type="text/javascript"></script>
+    <script>
+        const idUsu = <?php echo json_encode($_SESSION["cliente"]["id"]);?>;
+    </script>
 </head>
 <body>
     <header>

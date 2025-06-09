@@ -113,8 +113,8 @@ function obtenerRecetasPorCliente($idUsu, $idCliente)
     try
     {
         $conn=conexionbbdd();
-        $stmt = $conn->prepare("SELECT COUNT(id_recetas) FROM Recetas_Semana WHERE id_usuario = :id_usuario AND dni_cliente = :id_cliente");
-        $stmt->bindParam(':id_usuario', $idUsuario);
+        $stmt = $conn->prepare("SELECT COUNT(id_receta) as num FROM Recetas_Semana WHERE id_usuario = :id_usuario AND dni_cliente = :id_cliente");
+        $stmt->bindParam(':id_usuario', $idUsu);
         $stmt->bindParam(':id_cliente', $idCliente);
         $stmt -> execute();
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
@@ -123,8 +123,9 @@ function obtenerRecetasPorCliente($idUsu, $idCliente)
     catch(PDOException $e)
     {
         echo "Error: " . $e->getMessage();
+        $resultado = []; 
     }
     $conn=null;
-    return $resultado;
+    return $resultado[0];
 }
 ?>

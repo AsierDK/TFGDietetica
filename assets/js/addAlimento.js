@@ -14,7 +14,6 @@ function addAlimento() {
     if (nombre !== '' && desc !== '') {
         alimentoArticle.style.display = 'grid';
     }
-    alimentoArticle.scrollIntoView({ behavior: 'smooth' });
 }
 
 function addPesoBruto(event, id, nombre, link) {
