@@ -94,8 +94,6 @@
                                     <div class="unidades">
                                         <label><input type="radio" name="unidad" value="gramos" required> Gramos</label>
                                         <label><input type="radio" name="unidad" value="ml"> Mililitros</label>
-                                        <label><input type="radio" name="unidad" value="cucharada"> Cucharada</label>
-                                        <label><input type="radio" name="unidad" value="cucharadita"> Cucharadita</label>
                                     </div>
                                     <input type="input" value="Añadir" onclick="submitPesoBruto()" class="btn">
                                 </div>

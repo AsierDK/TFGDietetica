@@ -24,7 +24,7 @@ function inicio() {
                   editable: true, 
                   eventDrop: function(info) {
                     const fecha = info.event.start.toISOString().slice(0, 10);
-                    fetch('../controllers/Calendario.php', {
+                    /*fetch('../controllers/Calendario.php', {
                           method: 'POST',
                           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                           body: `accion=modificar&fecha=${fecha}&idReceta=${info.event.id}&idCliente=${idCliente}`
@@ -38,7 +38,7 @@ function inicio() {
                       })
                       .catch(error => {
                           console.error('Error cargando eventos:', error);
-                      });
+                      });*/
                   },
                   events: function(fetchInfo, successCallback, failureCallback) {
                     fetch('../controllers/Calendario.php', {
@@ -79,7 +79,7 @@ function inicio() {
                       }
                   },
                   visualizarPDF: {
-                      text: 'visualizar PDF',
+                      text: 'Visualizar Datos',
                       click: function() {
                         rellenarPDF(calendar, 'visualizar');
                       }
@@ -296,7 +296,23 @@ async function rellenarPDF(calendar, accion) {
       }
     }
 
+const energiaProteinas = totalDia.prot * 4 / totalDia.energia;
+const energiaGrasas = totalDia.grasa * 9 / totalDia.energia;
+const energiaHC = totalDia.hc * 3.75 / totalDia.energia;
+const energiaCalculada = energiaProteinas + energiaGrasas + energiaHC;
 const porcentajeEnergiaDia = ((totalDia.energia / energiaPorDia[fecha]) * 100).toFixed(2) + "%";
+
+const filaDistribucionEnergetica = [
+  "", 
+  (energiaProteinas).toFixed(2) + "%",
+  (energiaGrasas).toFixed(2) + "%",
+  ((totalDia.ags * 9 / totalDia.energia)).toFixed(2) + "%",
+  ((totalDia.agmi * 9 / totalDia.energia)).toFixed(2) + "%",
+  ((totalDia.agpi * 9 / totalDia.energia) ).toFixed(2) + "%",
+  "",
+  (energiaHC).toFixed(2),
+  "", "", "", "", "", "", "", "", "", (energiaCalculada).toFixed(2) + "%"
+];
 
 doc.setFontSize(14);
 doc.setTextColor(40, 90, 130);
@@ -329,9 +345,14 @@ doc.autoTable({
     totalDia.vit_d.toFixed(2),
     totalDia.k.toFixed(2),
     porcentajeEnergiaDia
-  ]],
+  ],
+  filaDistribucionEnergetica],
   styles: { fontSize: 8 },
   headStyles: { fillColor: [40, 90, 130], textColor: 255 },
+  bodyStyles: [
+    {},
+    { fillColor: [230, 240, 255] }
+  ],
   margin: { left: 10, right: 10 },
   theme: 'striped',
   pageBreak: 'auto',
