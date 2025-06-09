@@ -52,24 +52,24 @@ function annadirRecetaSemana($fecha, $tipoComida, $idReceta, $idCliente, $idUsu)
     }
 }
 function obtenerUltimoIdRegistro(){
-        try
-        {
-            $conn=conexionbbdd();
-            $stmt = $conn->prepare("SELECT max(id_registro) as idRegistro FROM Recetas_Semana");
-            $stmt -> execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $resultado=$stmt->fetchAll();
-            $ultimoId = $resultado[0]["idRegistro"];
-            if($ultimoId === null){
-                $ultimoId = 'R0000';
-            }
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("SELECT max(id_registro) as idRegistro FROM Recetas_Semana");
+        $stmt -> execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $resultado=$stmt->fetchAll();
+        $ultimoId = $resultado[0]["idRegistro"];
+        if($ultimoId === null){
+            $ultimoId = 'R0000';
         }
-        catch(PDOException $e)
-        {
-            echo "Error: " . $e->getMessage();
-        }
-        $conn=null;
-        return $ultimoId;
+    }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+    return $ultimoId;
 }
 
 function obtenerDiaSemana($fecha) {
@@ -108,4 +108,23 @@ function editarRecetaSemana($idUsu, $idCliente, $idReceta, $fecha)
     $conn=null;
 }
 
+function obtenerRecetasPorCliente($idUsu, $idCliente)
+{
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("SELECT COUNT(id_recetas) FROM Recetas_Semana WHERE id_usuario = :id_usuario AND dni_cliente = :id_cliente");
+        $stmt->bindParam(':id_usuario', $idUsuario);
+        $stmt->bindParam(':id_cliente', $idCliente);
+        $stmt -> execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $resultado=$stmt->fetchAll();
+    }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+    return $resultado;
+}
 ?>
