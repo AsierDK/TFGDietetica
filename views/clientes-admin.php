@@ -25,8 +25,8 @@
         <div id="menu">
             <menu>
                 <a href="#"><i class="fa fa-times"></i></a>
-                <li><a href="#">Alumnos</a></li>
-                <li><a href="../controllers/controller_Clientes.php">Clientes</a></li>
+                <li><a href="../controllers/controller_inicio.php">Alumnos</a></li>
+                <li><a href="#">Clientes</a></li>
             </menu>
         </div>    
     </header>

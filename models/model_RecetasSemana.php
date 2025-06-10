@@ -108,6 +108,24 @@ function editarRecetaSemana($idUsu, $idCliente, $idReceta, $fecha)
     $conn=null;
 }
 
+function eliminarRecetaSemana($idUsu, $idCliente, $idReceta)
+{
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("DELETE FROM Recetas_Semana WHERE id_receta = :id_receta AND dni_cliente = :dni_cliente AND id_usuario = :id_usuario");
+        $stmt->bindParam(':id_receta', $idReceta);
+        $stmt->bindParam(':dni_cliente', $idCliente);
+        $stmt->bindParam(':id_usuario', $idUsu);
+        $stmt -> execute();
+    }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+}
+
 function obtenerRecetasPorCliente($idUsu, $idCliente)
 {
     try

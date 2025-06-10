@@ -95,7 +95,6 @@ function annadirReceta($idUsuario,$params,$cesta){
     try
     {
         $id_recetas = obtenerUltimoIdReceta();
-        var_dump($id_recetas);
         $id_receta = $id_recetas == null ? "A0001" : substr($id_recetas, 0, 1) . str_pad(intval(substr($id_recetas, 1)) + 1, 4, "0", STR_PAD_LEFT);
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $conn->beginTransaction();
@@ -106,7 +105,6 @@ function annadirReceta($idUsuario,$params,$cesta){
         $stmt->bindParam(':desc_receta', $params['desc_receta']);
         $stmt->bindParam(':id_usuario', $idUsuario);
         $stmt -> execute();
-        var_dump($cesta);
         foreach ($cesta as $key => $value){
             $stmt = $conn-> prepare('INSERT INTO Alimentos_Recetas(id_alimentos, id_usuario, id_receta, fechaCreacion, fechaModificacion,pesoBruto)
             VALUES (:id_alimento,:id_usuario,:id_receta,now(),now(),:pesoBruto)');
@@ -170,6 +168,9 @@ function obtenerUltimoIdReceta()
         try
         {
             $conn=conexionbbdd();
+            $stmt = $conn->prepare("DELETE FROM alimentos_recetas WHERE id_receta = :id_receta");
+            $stmt->bindParam(':id_receta', $idReceta);
+            $stmt->execute();
             $stmt = $conn->prepare("DELETE FROM Recetas_Semana WHERE id_receta = :id_receta");
             $stmt->bindParam(':id_receta', $idReceta);
             $stmt -> execute();

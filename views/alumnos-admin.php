@@ -75,7 +75,7 @@
                     }
                     else {
                         foreach ($alumnos as $alumno)
-                            echo '<div class="box-alumno"><button class="btn" data-id="' . $alumno['id_usuario'] . '" onclick="verInformacion(' . $alumno['id_usuario'] . ')">Ver información</button>'
+                            echo '<div class="box-alumno"><button class="informacion" data-id="' . $alumno['id_usuario'] . '" onclick="verInformacion(' . $alumno['id_usuario'] . ')">Ver información</button>'
                                 . $alumno['nombre'] . '<br>' . $alumno['apellidos'] . '<br>' . $alumno['email'] . '<br>'
                                 . '<button class="btn cambiar-pass" data-id="' . $alumno['id_usuario'] . '">Cambiar contraseña</button>'
                                 . '</div>';

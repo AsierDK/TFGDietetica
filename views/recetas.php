@@ -67,8 +67,8 @@
                     </div>
                     <input type="button" value="Añadir ingredientes" onclick="addAlimento()" class="btn">
                     <div id="alimento">
-                        <a onclick="volver()"><i class="fa fa-arrow-left"></i></a>
-                        <a onclick="verCesta()">Ver alimentos añadidos</a>
+                        <a onclick="event.preventDefault(); volver()"><i class="fa fa-arrow-left"></i></a>
+                        <a onclick="event.preventDefault(); verCesta()">Ver alimentos añadidos</a>
                         <?php
                             if (empty($alimentos)) {
                                 echo 'No hay alimentos registrados.';
@@ -101,7 +101,7 @@
                         </div>
                         <div id="cesta">
                             <a onclick="closeCesta()"><i class="fa fa-times"></i></a>
-                            <button onclick="eliminarCesta()" class="btn">Eliminar todos los ingredientes</button>
+                            <button onclick="event.preventDefault(); eliminarCesta()" class="btn">Eliminar todos los ingredientes</button>
                             <ul class="alimentosRecetas"></ul>
                         </div>
                     </div>

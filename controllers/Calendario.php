@@ -5,7 +5,7 @@
     header("Content-Type: application/json");
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $idUsu = $GET['idUsu'];
+        $idUsu = $_GET['idUsu'];
         require_once "../models/model_Recetas.php";
         $envio=json_encode(RecetasPorUsuario($idUsu));
         echo $envio;
@@ -72,6 +72,10 @@
                 $fecha = $_POST['fecha'];
                 $idReceta = $_POST['idReceta'];
                 editarRecetaSemana($idUsu, $idCliente, $idReceta, $fecha);
+                break;
+            case 'eliminar':
+                $idReceta = $_POST['idReceta'];
+                eliminarRecetaSemana($idUsu, $idCliente, $idReceta);
                 break;
         }
     }

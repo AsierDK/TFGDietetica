@@ -6,7 +6,6 @@
 @import url(../general/reset.css);
 @import url(../general/media-query.css);
 @import url(../general/header.css);
-@import url(index-media-query.css);
 
 h1 {
     font-size: 2rem;
@@ -23,6 +22,7 @@ section {
 
 .article-header {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     -webkit-justify-content: space-between;
     -moz-justify-content: space-between;
@@ -41,8 +41,8 @@ h2 {
 .article-main {
     padding-top: 1rem;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    -ms-grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr;
+    -ms-grid-template-columns: 1fr;
     gap: 2rem;
 }
 
@@ -67,4 +67,34 @@ tr {
 
 .cantidad {
     text-align: right;
+}
+
+/* ----------------------------
+    MEDIA QUERIES
+----------------------------- */
+@media (min-width: 576px) {
+    .article-header {
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        -ms-flex-direction: row;
+    }
+    .article-main {
+        grid-template-columns: repeat(2, 1fr);
+        -ms-grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .article-main {
+        grid-template-columns: repeat(3, 1fr);
+        -ms-grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .article-main {
+        grid-template-columns: repeat(4, 1fr);
+        -ms-grid-template-columns: repeat(4, 1fr);
+    }
 }

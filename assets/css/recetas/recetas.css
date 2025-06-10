@@ -7,7 +7,6 @@
 @import url(../general/media-query.css);
 @import url(../general/header.css);
 @import url(../general/sidebar.css);
-@import url(recetas-media-query.css);
 @import url(../general/carrusel.css);
 
 form {
@@ -91,6 +90,7 @@ form > input {
     display: none;
     grid-template-columns: 1fr;
     -ms-grid-template-columns: 1fr;
+    align-items: stretch;
     gap: 3rem;
     padding: 0 5rem;
     background-color: var(--color-40-beige);
@@ -104,6 +104,7 @@ form > input {
 .box-alimento {
     position: relative;
     width: 100%;
+    height: 100%;
     background-color: var(--color-40-beige);
     box-shadow: inset 0 -2px 4px 0 var(--color-shadow);
     border-radius: 25px;
@@ -248,20 +249,8 @@ form > input {
     box-shadow: none;
 }
 
-.alimentosReceta {
-    position: relative;
-    width: 100%;
-    min-height: 50%;
-    display: flex;
-    flex-direction: row;
-    -webkit-flex-direction: row;
-    -moz-flex-direction: row;
-    -ms-flex-direction: row;
-    gap: 2rem;
-}
-
 .alimentosReceta>div {
-    height: 5rem;
+    min-height: 5rem;
     display: flex;
     flex-direction: column;
     -webkit-flex-direction: column;
@@ -283,4 +272,57 @@ dialog {
     background-color: var(--color-40-beige);
     padding: 5rem;
     border-radius: 50px;
+}
+
+/* ----------------------------
+    MEDIA QUERIES
+----------------------------- */
+@media (min-width: 576px) {
+    #alimento {
+        grid-template-columns: repeat(2, 1fr);
+        -ms-grid-template-columns: repeat(2, 1fr);
+        padding: 0 10rem;
+    }
+
+    #alimento>a{
+        grid-column: span 2;
+        -ms-grid-column: span 2;
+    }
+
+    #pop-up-pb .form>input {
+        width: auto;
+    }
+}
+
+@media (min-width: 768px) {
+    #pop-up-pb .form>.unidades {
+        grid-template-columns: repeat(2, 1fr);
+        -ms-grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .alergias {
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        -ms-flex-direction: row;
+    }
+    .alergias>div {
+        width: calc(50% - 0.5rem);
+    }
+    #alimento {
+        grid-template-columns: repeat(3, 1fr);
+        -ms-grid-template-columns: repeat(3, 1fr);
+        padding: 0 15rem;
+    }
+
+    #alimento>a{
+        grid-column: span 3;
+        -ms-grid-column: span 3;
+    }
+}
+
+@media (min-width: 1200px) {
+
 }

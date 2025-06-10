@@ -6,7 +6,6 @@
 @import url(../general/reset.css);
 @import url(../general/media-query.css);
 @import url(../general/header.css);
-@import url(clientes-media-query.css);
 
 .clientes {
     width: 100%;
@@ -25,6 +24,7 @@
     box-shadow: 0 4px 4px 0 var(--color-shadow);
     border-radius: 25px;
     padding: 2rem;
+    max-height: max-content;
 }
 
 #calendar {
@@ -36,6 +36,14 @@
     position: absolute;
     top: 6rem;
     left: 0;
+}
+
+.fc-header-toolbar {
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
 }
 
 .fc .fc-button-primary {
@@ -87,4 +95,29 @@
     min-height: 70vh;
     top: 15vh;
     left: 15vw;
+}
+
+/* ----------------------------
+    MEDIA QUERY
+----------------------------- */
+
+@media (min-width: 576px) {
+    .clientes {
+        grid-template-columns: repeat(2, 1fr);
+        -ms-grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fc-header-toolbar {
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        -ms-flex-direction: column;
+    }
+}
+
+@media (min-width: 992px) {
+    .clientes {
+        grid-template-columns: repeat(3, 1fr);
+        -ms-grid-template-columns: repeat(3, 1fr);
+    }
 }

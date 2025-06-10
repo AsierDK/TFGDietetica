@@ -7,7 +7,6 @@
 @import url(../general/media-query.css);
 @import url(../general/header.css);
 @import url(../general/sidebar.css);
-@import url(index-media-query.css);
 
 #alumnos, #clientes {
     position: absolute;
@@ -15,11 +14,16 @@
     height: 100vh;
 }
 
+form {
+    width: 100%;
+    padding: 0 3rem;
+}
+
 #all>article:first-child {
     padding: 0 3rem;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    -ms-grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+    -ms-grid-template-columns: 1fr;
     gap: 5rem;
 }
 
@@ -29,6 +33,24 @@
     box-shadow: 0 4px 4px 0 var(--color-shadow);
     border-radius: 25px;
     padding: 2rem;
+}
+
+.box-alumno>.informacion {
+    background-color: transparent;
+    color: var(--color-60-green);
+    display: block;
+    border: none;
+    font-size: 1rem;
+    text-align: right;
+    width: 100%;
+}
+
+.box-alumno>.informacion:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    padding: 0.5rem;
 }
 
 dialog {
@@ -62,6 +84,60 @@ dialog {
     min-height: calc(100vh - 6rem);
     padding: 5rem;
     position: absolute;
-    top: 6rem;
+    top: 0;
     left: 0;
+}
+
+.fc-header-toolbar {
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+}
+
+.fc .fc-button-primary {
+    background-color: var(--color-60-green);
+    color: var(--color-40-beige);
+    border: none;
+}
+
+.fc .fc-button-primary:hover {
+    background-color: var(--color-40-beige);
+    color: var(--color-60-green);
+}
+
+/* ----------------------------
+    MEDIA QUERIES
+----------------------------- */
+@media (min-width: 576px) {
+    #all>article:first-child {
+        grid-template-columns: repeat(2, 1fr);
+        -ms-grid-template-columns: repeat(2, 1fr);
+    }
+    .fc-header-toolbar {
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        -ms-flex-direction: column;
+    }
+    form {
+        padding: 0 5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    #all>article:first-child {
+        grid-template-columns: repeat(3, 1fr);
+        -ms-grid-template-columns: repeat(3, 1fr);
+    }
+    form {
+        padding: 0 15rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    form {
+        padding: 0 20rem;
+    }
 }

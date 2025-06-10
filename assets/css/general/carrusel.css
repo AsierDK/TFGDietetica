@@ -85,6 +85,18 @@ button.edit {
     min-height: max-content;
 }
 
+.alimentosReceta{
+    position: relative;
+    width: 100%;
+    min-height: 50%;
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    gap: 2rem;
+}
+
 .info {
     background-color: var(--color-40-beige);
     color: var(--color-60-green);
@@ -98,6 +110,13 @@ button.edit {
 @media (min-width: 576px) {
     .slide {
         width: calc((60vw - 1rem)/2);
+    }
+
+    .alimentosReceta{
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        -ms-flex-direction: row;
     }
 }
 
