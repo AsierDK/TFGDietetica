@@ -27,6 +27,18 @@ function mostrarCalendario(idUsu){
                   locale: 'es',
                   firstDay: 1,
                   editable: true, 
+                  selectable: true,
+                  selectMirror: true,
+                  dayMaxEvents: true,
+                  select: function () {
+                    recetas.style.display = 'block';
+                        fetch(`../controllers/Calendario.php?idUsu=${idUsu}`, {
+                            method: 'GET',
+                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+                        })
+                        .then(correctoCalendario)
+                        .catch(erroresCalendario);
+                  },
                   eventDrop: function(info) {
                     const fecha = info.event.start.toISOString().slice(0, 10);
                     fetch('../controllers/Calendario.php', {
@@ -64,41 +76,52 @@ function mostrarCalendario(idUsu){
                       failureCallback(error);
                     });
                   },
+                  eventClick: function (info) {
+                    let deleteMsg = confirm('¿Quieres eliminar esta receta?');
+                    if (deleteMsg) {
+                      fetch('../controllers/Calendario.php', {
+                          method: 'POST',
+                          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                          body: `accion=eliminar&idReceta=${info.event.id}&idCliente=${idCliente}&idUsu=${idUsu}`
+                      })
+                      .then(response => {
+                        if (!response.ok) throw new Error('Error en la respuesta del servidor');
+                        return;
+                      })
+                      .then(() => {
+                        calendar.FullCalendar('removeEvent', info.event.id)
+                          displayMessage('Receta eliminada');
+                      })
+                      .catch(error => {
+                          console.error('Error cargando eventos:', error);
+                      });
+                    }
+                  },
                   customButtons: {
-                    annadirReceta: {
-                      text: 'Añadir Recetas',
-                      click: function() {
-                        recetas.style.display = 'block';
-                        fetch(`../controllers/Calendario.php?idUsu=${idUsu}`, {
-                            method: 'GET',
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                        })
-                        .then(correctoCalendario)
-                        .catch(erroresCalendario);
-                      }
+                    generarPDF: {
+                        text: 'Descargar PDF',
+                        click: function() {
+                          rellenarPDF(calendar, 'descargar');
+                        }
                     },
-                  generarPDF: {
-                      text: 'Descargar PDF',
-                      click: function() {
-                        rellenarPDF(calendar, 'descargar');
-                      }
+                    visualizarPDF: {
+                        text: 'Visualizar Datos',
+                        click: function() {
+                          rellenarPDF(calendar, 'visualizar');
+                        }
+                    }
                   },
-                  visualizarPDF: {
-                      text: 'Visualizar Datos',
-                      click: function() {
-                        rellenarPDF(calendar, 'visualizar');
-                      }
-                  }
+                headerToolbar: {
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-              
-                  headerToolbar: {
-                    left: 'prev,next today annadirReceta generarPDF visualizarPDF', // Botones de navegación
-                    center: 'title',  // Título
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay' // Vista del calendario (mensual, semanal, diario)
-                  },
-                  datesSet: function(info) {
-                    calendar.refetchEvents();
-                  }
+                footerToolbar: {
+                  center: 'generarPDF visualizarPDF'
+                },
+                datesSet: function(info) {
+                  calendar.refetchEvents();
+                }
               });
 
               calendar.render();
@@ -198,7 +221,7 @@ function annadirRecetasFecha(event){
     fetch('../controllers/Calendario.php', {
       method: 'POST',
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-      body: `accion=annadir&fecha=${fecha}&tipoComida=${tipoComida}&idReceta=${idReceta}&idCliente=${idCliente}`
+      body: `accion=annadir&fecha=${fecha}&tipoComida=${tipoComida}&idReceta=${idReceta}&idCliente=${idCliente}&idUsu=${idUsu}`
     })
     .then(correctoRecetasFecha)
     .catch(erroresRecetasFecha);

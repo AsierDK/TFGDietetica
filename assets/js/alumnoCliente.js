@@ -62,4 +62,6 @@ function recibido(datos){
 function volver() {
     const clientesArticle = document.getElementById('cliente');
     clientesArticle.style.display = 'none';
+    const calendar = document.getElementById('calendar');
+    calendar.style.display = 'none';
 }

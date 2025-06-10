@@ -20,6 +20,9 @@ function addPesoBruto(event, id, nombre, link) {
     event.preventDefault();
     const popUp = document.getElementById('pop-up-pb');
     popUp.style.display = 'block';
+    document.getElementById('peso').value = '';
+    const radios = document.querySelectorAll('input[name="unidad"]');
+    radios.forEach(radio => radio.checked = false);
     alimentoId = id;
     alimentoNombre = nombre;
     heartLink = link;
@@ -60,7 +63,8 @@ function submitPesoBruto() {
     }
 }
 
-function eliminarAlimento(idAlimento){
+function eliminarAlimento(event, idAlimento){
+    event.preventDefault();
     fetch('../controllers/Cesta.php', {
             method: 'POST',
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
@@ -123,7 +127,7 @@ function recibidoCesta(datos){
 
             const btn = document.createElement('button');
             btn.textContent = 'Eliminar';
-            btn.onclick = () => eliminarAlimento(id);
+            btn.onclick = (event) => eliminarAlimento(event, id);
 
             li.appendChild(btn);
             ul.appendChild(li);

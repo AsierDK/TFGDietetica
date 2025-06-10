@@ -48,12 +48,12 @@ header {
     display: none;
     background: var(--color-40-beige);
     padding: 1rem;
-    width: 40vw;
-    height: 100vh;
+    width: 100vw;
+    height: 300vh;
     position: absolute;
     top: 0;
     right: 0;
-    z-index: 100;
+    z-index: 10000;
 }
 
 #menu:target {

@@ -21,11 +21,12 @@ iniciarSession();
             $receta = datosReceta();
             $cesta = devolverCesta();
             annadirReceta($idUsu,$receta,$cesta);
+            eliminarCesta();
             print "Receta Añadida";
-        } else if ($_POST["accion"] === "Editar") {
+        }  else if (isset($_POST["accion"]) && $_POST["accion"] === "Editar")  {
             editarReceta($idUsu,$_POST);
             print "Receta modificada";
-        } else if ($_POST["accion"] === "Eliminar") {
+        } else if (isset($_POST["accion"]) && $_POST["accion"] === "Eliminar") {
             borrarReceta($_POST['id_receta']);
             print "Receta eliminada";
         }
