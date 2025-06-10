@@ -161,6 +161,7 @@ function recibidoCalendario(datos){
 
             const btn = document.createElement('button');
             btn.textContent = 'Añadir';
+            btn.className = 'btn';
             btn.onclick = () => annadirFecha(id_receta);
 
             divReceta.appendChild(btn);
