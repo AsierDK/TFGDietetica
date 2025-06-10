@@ -1,5 +1,13 @@
-// Ejecutar al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
+if (document.addEventListener)
+	window.addEventListener("load", inicio)
+else if (document.attachEvent)
+	window.attachEvent("onload", inicio);
+
+function inicio() {
+    const hash = window.location.hash;
+    if (hash === '#all') {
+        toggleSection('all'); // Activa la sección correspondiente
+    }
     // Encuentra qué sección está activa al inicio
     const activeSection = document.querySelector('main > section.active');
 
@@ -7,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = activeSection.id;
         toggleSection(id); // Alinea el círculo al botón correspondiente
     }
-});
+};
 function toggleSection(id) {
     // Oculta todas las secciones
     document.querySelectorAll('main > section').forEach(sec => sec.classList.remove('active'));

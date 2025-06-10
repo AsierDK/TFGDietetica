@@ -1,0 +1,100 @@
+/* ----------------------------
+    INDEX - ALUMNO STYLES
+----------------------------- */
+
+@import url(../general/colors.css);
+@import url(../general/reset.css);
+@import url(../general/media-query.css);
+@import url(../general/header.css);
+
+h1 {
+    font-size: 2rem;
+    letter-spacing: 0.7rem;
+    font-family: Baloo2;
+    padding: 2rem 7rem;
+}
+
+section {
+    width: 100vw;
+    height: max-content;
+    padding: 2rem 7rem;
+}
+
+.article-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    -moz-justify-content: space-between;
+    -ms-justify-content: space-between;
+    align-items: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+}
+
+h2 {
+    font-family: Baloo2;
+    font-size: 1.5rem;
+}
+
+.article-main {
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    -ms-grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.recipe {
+    background-color: var(--color-60-green);
+    height: 10rem;
+    color: var(--color-40-beige);
+    padding: 1rem;
+}
+
+table {
+    border: 1px solid var(--color-60-green);
+    width: calc(100vw - 14rem);
+    border-radius: 50px;
+    padding: 1rem 2rem;
+}
+
+tr {
+    height: 4rem;
+    border: 1px solid;
+}
+
+.cantidad {
+    text-align: right;
+}
+
+/* ----------------------------
+    MEDIA QUERIES
+----------------------------- */
+@media (min-width: 576px) {
+    .article-header {
+        flex-direction: row;
+        -webkit-flex-direction: row;
+        -moz-flex-direction: row;
+        -ms-flex-direction: row;
+    }
+    .article-main {
+        grid-template-columns: repeat(2, 1fr);
+        -ms-grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .article-main {
+        grid-template-columns: repeat(3, 1fr);
+        -ms-grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .article-main {
+        grid-template-columns: repeat(4, 1fr);
+        -ms-grid-template-columns: repeat(4, 1fr);
+    }
+}

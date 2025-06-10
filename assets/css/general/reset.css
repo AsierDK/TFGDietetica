@@ -40,6 +40,15 @@ a {
     text-transform: uppercase;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    gap: 3rem;
+}
+
 form>div {
     display: flex;
     flex-direction: column;
@@ -52,8 +61,10 @@ form label {
     margin: 0.5rem 1rem;
 }
 
-form input {
-    height: 2.5rem;
+form input,
+form select,
+form textarea {
+    min-height: 2.5rem;
     background-color: var(--color-40-beige);
     color: var(--color-60-green);
     font-weight: bold;
@@ -67,15 +78,26 @@ form input {
     font-family: Baloo2;
 }
 
-form .btn {
+form select  {
+    height: min-content;
+}
+
+form textarea {
+    height: 10rem;
+}
+
+.btn {
     background-color: var(--color-60-green);
     color: var(--color-10-white);
-    font-size: 2rem;
+    font-size: 1rem;
     text-align: center;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.3rem;
     box-shadow: none;
+    border-radius:15px;
+    border: none;
+    font-family: Baloo2;
 }
 
 .btn:hover {

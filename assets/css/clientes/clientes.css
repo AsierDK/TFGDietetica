@@ -1,25 +1,17 @@
 /* ----------------------------
-    INDEX - ADMIN STYLES
+    CLIENTES STYLES
 ----------------------------- */
 
 @import url(../general/colors.css);
 @import url(../general/reset.css);
 @import url(../general/media-query.css);
 @import url(../general/header.css);
-@import url(../general/sidebar.css);
 
-#alumnos, #clientes {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-}
-
-form {
+.clientes {
     width: 100%;
-    padding: 0 3rem;
-}
-
-#all>article:first-child {
+    min-height: calc(100vh - 6rem);
+    position: relative;
+    top: 6rem;
     padding: 0 3rem;
     display: grid;
     grid-template-columns: 1fr;
@@ -27,54 +19,12 @@ form {
     gap: 5rem;
 }
 
-.box-alumno,
 .box-cliente {
     background-color: var(--color-input);
     box-shadow: 0 4px 4px 0 var(--color-shadow);
     border-radius: 25px;
     padding: 2rem;
-}
-
-.box-alumno>.informacion {
-    background-color: transparent;
-    color: var(--color-60-green);
-    display: block;
-    border: none;
-    font-size: 1rem;
-    text-align: right;
-    width: 100%;
-}
-
-.box-alumno>.informacion:hover {
-    text-decoration: underline;
-}
-
-.btn {
-    padding: 0.5rem;
-}
-
-dialog {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: none;
-    color: var(--color-60-green);
-    background-color: var(--color-40-beige);
-    padding: 5rem;
-    border-radius: 50px;
-}
-
-#cliente {
-    display: none;
-    position: fixed;
-    background-color: var(--color-40-beige);
-    width: 100%;
-    min-height: calc(100vh - 6rem);
-    padding: 5rem;
-    padding-left: 10rem;
-    top: 6rem;
-    left: 0;
+    max-height: max-content;
 }
 
 #calendar {
@@ -84,7 +34,7 @@ dialog {
     min-height: calc(100vh - 6rem);
     padding: 5rem;
     position: absolute;
-    top: 0;
+    top: 6rem;
     left: 0;
 }
 
@@ -107,37 +57,71 @@ dialog {
     color: var(--color-60-green);
 }
 
+#recetas {
+    display: none;
+    backdrop-filter: blur(5px);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+#recetas>.box-recetasClientes {
+    position: relative;
+    width: 70vw;
+    height: 70vh;
+    background-color: var(--color-40-beige);
+    top: 15vh;
+    left: 15vw;
+    padding: 2rem;
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.box-recetasClientes>a {
+    text-align: right;
+    font-size: 2rem;
+}
+
+#fecha {
+    display: none;
+    padding: 2rem;
+    background-color: var(--color-40-beige);
+    position: absolute;
+    width: 70vw;
+    min-height: 70vh;
+    top: 15vh;
+    left: 15vw;
+}
+
+.btn {
+    padding: 0.5rem;
+}
+
 /* ----------------------------
-    MEDIA QUERIES
+    MEDIA QUERY
 ----------------------------- */
+
 @media (min-width: 576px) {
-    #all>article:first-child {
+    .clientes {
         grid-template-columns: repeat(2, 1fr);
         -ms-grid-template-columns: repeat(2, 1fr);
     }
+
     .fc-header-toolbar {
         flex-direction: row;
         -webkit-flex-direction: row;
         -moz-flex-direction: row;
         -ms-flex-direction: column;
     }
-    form {
-        padding: 0 5rem;
-    }
 }
 
 @media (min-width: 992px) {
-    #all>article:first-child {
+    .clientes {
         grid-template-columns: repeat(3, 1fr);
         -ms-grid-template-columns: repeat(3, 1fr);
-    }
-    form {
-        padding: 0 15rem;
-    }
-}
-
-@media (min-width: 1200px) {
-    form {
-        padding: 0 20rem;
     }
 }

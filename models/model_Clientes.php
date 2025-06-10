@@ -35,4 +35,25 @@ function AlergiaDeCliente($dni_cliente,$idUsuario){
     $conn=null;
     return $resultado;
 }
+
+function crearCliente($params)
+{
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("INSERT INTO Clientes (dni_cliente, nombre, apellido, edad, descripcionCaso, caracteristicasMenu) VALUES (:dni_cliente, :nombre, :apellidos,:edad, :desc,:carac)");
+        $stmt->bindParam(':dni_cliente', $params['dni']);
+        $stmt->bindParam(':nombre', $params['name']);
+        $stmt->bindParam(':apellidos', $params['ape']);
+        $stmt->bindParam(':edad', $params['edad']);
+        $stmt->bindParam(':desc', $params['desc']);
+        $stmt->bindParam(':carac', $params['carac']);
+        $stmt -> execute();
+    }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+}
 ?>
