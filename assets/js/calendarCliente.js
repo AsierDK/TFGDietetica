@@ -6,10 +6,10 @@ else if (document.attachEvent)
 let calendar;
 //let idUsu;
 function inicio() {
-  mostrarCalendario(idUsu);
+  mostrarCalendario(idUsu, nombreUsu);
 }
 
-function mostrarCalendario(idUsu){
+function mostrarCalendario(idUsu, nombreUsu){
   const clienteBoxes = document.querySelectorAll('.box-cliente');
     const calendarArticle = document.getElementById('calendar');
     const recetas = document.getElementById('recetas');
@@ -89,8 +89,8 @@ function mostrarCalendario(idUsu){
                         return;
                       })
                       .then(() => {
-                        calendar.FullCalendar('removeEvent', info.event.id)
-                          displayMessage('Receta eliminada');
+                        info.event.remove();
+                        displayMessage('Receta eliminada');
                       })
                       .catch(error => {
                           console.error('Error cargando eventos:', error);
@@ -101,13 +101,13 @@ function mostrarCalendario(idUsu){
                     generarPDF: {
                         text: 'Descargar PDF',
                         click: function() {
-                          rellenarPDF(calendar, 'descargar');
+                          rellenarPDF(calendar, 'descargar', nombreUsu);
                         }
                     },
                     visualizarPDF: {
                         text: 'Visualizar Datos',
                         click: function() {
-                          rellenarPDF(calendar, 'visualizar');
+                          rellenarPDF(calendar, 'visualizar', nombreUsu);
                         }
                     }
                   },
@@ -245,7 +245,7 @@ function recargar(){
   datosFecha.style.display = 'none';
 }
 
-async function rellenarPDF(calendar, accion) {
+async function rellenarPDF(calendar, accion, nombreUsu) {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a3' });
 
@@ -259,10 +259,13 @@ async function rellenarPDF(calendar, accion) {
 
   // Cabecera del documento
   doc.setFillColor(40, 90, 130);
-  doc.rect(0, 0, 297, 25, 'F');
+  doc.rect(0, 0, 420, 25, 'F');
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(20).setFont("helvetica", "bold");
   doc.text("Planificación de Recetas", 10, 16);
+  const userText = nombreUsu.toUpperCase();
+  const userTextWidth = doc.getTextWidth(userText);
+  doc.text(userText, 420 - userTextWidth - 10, 16);
   doc.setFontSize(14).setFont("helvetica", "normal").setTextColor(0);
   doc.text(`Tipo de vista: ${viewNames[currentView] || currentView}`, 10, 30);
 

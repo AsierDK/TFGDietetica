@@ -73,11 +73,13 @@
                         echo 'No hay alumnos registrados.';
                     }
                     else {
-                        foreach ($alumnos as $alumno)
-                            echo '<div class="box-alumno"><button class="informacion" data-id="' . $alumno['id_usuario'] . '" onclick="verInformacion(' . $alumno['id_usuario'] . ')">Ver información</button>'
+                        foreach ($alumnos as $alumno) {
+                            $nombreCompleto = $alumno['nombre']. ' ' .$alumno['apellidos'];
+                            echo '<div class="box-alumno"><button class="informacion" data-id="' . $alumno['id_usuario'] . '" onclick="verInformacion(' . $alumno['id_usuario'] . ', \'' . $nombreCompleto . '\')">Ver información</button>'
                                 . $alumno['nombre'] . '<br>' . $alumno['apellidos'] . '<br>' . $alumno['email'] . '<br>'
                                 . '<button class="btn cambiar-pass" data-id="' . $alumno['id_usuario'] . '">Cambiar contraseña</button>'
                                 . '</div>';
+                        }
                     }
                 ?>
             </article>

@@ -1,7 +1,9 @@
 let id;
+let nombre;
 
-function verInformacion(idAlumno) {
+function verInformacion(idAlumno, nombreAlumno) {
     id = idAlumno;
+    nombre = nombreAlumno;
     fetch(`../controllers/Clientes.php?alumno=${idAlumno}`)
     .then(correcto)
     .catch(errores);
@@ -55,7 +57,8 @@ function recibido(datos){
         }
         clientesArticle.style.display = 'block';
         const idUsu = id;
-        mostrarCalendario(idUsu);
+        const nombreUsu = nombre;
+        mostrarCalendario(idUsu, nombreUsu);
     }
 }
 

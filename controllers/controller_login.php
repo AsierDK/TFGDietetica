@@ -17,7 +17,7 @@
         {
             //Crar Sesion con los Datos Personales del Cliente
             $id = $datosCli[0]["id_usuario"];
-            $nombre =  $datosCli[0]["nombre"];
+            $nombre =  $datosCli[0]["nombre"]. ' ' .$datosCli[0]["apellidos"];
             $admin =  $datosCli[0]["administrador"];
             crearSession($id,$admin,$nombre);
             header("Location: controller_inicio.php");
