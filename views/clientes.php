@@ -13,6 +13,7 @@
     <script src="../assets/js/alumnoCliente.js" type="text/javascript"></script>
     <script>
         const idUsu = <?php echo json_encode($_SESSION["cliente"]["id"]);?>;
+        const nombreUsu = <?php echo json_encode($_SESSION["cliente"]["nombre"]);?>;
     </script>
 </head>
 <body>

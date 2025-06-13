@@ -5,7 +5,7 @@
         try
         {
             $conn=conexionbbdd();
-            $stmt = $conn->prepare("SELECT * FROM Alimentos WHERE id_usuario = :id_usuario ");
+            $stmt = $conn->prepare("SELECT * FROM Alimentos WHERE id_usuario = :id_usuario LIMIT 20");
             $stmt->bindParam(':id_usuario', $idUsuario);
             $stmt -> execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
