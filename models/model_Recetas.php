@@ -168,7 +168,7 @@ function obtenerUltimoIdReceta()
         try
         {
             $conn=conexionbbdd();
-            $stmt = $conn->prepare("DELETE FROM alimentos_recetas WHERE id_receta = :id_receta");
+            $stmt = $conn->prepare("DELETE FROM Alimentos_Recetas WHERE id_receta = :id_receta");
             $stmt->bindParam(':id_receta', $idReceta);
             $stmt->execute();
             $stmt = $conn->prepare("DELETE FROM Recetas_Semana WHERE id_receta = :id_receta");

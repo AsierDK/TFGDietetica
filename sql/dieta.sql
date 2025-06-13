@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: sql203.infinityfree.com
--- Tiempo de generación: 07-05-2025 a las 13:22:54
+-- Tiempo de generación: 13-06-2025 a las 03:09:25
 -- Versión del servidor: 10.6.19-MariaDB
 -- Versión de PHP: 7.2.22
 
@@ -21,8 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `if0_38644371_dieta`
 --
+
 CREATE DATABASE IF NOT EXISTS `if0_38644371_dieta` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `if0_38644371_dieta`;
+USE DATABASE `if0_38644371_dieta`;
 
 -- --------------------------------------------------------
 
@@ -30,16 +31,33 @@ USE `if0_38644371_dieta`;
 -- Estructura de tabla para la tabla `Alergias`
 --
 
-DROP TABLE IF EXISTS `Alergias`;
-CREATE TABLE IF NOT EXISTS `Alergias` (
+CREATE TABLE `Alergias` (
   `id_alergia` varchar(5) NOT NULL,
   `nombre_alergia` varchar(45) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `fechaCreacion` datetime NOT NULL,
-  `fechaModificacion` datetime NOT NULL,
-  PRIMARY KEY (`id_alergia`,`id_usuario`),
-  KEY `fk_idUsuario_Alergias_idx` (`id_usuario`)
+  `fechaModificacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `Alergias`
+--
+
+INSERT INTO `Alergias` (`id_alergia`, `nombre_alergia`, `id_usuario`, `fechaCreacion`, `fechaModificacion`) VALUES
+('AL001', 'Contiene Gluten', 0, '2025-05-21 00:00:00', '2025-05-21 00:00:00'),
+('AL002', 'Crustaceos', 0, '2025-05-21 00:00:00', '2025-05-21 00:00:00'),
+('AL003', 'Huevos', 0, '2025-05-21 00:00:00', '2025-05-21 00:00:00'),
+('AL004', 'Pescados', 0, '2025-05-21 00:00:00', '2025-05-21 00:00:00'),
+('AL005', 'Cacahuetes', 0, '2025-05-21 00:00:00', '2025-05-21 00:00:00'),
+('AL006', 'Soja', 0, '2025-05-21 00:00:00', '2025-05-21 00:00:00'),
+('AL007', 'Lacteos', 0, '2025-05-21 00:00:00', '2025-05-21 00:00:00'),
+('AL008', 'Frutos de Cascara', 0, '2025-05-21 00:00:00', '2025-05-21 00:00:00'),
+('AL009', 'Apio', 0, '2025-05-21 00:00:00', '2025-05-21 00:00:00'),
+('AL010', 'Mostaza', 0, '2025-05-21 00:00:00', '2025-05-21 00:00:00'),
+('AL011', 'Granos de Sesamo', 0, '2025-06-05 00:00:00', '2025-06-05 00:00:00'),
+('AL012', 'Dioxido de Azufre y Sulfitos', 0, '2025-06-05 00:00:00', '2025-06-05 00:00:00'),
+('AL013', 'Moluscos', 0, '2025-06-05 00:00:00', '2025-06-05 00:00:00'),
+('AL014', 'Altramuces', 0, '2025-06-05 00:00:00', '2025-06-05 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -47,17 +65,12 @@ CREATE TABLE IF NOT EXISTS `Alergias` (
 -- Estructura de tabla para la tabla `Alergias_Alimentos`
 --
 
-DROP TABLE IF EXISTS `Alergias_Alimentos`;
-CREATE TABLE IF NOT EXISTS `Alergias_Alimentos` (
+CREATE TABLE `Alergias_Alimentos` (
   `id_alergia` varchar(5) NOT NULL,
   `id_alimentos` varchar(5) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `fechaCreacion` datetime NOT NULL,
-  `fechaModificacion` datetime NOT NULL,
-  PRIMARY KEY (`id_alergia`,`id_usuario`,`id_alimentos`),
-  KEY `fk_Alergias_has_Alimentos_Alimentos1_idx` (`id_alimentos`),
-  KEY `fk_Alergias_has_Alimentos_Alergias1_idx` (`id_alergia`),
-  KEY `fk_idUsuario_Alergias_Alimentos_idx` (`id_usuario`)
+  `fechaModificacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -66,8 +79,7 @@ CREATE TABLE IF NOT EXISTS `Alergias_Alimentos` (
 -- Estructura de tabla para la tabla `Alimentos`
 --
 
-DROP TABLE IF EXISTS `Alimentos`;
-CREATE TABLE IF NOT EXISTS `Alimentos` (
+CREATE TABLE `Alimentos` (
   `id_alimentos` varchar(5) NOT NULL,
   `nombreAlimento` varchar(100) NOT NULL,
   `PC` float NOT NULL,
@@ -90,9 +102,7 @@ CREATE TABLE IF NOT EXISTS `Alimentos` (
   `vit_d_100` float DEFAULT NULL,
   `id_usuario` int(11) NOT NULL,
   `fechaCreacion` datetime DEFAULT NULL,
-  `fechaModificacion` datetime DEFAULT NULL,
-  PRIMARY KEY (`id_alimentos`,`id_usuario`),
-  KEY `fk_idUsuario_Alimentos_idx` (`id_usuario`)
+  `fechaModificacion` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -132,7 +142,8 @@ INSERT INTO `Alimentos` (`id_alimentos`, `nombreAlimento`, `PC`, `e_100`, `prot_
 ('A0030', 'Muslo de Pollo', 0.38, 109, 19.5, 3.4, 1.4, 1.4, 0.49, 68.3, 0, 0, 1.7, 0.4, 0.1, 1.5, 0, 12.4, 0, NULL, 0, NULL, NULL),
 ('A0031', 'Limon', 0.64, 39, 0.7, 0.3, 0.04, 0.01, 0.09, 0, 9, 1, 50, 0.11, 0.5, 0.4, 3, 12, 149, NULL, 0, NULL, NULL),
 ('A0032', 'Vino Blanco', 1, 62, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, NULL, 0, NULL, NULL),
-('A0033', 'Mandarina', 0.72, 39, 0.8, 0.19, 0.02, 0.03, 0.04, 0, 9, 1.9, 35, 0.07, 0.22, 0.3, 2, 36, 185, NULL, 0, NULL, NULL);
+('A0033', 'Mandarina', 0.72, 39, 0.8, 0.19, 0.02, 0.03, 0.04, 0, 9, 1.9, 35, 0.07, 0.22, 0.3, 2, 36, 185, NULL, 0, NULL, NULL),
+('A0034', 'prueba', 8, 1, 34, 4, 56, 76, 7, 5, 65, 7, 6, 4, 4, 6, 7, 4, 7, 7, 1, '2025-05-08 12:25:14', '2025-05-08 12:25:14');
 
 -- --------------------------------------------------------
 
@@ -140,19 +151,29 @@ INSERT INTO `Alimentos` (`id_alimentos`, `nombreAlimento`, `PC`, `e_100`, `prot_
 -- Estructura de tabla para la tabla `Alimentos_Recetas`
 --
 
-DROP TABLE IF EXISTS `Alimentos_Recetas`;
-CREATE TABLE IF NOT EXISTS `Alimentos_Recetas` (
+CREATE TABLE `Alimentos_Recetas` (
   `id_alimentos` varchar(5) NOT NULL,
   `id_receta` varchar(5) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `fechaCreacion` datetime NOT NULL,
   `fechaModificacion` datetime NOT NULL,
-  `pesoBruto` float NOT NULL,
-  PRIMARY KEY (`id_alimentos`,`id_receta`,`id_usuario`),
-  KEY `fk_Alimentos_has_Recetas_Recetas1_idx` (`id_receta`),
-  KEY `fk_Alimentos_has_Recetas_Alimentos1_idx` (`id_alimentos`),
-  KEY `fk_idUsuario_Alimentos_Recetas_idx` (`id_usuario`)
+  `pesoBruto` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `Alimentos_Recetas`
+--
+
+INSERT INTO `Alimentos_Recetas` (`id_alimentos`, `id_receta`, `id_usuario`, `fechaCreacion`, `fechaModificacion`, `pesoBruto`) VALUES
+('A0001', 'A0001', 0, '2025-05-30 01:54:27', '2025-05-30 01:54:27', 5),
+('A0001', 'A0002', 0, '2025-05-30 03:12:36', '2025-05-30 03:12:36', 45),
+('A0001', 'A0003', 0, '2025-06-06 03:47:22', '2025-06-06 03:47:22', 50),
+('A0002', 'A0001', 0, '2025-05-30 01:54:27', '2025-05-30 01:54:27', 5),
+('A0002', 'A0002', 0, '2025-05-30 03:12:36', '2025-05-30 03:12:36', 5),
+('A0005', 'A0001', 0, '2025-05-30 01:54:27', '2025-05-30 01:54:27', 5),
+('A0005', 'A0002', 0, '2025-05-30 03:12:36', '2025-05-30 03:12:36', 5),
+('A0006', 'A0002', 0, '2025-05-30 03:12:36', '2025-05-30 03:12:36', 100),
+('A0006', 'A0003', 0, '2025-06-06 03:47:22', '2025-06-06 03:47:22', 50);
 
 -- --------------------------------------------------------
 
@@ -160,21 +181,21 @@ CREATE TABLE IF NOT EXISTS `Alimentos_Recetas` (
 -- Estructura de tabla para la tabla `Clientes`
 --
 
-DROP TABLE IF EXISTS `Clientes`;
-CREATE TABLE IF NOT EXISTS `Clientes` (
-  `dni_cliente` varchar(8) NOT NULL,
+CREATE TABLE `Clientes` (
+  `dni_cliente` varchar(9) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `apellido` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  PRIMARY KEY (`dni_cliente`)
+  `edad` int(3) NOT NULL,
+  `descripcionCaso` varchar(512) NOT NULL,
+  `caracteristicasMenu` varchar(512) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `Clientes`
 --
 
-INSERT INTO `Clientes` (`dni_cliente`, `nombre`, `apellido`, `email`) VALUES
-('12345678', 'Paco', 'Pica', 'paco.pica@gmail.com');
+INSERT INTO `Clientes` (`dni_cliente`, `nombre`, `apellido`, `edad`, `descripcionCaso`, `caracteristicasMenu`) VALUES
+('12345678', 'Paco', 'Pica', 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -182,18 +203,13 @@ INSERT INTO `Clientes` (`dni_cliente`, `nombre`, `apellido`, `email`) VALUES
 -- Estructura de tabla para la tabla `Clientes_Alergias`
 --
 
-DROP TABLE IF EXISTS `Clientes_Alergias`;
-CREATE TABLE IF NOT EXISTS `Clientes_Alergias` (
-  `dni_cliente` varchar(8) NOT NULL,
+CREATE TABLE `Clientes_Alergias` (
+  `dni_cliente` varchar(9) NOT NULL,
   `id_alergia` varchar(5) NOT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   `id_usuario` int(11) NOT NULL,
   `fechaCreacion` datetime NOT NULL,
-  `fechaModificacion` datetime NOT NULL,
-  PRIMARY KEY (`dni_cliente`,`id_alergia`,`id_usuario`),
-  KEY `fk_Clientes_has_Alergias_Alergias1_idx` (`id_alergia`),
-  KEY `fk_Clientes_has_Alergias_Clientes_idx` (`dni_cliente`),
-  KEY `fk_idUsuario_Clientes_Alergias_idx` (`id_usuario`)
+  `fechaModificacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -202,17 +218,23 @@ CREATE TABLE IF NOT EXISTS `Clientes_Alergias` (
 -- Estructura de tabla para la tabla `Recetas`
 --
 
-DROP TABLE IF EXISTS `Recetas`;
-CREATE TABLE IF NOT EXISTS `Recetas` (
+CREATE TABLE `Recetas` (
   `id_receta` varchar(5) NOT NULL,
   `nombre_receta` varchar(65) NOT NULL,
   `desc_receta` varchar(150) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `fechaCreacion` datetime NOT NULL,
-  `fechaModificacion` datetime NOT NULL,
-  PRIMARY KEY (`id_receta`,`id_usuario`),
-  KEY `fk_idUsuario_Recetas_idx` (`id_usuario`)
+  `fechaModificacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `Recetas`
+--
+
+INSERT INTO `Recetas` (`id_receta`, `nombre_receta`, `desc_receta`, `id_usuario`, `fechaCreacion`, `fechaModificacion`) VALUES
+('A0001', 'a', 'aaaa', 0, '2025-05-30 01:54:27', '2025-05-30 01:54:27'),
+('A0002', '', '', 0, '2025-05-30 03:12:36', '2025-05-30 03:12:36'),
+('A0003', 'receta1', 'receta1', 0, '2025-06-06 03:47:22', '2025-06-06 03:47:22');
 
 -- --------------------------------------------------------
 
@@ -220,25 +242,24 @@ CREATE TABLE IF NOT EXISTS `Recetas` (
 -- Estructura de tabla para la tabla `Recetas_Semana`
 --
 
-DROP TABLE IF EXISTS `Recetas_Semana`;
-CREATE TABLE IF NOT EXISTS `Recetas_Semana` (
-  `id_registro` int(32) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `Recetas_Semana` (
+  `id_registro` int(32) NOT NULL,
   `dia` datetime NOT NULL,
   `diaSemana` enum('LUNES','MARTES','MIERCOLES','JUEVES','VIERNES','SABADO','DOMINGO') NOT NULL,
   `momentoDia` enum('DESAYUNO','ALMUERZO','COMIDA','MERIENDA','CENA','SUPLEMENTO') NOT NULL,
   `id_receta` varchar(5) DEFAULT NULL,
-  `id_alimento` varchar(5) NOT NULL,
-  `dni_cliente` varchar(8) NOT NULL,
-  `peso` float DEFAULT NULL,
+  `dni_cliente` varchar(9) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `fechaCreacion` datetime NOT NULL,
-  `fechaModificacion` datetime NOT NULL,
-  PRIMARY KEY (`id_registro`),
-  KEY `fk_Recetas_Semana_Recetas1_idx` (`id_receta`),
-  KEY `fk_Recetas_Semana_Clientes1_idx` (`dni_cliente`),
-  KEY `fk_idUsuario_Recetas_Semana_idx` (`id_usuario`),
-  KEY `fk_Recetas_Semana_Alimentos` (`id_alimento`) USING BTREE
+  `fechaModificacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `Recetas_Semana`
+--
+
+INSERT INTO `Recetas_Semana` (`id_registro`, `dia`, `diaSemana`, `momentoDia`, `id_receta`, `dni_cliente`, `id_usuario`, `fechaCreacion`, `fechaModificacion`) VALUES
+(1, '2025-06-09 00:00:00', 'LUNES', 'DESAYUNO', 'A0003', '12345678', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -246,15 +267,13 @@ CREATE TABLE IF NOT EXISTS `Recetas_Semana` (
 -- Estructura de tabla para la tabla `Usuarios`
 --
 
-DROP TABLE IF EXISTS `Usuarios`;
-CREATE TABLE IF NOT EXISTS `Usuarios` (
-  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `Usuarios` (
+  `id_usuario` int(11) NOT NULL,
   `nombre` varchar(30) NOT NULL,
   `apellidos` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `contrasena` varchar(25) NOT NULL,
-  `administrador` tinyint(4) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id_usuario`)
+  `administrador` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
@@ -262,7 +281,99 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
 --
 
 INSERT INTO `Usuarios` (`id_usuario`, `nombre`, `apellidos`, `email`, `contrasena`, `administrador`) VALUES
-(0, 'comun', 'comun', 'comun@comun.com', ' ', 0);
+(0, 'comun', 'comun', 'comun@comun.com', 'aaa123', 0),
+(1, 'testAlumno', 'ape', 'alumno@test.com', 'alumno', 1),
+(2, 'Maria Isabel', 'Martin', 'mimartin1@educa.madrid.org', 'MaribelMartin', 1),
+(3, 'Asier', 'Marfagon', 'adsier@gmail.es', 'Asd123$%', 0);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `Alergias`
+--
+ALTER TABLE `Alergias`
+  ADD PRIMARY KEY (`id_alergia`,`id_usuario`),
+  ADD KEY `fk_idUsuario_Alergias_idx` (`id_usuario`);
+
+--
+-- Indices de la tabla `Alergias_Alimentos`
+--
+ALTER TABLE `Alergias_Alimentos`
+  ADD PRIMARY KEY (`id_alergia`,`id_usuario`,`id_alimentos`),
+  ADD KEY `fk_Alergias_has_Alimentos_Alimentos1_idx` (`id_alimentos`),
+  ADD KEY `fk_Alergias_has_Alimentos_Alergias1_idx` (`id_alergia`),
+  ADD KEY `fk_idUsuario_Alergias_Alimentos_idx` (`id_usuario`);
+
+--
+-- Indices de la tabla `Alimentos`
+--
+ALTER TABLE `Alimentos`
+  ADD PRIMARY KEY (`id_alimentos`,`id_usuario`),
+  ADD KEY `fk_idUsuario_Alimentos_idx` (`id_usuario`);
+
+--
+-- Indices de la tabla `Alimentos_Recetas`
+--
+ALTER TABLE `Alimentos_Recetas`
+  ADD PRIMARY KEY (`id_alimentos`,`id_receta`,`id_usuario`),
+  ADD KEY `fk_Alimentos_has_Recetas_Recetas1_idx` (`id_receta`),
+  ADD KEY `fk_Alimentos_has_Recetas_Alimentos1_idx` (`id_alimentos`),
+  ADD KEY `fk_idUsuario_Alimentos_Recetas_idx` (`id_usuario`);
+
+--
+-- Indices de la tabla `Clientes`
+--
+ALTER TABLE `Clientes`
+  ADD PRIMARY KEY (`dni_cliente`);
+
+--
+-- Indices de la tabla `Clientes_Alergias`
+--
+ALTER TABLE `Clientes_Alergias`
+  ADD PRIMARY KEY (`dni_cliente`),
+  ADD KEY `fk_Clientes_has_Alergias_Alergias1_idx` (`id_alergia`),
+  ADD KEY `fk_idUsuario_Clientes_Alergias_idx` (`id_usuario`),
+  ADD KEY `fk_Clientes_has_Alergias_Clientes_idx` (`dni_cliente`);
+
+--
+-- Indices de la tabla `Recetas`
+--
+ALTER TABLE `Recetas`
+  ADD PRIMARY KEY (`id_receta`,`id_usuario`),
+  ADD KEY `fk_idUsuario_Recetas_idx` (`id_usuario`);
+
+--
+-- Indices de la tabla `Recetas_Semana`
+--
+ALTER TABLE `Recetas_Semana`
+  ADD PRIMARY KEY (`id_registro`),
+  ADD KEY `fk_Recetas_Semana_Recetas1_idx` (`id_receta`),
+  ADD KEY `fk_idUsuario_Recetas_Semana_idx` (`id_usuario`),
+  ADD KEY `fk_Recetas_Semana_Clientes1_idx` (`dni_cliente`);
+
+--
+-- Indices de la tabla `Usuarios`
+--
+ALTER TABLE `Usuarios`
+  ADD PRIMARY KEY (`id_usuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `Recetas_Semana`
+--
+ALTER TABLE `Recetas_Semana`
+  MODIFY `id_registro` int(32) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `Usuarios`
+--
+ALTER TABLE `Usuarios`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas

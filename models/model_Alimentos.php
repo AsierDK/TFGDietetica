@@ -104,7 +104,7 @@
         try
         {
             $conn=conexionbbdd();
-            $stmt = $conn->prepare("SELECT max(id_alimentos) as idAlimento FROM alimentos");
+            $stmt = $conn->prepare("SELECT max(id_alimentos) as idAlimento FROM Alimentos");
             $stmt -> execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $resultado=$stmt->fetchAll();
