@@ -260,7 +260,7 @@
                     <label for="K_100">K_100</label>
                     <input type="text" name="k_100">
                 </div>
-                <input type="hidden" name="editaralimento" value="1">
+                <input type="hidden" name="editaralimento" value="">
                 <input type="hidden" name="id_alimento" value="">
                 <div class="alergias-container">
                     <label for="alergias">Alergias</label>
