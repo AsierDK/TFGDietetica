@@ -23,7 +23,6 @@
             </menu>
         </nav>
         <div class="icons">
-            <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
             <a class="user" href="controller_logout.php"><i class="fa fa-user"></i></a>
             <a class="menu-burger" href="#menu"><i class="fa fa-bars"></i></a>
         </div>

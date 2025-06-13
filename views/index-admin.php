@@ -11,7 +11,6 @@
 <body>
     <header>
         <a href="#"><img class="logo" src="../assets/images/dieta-al-plato-logo.svg" alt="Logo Web Dietética"></a>
-        <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
     </header>
     <main>
         <div class="sidebar">
