@@ -22,9 +22,9 @@
         try
         {
             $conn=conexionbbdd();
-            $stmt = $conn->prepare("SELECT A.id_alergia,A.nombre_alergia FROM Alergias_Alimentos AL LEFT JOIN Alergias A ON AL.id_alergia = A.id_alergia WHERE AL.id_usuario = :id_usuario AND AL.id_alimento = :id_alimento");
+            $stmt = $conn->prepare("SELECT A.id_alergia,A.nombre_alergia FROM Alergias_Alimentos AL LEFT JOIN Alergias A ON AL.id_alergia = A.id_alergia WHERE AL.id_usuario = :id_usuario AND AL.id_alimentos = :id_alimento");
             $stmt->bindParam(':id_usuario', $idUsuario);
-            $stmt->bindParam(':id_alimentos', $id_alimentos);
+            $stmt->bindParam(':id_alimento', $id_alimentos);
             $stmt -> execute();
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $resultado=$stmt->fetchAll();
@@ -34,7 +34,7 @@
             echo "Error: " . $e->getMessage();
         }
         $conn=null;
-        return $resultado;
+        return array_column($resultado, 'id_alergia');
     }
     function obtenerAlimento($id_alimento)
     {
@@ -88,6 +88,16 @@
             $stmt->bindParam(':vit_d_100', $params['vit_d_100']);
             $stmt->bindParam(':id_usuario', $idUsuario);
             $stmt -> execute();
+            if (!empty($params['alergias']) && is_array($params['alergias'])) {
+                $stmt = $conn->prepare("INSERT INTO Alergias_Alimentos(id_alergia, id_alimentos, id_usuario, fechaCreacion, fechaModificacion) 
+                    VALUES (:id_alergia,:id_alimentos,:id_usuario,now(),now())");
+                foreach ($params['alergias'] as $id_alergia) {
+                    $stmt->bindParam(':id_alergia', $id_alergia);
+                    $stmt->bindParam(':id_alimentos', $id_alimentos);
+                    $stmt->bindParam(':id_usuario', $idUsuario);
+                    $stmt -> execute();
+                }
+            }
             $conn -> commit();
         }
         catch(PDOException $e)
