@@ -49,7 +49,7 @@
                     else {
                         foreach ($clientes as $cliente)
                             echo '<div class="box-cliente" data-id="' . $cliente['dni_cliente'] . '" > '
-                                .$cliente['nombre'].' <br> '.$cliente['descripcionCaso']. ' <br> '.$cliente['caracteristicasMenu'].'<br></div>';
+                                .$cliente['nombre'].' '.$cliente['apellido'].' <br> '.$cliente['descripcionCaso']. ' <br> '.$cliente['caracteristicasMenu'].'<br></div>';
                     }
                 ?>
             </article>
