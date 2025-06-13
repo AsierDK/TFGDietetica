@@ -30,7 +30,7 @@ function annadirRecetaSemana($fecha, $tipoComida, $idReceta, $idCliente, $idUsu)
         $id_registro = substr($id_registro, 0, 1) . str_pad(intval(substr($id_registro, 1)) + 1, 4, "0", STR_PAD_LEFT);
         $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         $conn->beginTransaction();
-        $stmt = $conn->prepare("INSERT INTO recetas_semana(id_registro, dia, diaSemana, momentoDia, id_receta, dni_cliente, id_usuario, fechaCreacion) 
+        $stmt = $conn->prepare("INSERT INTO Recetas_Semana(id_registro, dia, diaSemana, momentoDia, id_receta, dni_cliente, id_usuario, fechaCreacion) 
             VALUES (:id_registro,:dia,:diaSemana,:momentoDia,:id_receta,:dni_cliente,:id_usuario, now())");
         $stmt->bindParam(':id_registro', $id_registro);
         $stmt->bindParam(':dia', $fecha);
@@ -93,7 +93,7 @@ function editarRecetaSemana($idUsu, $idCliente, $idReceta, $fecha)
     {
         $conn=conexionbbdd();
         $diaSemana = obtenerDiaSemana($fecha);
-        $stmt = $conn->prepare("UPDATE recetas_semana SET dia = :dia, diaSemana = :diaSemana, fechaModificacion = now() WHERE id_receta = :id_receta and id_usuario = :id_usuario and dni_cliente = :dni_cliente");
+        $stmt = $conn->prepare("UPDATE Recetas_Semana SET dia = :dia, diaSemana = :diaSemana, fechaModificacion = now() WHERE id_receta = :id_receta and id_usuario = :id_usuario and dni_cliente = :dni_cliente");
         $stmt->bindParam(':id_receta', $idReceta);
         $stmt->bindParam(':dni_cliente', $idCliente);
         $stmt->bindParam(':dia', $fecha);

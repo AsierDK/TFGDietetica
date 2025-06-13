@@ -6,7 +6,7 @@ require_once '../bbdd/bbdd.php';
         $conn = conexionbbdd();
         try
         {
-            $stmt = $conn->prepare("SELECT id_usuario,nombre,email,contrasena,administrador from usuarios where email = :usu and contrasena = :contra");
+            $stmt = $conn->prepare("SELECT id_usuario,nombre,email,contrasena,administrador from Usuarios where email = :usu and contrasena = :contra");
             $stmt->bindParam(':usu', $usuario);
             $stmt->bindParam(':contra', $contrasena);
             $stmt -> execute();
