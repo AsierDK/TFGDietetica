@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: sql203.infinityfree.com
--- Tiempo de generación: 13-06-2025 a las 03:09:25
+-- Tiempo de generación: 13-06-2025 a las 11:30:35
 -- Versión del servidor: 10.6.19-MariaDB
 -- Versión de PHP: 7.2.22
 
@@ -21,9 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `if0_38644371_dieta`
 --
-
-CREATE DATABASE IF NOT EXISTS `if0_38644371_dieta` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE DATABASE `if0_38644371_dieta`;
 
 -- --------------------------------------------------------
 
@@ -72,6 +69,20 @@ CREATE TABLE `Alergias_Alimentos` (
   `fechaCreacion` datetime NOT NULL,
   `fechaModificacion` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Alergias_Recetas`
+--
+
+CREATE TABLE `Alergias_Recetas` (
+  `id_alergia` varchar(5) NOT NULL,
+  `id_receta` varchar(5) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `fechaCreacion` datetime NOT NULL,
+  `fechaModificacion` datetime NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -305,6 +316,15 @@ ALTER TABLE `Alergias_Alimentos`
   ADD KEY `fk_Alergias_has_Alimentos_Alimentos1_idx` (`id_alimentos`),
   ADD KEY `fk_Alergias_has_Alimentos_Alergias1_idx` (`id_alergia`),
   ADD KEY `fk_idUsuario_Alergias_Alimentos_idx` (`id_usuario`);
+
+--
+-- Indices de la tabla `Alergias_Recetas`
+--
+ALTER TABLE `Alergias_Recetas`
+  ADD PRIMARY KEY (`id_alergia`,`id_receta`,`id_usuario`),
+  ADD KEY `fk_Alergias_Alergias_Recetas` (`id_alergia`),
+  ADD KEY `fk_Recetas_Alergias_Recetas` (`id_receta`),
+  ADD KEY `fk_Usuarios_Alergias_Recetas` (`id_usuario`);
 
 --
 -- Indices de la tabla `Alimentos`

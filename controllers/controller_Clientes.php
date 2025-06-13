@@ -21,6 +21,7 @@
         {
             crearCliente($_POST);
             print "Cliente creado correctamente";
+            header("Location: " . $_SERVER['REQUEST_URI']);
             print "<script type='text/javascript'>history.replaceState(null,null)</script>";
         }
 

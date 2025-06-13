@@ -33,10 +33,11 @@ iniciarSession();
         else {
             print "Error";
         }
+        header("Location: " . $_SERVER['REQUEST_URI']);
         print "<script type='text/javascript'>history.replaceState(null,null)</script>";
     }
     function datosReceta(){
-        $resultados = ['nombre_receta'=>$_POST['nombreReceta'],'desc_receta'=>$_POST['desc']];
+        $resultados = ['nombre_receta'=>$_POST['nombreReceta'],'desc_receta'=>$_POST['desc'], 'alergias'=>$_POST['alergias']];
         return $resultados;
     }
     require_once '../views/recetas.php';

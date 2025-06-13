@@ -63,17 +63,17 @@ form>div>input{
 }
 
 .sprite.contiene-gluten { background-position: calc(-986px * 0.1624) calc(-50px * 0.1455); }
-.sprite.crustáceos { background-position:  calc(-697px * 0.1624) calc(-50px * 0.1455); }
-.sprite.granos-de-sésamo { background-position:  calc(-697px * 0.1624) calc(-641px * 0.1455); }
-.sprite.dióxido-de-azufre-y-sulfitos { background-position:  calc(-108px * 0.1624) calc(-952px * 0.1455); }
+.sprite.crustaceos { background-position:  calc(-697px * 0.1624) calc(-50px * 0.1455); }
+.sprite.granos-de-sesamo { background-position:  calc(-697px * 0.1624) calc(-641px * 0.1455); }
+.sprite.dioxido-de-azufre-y-sulfitos { background-position:  calc(-108px * 0.1624) calc(-952px * 0.1455); }
 .sprite.moluscos { background-position:  calc(-402px * 0.1624) calc(-654px * 0.1455); }
 .sprite.altramuces { background-position:  calc(-986px * 0.1624) calc(-654px * 0.1455); }
 .sprite.huevos { background-position: calc(-402px * 0.1624) calc(-50px * 0.1455); }
-.sprite.pescado { background-position: calc(-108px * 0.1624) calc(-50px * 0.1455); }
+.sprite.pescados { background-position: calc(-108px * 0.1624) calc(-50px * 0.1455); }
 .sprite.cacahuetes { background-position: calc(-108px * 0.1624) calc(-350px * 0.1455); }
 .sprite.soja { background-position: calc(-697px * 0.1624) calc(-952px * 0.1455); }
-.sprite.lácteos { background-position: calc(-402px * 0.1624) calc(-350px * 0.1455); }
-.sprite.frutos-de-cáscara { background-position: calc(-986px * 0.1624) calc(-654px * 0.1455); }
+.sprite.lacteos { background-position: calc(-402px * 0.1624) calc(-350px * 0.1455); }
+.sprite.frutos-de-cascara { background-position: calc(-986px * 0.1624) calc(-654px * 0.1455); }
 .sprite.apio { background-position: calc(-986px * 0.1624) calc(-350px * 0.1455); }
 .sprite.mostaza { background-position: calc(-108px * 0.1624) calc(-654px * 0.1455); }
 
@@ -89,6 +89,16 @@ dialog {
     border-radius: 50px;
 }
 
+.button-group {
+    display: flex;
+    justify-content: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
 /* ----------------------------
     MEDIA QUERY
 ----------------------------- */
@@ -100,7 +110,8 @@ dialog {
     }
 
     form > div:first-child,
-    form > .alergias-container {
+    form > .alergias-container,
+    .button-group {
         grid-column: span 2;
         -ms-grid-column: span 2;
     }
@@ -120,7 +131,8 @@ dialog {
     }
 
     form > div:first-child,
-    form > .alergias-container {
+    form > .alergias-container,
+    .button-group {
         grid-column: span 3;
         -ms-grid-column: span 3;
     }

@@ -67,6 +67,15 @@ function updateInfo() {
     const a = items[currentIndex];
     const editButton = document.querySelector('.edit.btn');
     console.log(a);
+    setTimeout(() => {
+        document.querySelectorAll('.alergias input[type="checkbox"]').forEach(cb => cb.checked = false);
+        a.alergia.forEach(id => {
+            const checkbox = document.querySelector(`.alergiasDialog input[type="checkbox"][value="${id}"]`);
+            if (checkbox) {
+                checkbox.checked = true;
+            }
+        });
+    }, 0);
     if (tipo === 'alimentos') {
         editButton.setAttribute('data-id', a.id_alimentos);
         document.getElementById("pc").textContent = a.PC;

@@ -90,6 +90,24 @@ function obtenerReceta($id_receta)
     $conn=null;
     return $resultado[0];
 }
+function AlergiaDeReceta($idReceta,$idUsuario){
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("SELECT A.id_alergia,A.nombre_alergia FROM Alergias_Recetas AL LEFT JOIN Alergias A ON AL.id_alergia = A.id_alergia WHERE AL.id_usuario = :id_usuario AND AL.id_receta = :id_receta");
+        $stmt->bindParam(':id_usuario', $idUsuario);
+        $stmt->bindParam(':id_receta', $idReceta);
+        $stmt -> execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $resultado=$stmt->fetchAll();
+    }
+    catch (PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+    return array_column($resultado, 'id_alergia');
+}
 function annadirReceta($idUsuario,$params,$cesta){
     $conn=conexionbbdd();
     try
@@ -113,6 +131,16 @@ function annadirReceta($idUsuario,$params,$cesta){
             $stmt->bindParam(':id_usuario', $idUsuario);
             $stmt->bindParam(':pesoBruto', $value['peso']);
             $stmt -> execute();
+        }
+        if (!empty($params['alergias']) && is_array($params['alergias'])) {
+            $stmt = $conn->prepare("INSERT INTO Alergias_Recetas(id_alergia, id_receta, id_usuario, fechaCreacion, fechaModificacion) 
+                VALUES (:id_alergia,:id_receta,:id_usuario,now(),now())");
+            foreach ($params['alergias'] as $id_alergia) {
+                $stmt->bindParam(':id_alergia', $id_alergia);
+                $stmt->bindParam(':id_receta', $id_receta);
+                $stmt->bindParam(':id_usuario', $idUsuario);
+                $stmt -> execute();
+            }
         }
         $conn -> commit();
     }
@@ -163,25 +191,25 @@ function obtenerUltimoIdReceta()
         $conn=null;
     }
 
-    function borrarReceta($idReceta)
-    {   
-        try
-        {
-            $conn=conexionbbdd();
-            $stmt = $conn->prepare("DELETE FROM Alimentos_Recetas WHERE id_receta = :id_receta");
-            $stmt->bindParam(':id_receta', $idReceta);
-            $stmt->execute();
-            $stmt = $conn->prepare("DELETE FROM Recetas_Semana WHERE id_receta = :id_receta");
-            $stmt->bindParam(':id_receta', $idReceta);
-            $stmt -> execute();
-            $stmt = $conn->prepare("DELETE FROM Recetas WHERE id_receta = :id_receta");
-            $stmt->bindParam(':id_receta', $idReceta);
-            $stmt -> execute();
-        }
-        catch(PDOException $e)
-        {
-            echo "Error: " . $e->getMessage();
-        }
-        $conn=null;
+function borrarReceta($idReceta)
+{   
+    try
+    {
+        $conn=conexionbbdd();
+        $stmt = $conn->prepare("DELETE FROM Alimentos_Recetas WHERE id_receta = :id_receta");
+        $stmt->bindParam(':id_receta', $idReceta);
+        $stmt->execute();
+        $stmt = $conn->prepare("DELETE FROM Recetas_Semana WHERE id_receta = :id_receta");
+        $stmt->bindParam(':id_receta', $idReceta);
+        $stmt -> execute();
+        $stmt = $conn->prepare("DELETE FROM Recetas WHERE id_receta = :id_receta");
+        $stmt->bindParam(':id_receta', $idReceta);
+        $stmt -> execute();
     }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
+    }
+    $conn=null;
+}
 ?>

@@ -22,7 +22,6 @@
             </menu>
         </nav>
         <div class="icons">
-            <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
             <a class="user" href="controller_logout.php"><i class="fa fa-user"></i></a>
             <a class="menu-burger" href="#menu"><i class="fa fa-bars"></i></a>
         </div>
@@ -265,7 +264,7 @@
                 <input type="hidden" name="id_alimento" value="">
                 <div class="alergias-container">
                     <label for="alergias">Alergias</label>
-                    <div class="alergias">
+                    <div class="alergias alergiasDialog">
                         <?php
                             foreach ($alergias as $alergia){
                                 $class = str_replace(' ', '-', strtolower($alergia["nombre_alergia"]));
@@ -274,8 +273,10 @@
                         ?>
                     </div>
                 </div>
-                <input type="submit" value="Guardar" class="btn" name="Guardar">
-                <button type="button" id="closeDialogBtn" class="btn">Cerrar</button>
+                <div class="button-group">
+                    <input type="submit" value="Guardar" class="btn" name="Guardar">
+                    <button type="button" id="closeDialogBtn" class="btn">Cerrar</button>
+                </div>
             </form>
         </dialog>
     </main>

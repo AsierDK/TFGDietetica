@@ -26,7 +26,6 @@
             </menu>
         </nav>
         <div class="icons">
-            <a class="search" href="#"><i class="fa fa-search icon-search"></i></a>
             <a class="user" href="controller_logout.php"><i class="fa fa-user"></i></a>
             <a class="menu-burger" href="#menu"><i class="fa fa-bars"></i></a>
         </div>
@@ -49,7 +48,7 @@
                     else {
                         foreach ($clientes as $cliente)
                             echo '<div class="box-cliente" data-id="' . $cliente['dni_cliente'] . '" > '
-                                .$cliente['nombre'].' <br> '.$cliente['email']. '<br></div>';
+                                .$cliente['nombre'].' <br> '.$cliente['descripcionCaso']. ' <br> '.$cliente['caracteristicasMenu'].'<br></div>';
                     }
                 ?>
             </article>

@@ -67,17 +67,17 @@ form > input {
 }
 
 .sprite.contiene-gluten { background-position: calc(-986px * 0.1624) calc(-50px * 0.1455); }
-.sprite.crustáceos { background-position:  calc(-697px * 0.1624) calc(-50px * 0.1455); }
-.sprite.granos-de-sésamo { background-position:  calc(-697px * 0.1624) calc(-641px * 0.1455); }
-.sprite.dióxido-de-azufre-y-sulfitos { background-position:  calc(-108px * 0.1624) calc(-952px * 0.1455); }
+.sprite.crustaceos { background-position:  calc(-697px * 0.1624) calc(-50px * 0.1455); }
+.sprite.granos-de-sesamo { background-position:  calc(-697px * 0.1624) calc(-641px * 0.1455); }
+.sprite.dioxido-de-azufre-y-sulfitos { background-position:  calc(-108px * 0.1624) calc(-952px * 0.1455); }
 .sprite.moluscos { background-position:  calc(-402px * 0.1624) calc(-654px * 0.1455); }
 .sprite.altramuces { background-position:  calc(-986px * 0.1624) calc(-654px * 0.1455); }
 .sprite.huevos { background-position: calc(-402px * 0.1624) calc(-50px * 0.1455); }
-.sprite.pescado { background-position: calc(-108px * 0.1624) calc(-50px * 0.1455); }
+.sprite.pescados { background-position: calc(-108px * 0.1624) calc(-50px * 0.1455); }
 .sprite.cacahuetes { background-position: calc(-108px * 0.1624) calc(-350px * 0.1455); }
 .sprite.soja { background-position: calc(-697px * 0.1624) calc(-952px * 0.1455); }
-.sprite.lácteos { background-position: calc(-402px * 0.1624) calc(-350px * 0.1455); }
-.sprite.frutos-de-cáscara { background-position: calc(-986px * 0.1624) calc(-654px * 0.1455); }
+.sprite.lacteos { background-position: calc(-402px * 0.1624) calc(-350px * 0.1455); }
+.sprite.frutos-de-cascara { background-position: calc(-986px * 0.1624) calc(-654px * 0.1455); }
 .sprite.apio { background-position: calc(-986px * 0.1624) calc(-350px * 0.1455); }
 .sprite.mostaza { background-position: calc(-108px * 0.1624) calc(-654px * 0.1455); }
 
@@ -90,7 +90,6 @@ form > input {
     display: none;
     grid-template-columns: 1fr;
     -ms-grid-template-columns: 1fr;
-    align-items: stretch;
     gap: 3rem;
     padding: 0 5rem;
     background-color: var(--color-40-beige);
@@ -104,7 +103,6 @@ form > input {
 .box-alimento {
     position: relative;
     width: 100%;
-    height: 100%;
     background-color: var(--color-40-beige);
     box-shadow: inset 0 -2px 4px 0 var(--color-shadow);
     border-radius: 25px;
@@ -281,10 +279,14 @@ dialog {
     #alimento {
         grid-template-columns: repeat(2, 1fr);
         -ms-grid-template-columns: repeat(2, 1fr);
-        padding: 0 10rem;
     }
 
     #alimento>a{
+        grid-column: span 2;
+        -ms-grid-column: span 2;
+    }
+
+    #alimento>input{
         grid-column: span 2;
         -ms-grid-column: span 2;
     }
@@ -318,6 +320,11 @@ dialog {
     }
 
     #alimento>a{
+        grid-column: span 3;
+        -ms-grid-column: span 3;
+    }
+
+    #alimento>input{
         grid-column: span 3;
         -ms-grid-column: span 3;
     }

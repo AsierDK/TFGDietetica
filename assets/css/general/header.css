@@ -54,6 +54,7 @@ header {
     top: 0;
     right: 0;
     z-index: 10000;
+    padding: 3rem;
 }
 
 #menu:target {
