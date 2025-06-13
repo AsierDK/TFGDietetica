@@ -155,6 +155,20 @@
             $stmt->bindParam(':vit_d_100', $params['vit_d_100']);
             $stmt->bindParam(':id_usuario', $idUsu);
             $stmt -> execute();
+            if (!empty($params['alergias']) && is_array($params['alergias'])) {
+                $alergias = $params['alergias'];
+                $stmtDel = $conn->prepare("DELETE FROM Alergias_Alimentos WHERE id_alimentos = :id_alimento");
+                $stmtDel->bindParam(':id_alimento', $params['id_alimento']);
+                $stmtDel->execute();
+                $stmtIns = $conn->prepare("INSERT INTO Alergias_Alimentos(id_alergia, id_alimentos, id_usuario, fechaCreacion, fechaModificacion) 
+                    VALUES (:id_alergia,:id_alimentos,:id_usuario,now(),now())");
+                foreach ($params['alergias'] as $id_alergia) {
+                    $stmtIns->bindParam(':id_alergia', $id_alergia);
+                    $stmtIns->bindParam(':id_alimentos', $params['id_alimento']);
+                    $stmtIns->bindParam(':id_usuario', $idUsu);
+                    $stmtIns -> execute();
+                }
+            }
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
         }
         catch(PDOException $e)

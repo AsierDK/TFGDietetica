@@ -177,12 +177,25 @@ function obtenerUltimoIdReceta()
             $conn=conexionbbdd();
             $stmt = $conn->prepare("UPDATE Recetas SET nombre_receta = :nombre_receta, desc_receta = :desc_receta, fechaModificacion = now() WHERE id_receta = :id_receta and id_usuario = :id_usuario");
             $stmt->bindParam(':id_receta', $params['id_receta']);
-            $stmt->bindParam(':nombre_receta', $params['nombre_receta']);
-            $stmt->bindParam(':desc_receta', $params['desc_receta']);
+            $stmt->bindParam(':nombre_receta', $params['nombreReceta']);
+            $stmt->bindParam(':desc_receta', $params['desc']);
             $stmt->bindParam(':id_usuario', $idUsu);
             $stmt -> execute();
-            $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            $resultado=$stmt->fetchAll();
+            if (!empty($params['alergias']) && is_array($params['alergias'])) {
+                $alergias = $params['alergias'];
+                $stmtDel = $conn->prepare("DELETE FROM Alergias_Recetas WHERE id_receta = :id_receta AND id_usuario = :id_usuario");
+                $stmtDel->bindParam(':id_receta', $params['id_receta']);
+                $stmtDel->bindParam(':id_usuario', $idUsu);
+                $stmtDel->execute();
+                $stmtIns = $conn->prepare("INSERT INTO Alergias_Recetas(id_alergia, id_receta, id_usuario, fechaCreacion, fechaModificacion) 
+                    VALUES (:id_alergia,:id_receta,:id_usuario,now(),now())");
+                foreach ($params['alergias'] as $id_alergia) {
+                    $stmtIns->bindParam(':id_alergia', $id_alergia);
+                    $stmtIns->bindParam(':id_receta', $params['id_receta']);
+                    $stmtIns->bindParam(':id_usuario', $idUsu);
+                    $stmtIns -> execute();
+                }
+            }
         }
         catch(PDOException $e)
         {

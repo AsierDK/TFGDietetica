@@ -145,7 +145,7 @@
                     <label for="desc">Descripción</label>
                     <textarea name="desc" id="desc" require></textarea>
                 </div>
-                <input type="hidden" name="editarreceta" value="1">
+                <input type="hidden" name="editarreceta" value="">
                 <input type="hidden" name="id_receta" value="">
                 <div class="alergias-container">
                     <label for="alergias">Alergias</label>
